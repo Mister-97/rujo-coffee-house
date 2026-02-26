@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Rujo Journal — Coffee Stories, Origin Guides & Brew Wisdom</title>
+  <title>The Rujo Journal — Coffee Stories, Origin Guides &amp; Brew Wisdom</title>
   <meta name="description" content="Deep dives into coffee origins, roasting philosophy, and the rituals that make each cup meaningful. From Yirgacheffe valleys to Colombian hillsides.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://mister-97.github.io/rujo-coffee-house/blog.html">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="The Rujo Journal — Coffee Stories, Origin Guides & Brew Wisdom">
+  <meta property="og:title" content="The Rujo Journal — Coffee Stories, Origin Guides &amp; Brew Wisdom">
   <meta property="og:description" content="Deep dives into coffee origins, roasting philosophy, and the rituals that make each cup meaningful.">
   <meta property="og:url" content="https://mister-97.github.io/rujo-coffee-house/blog.html">
   <meta property="og:image" content="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200">
@@ -42,6 +42,8 @@
     .nav-links { display: flex; gap: 32px; list-style: none; }
     .nav-links a { font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(245,241,232,0.7); text-decoration: none; transition: color 0.3s; }
     .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .nav-links a.nav-shop { color: var(--gold); border-bottom: 1px solid rgba(208,161,72,0.4); padding-bottom: 2px; }
+    .nav-links a.nav-shop:hover { color: var(--gold-light); }
     .blog-hero { min-height: 45vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 40px 60px; position: relative; overflow: hidden; }
     .blog-hero::before { content: ''; position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1600') center 40% / cover; filter: brightness(0.18) saturate(0.6) sepia(0.15); }
     .blog-hero-content { position: relative; z-index: 1; }
@@ -93,6 +95,7 @@
     <li><a href="index.html">Home</a></li>
     <li><a href="index.html#origins">Origins</a></li>
     <li><a href="index.html#experience">Experience</a></li>
+    <li><a href="shop.html" class="nav-shop">Shop</a></li>
     <li><a href="blog.html" class="active">Journal</a></li>
   </ul>
 </nav>
@@ -177,7 +180,10 @@
 </main>
 <footer>
   <span>© 2025 Rujo Coffee House</span>
-  <a href="index.html">← Back to Home</a>
+  <div style="display:flex;gap:24px;">
+    <a href="shop.html">Shop Coffees</a>
+    <a href="index.html">← Back to Home</a>
+  </div>
 </footer>
 <script>
 function filterPosts(category, btn) {
