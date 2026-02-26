@@ -1,0 +1,144 @@
+<nav class="rujo-nav" style="background: {{ section.settings.background_color }}; border-bottom: 1px solid rgba(201,168,76,0.12); padding: 0 40px; font-family: 'Karla', 'Helvetica Neue', sans-serif;">
+  <div class="rujo-nav-inner" style="max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px;">
+
+    <a href="{{ section.settings.home_url }}" class="rujo-nav-logo" style="color: {{ section.settings.text_color }}; text-decoration: none; font-size: 0.65rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase;">{{ section.settings.brand_name }}</a>
+
+    <ul class="rujo-nav-links" style="list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: 40px;">
+      <li><a href="{{ section.settings.link_1_url }}" style="color: {{ section.settings.text_color }}; text-decoration: none; font-size: 0.62rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase;">{{ section.settings.link_1_label }}</a></li>
+      <li><a href="{{ section.settings.link_2_url }}" style="color: {{ section.settings.text_color }}; text-decoration: none; font-size: 0.62rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase;">{{ section.settings.link_2_label }}</a></li>
+      <li><a href="{{ section.settings.link_3_url }}" style="color: {{ section.settings.text_color }}; text-decoration: none; font-size: 0.62rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase;">{{ section.settings.link_3_label }}</a></li>
+      <li><a href="{{ section.settings.link_4_url }}" style="color: {{ section.settings.text_color }}; text-decoration: none; font-size: 0.62rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase;">{{ section.settings.link_4_label }}</a></li>
+      <li><a href="{{ section.settings.link_5_url }}" style="color: {{ section.settings.gold_color }}; text-decoration: none; font-size: 0.62rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase;">{{ section.settings.link_5_label }}</a></li>
+      <li><a href="{{ section.settings.link_6_url }}" style="color: {{ section.settings.text_color }}; text-decoration: none; font-size: 0.62rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase;">{{ section.settings.link_6_label }}</a></li>
+    </ul>
+
+    <a href="/cart" class="rujo-nav-cart" style="color: {{ section.settings.text_color }}; text-decoration: none; font-size: 0.62rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase;">Cart ({{ cart.item_count }})</a>
+
+  </div>
+</nav>
+
+<style>
+  .rujo-nav-links a:hover { color: {{ section.settings.gold_color }} !important; }
+  @media (max-width: 768px) {
+    .rujo-nav-links { display: none !important; }
+    .rujo-nav-inner { justify-content: space-between; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Rujo — Navigation Header",
+  "tag": "section",
+  "class": "rujo-nav-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Brand Name",
+      "default": "Rujo Coffee House"
+    },
+    {
+      "type": "url",
+      "id": "home_url",
+      "label": "Logo / Home URL"
+    },
+    {
+      "type": "header",
+      "content": "Nav Links"
+    },
+    {
+      "type": "text",
+      "id": "link_1_label",
+      "label": "Link 1 Label",
+      "default": "Origins"
+    },
+    {
+      "type": "url",
+      "id": "link_1_url",
+      "label": "Link 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "link_2_label",
+      "label": "Link 2 Label",
+      "default": "Process"
+    },
+    {
+      "type": "url",
+      "id": "link_2_url",
+      "label": "Link 2 URL"
+    },
+    {
+      "type": "text",
+      "id": "link_3_label",
+      "label": "Link 3 Label",
+      "default": "Experience"
+    },
+    {
+      "type": "url",
+      "id": "link_3_url",
+      "label": "Link 3 URL"
+    },
+    {
+      "type": "text",
+      "id": "link_4_label",
+      "label": "Link 4 Label",
+      "default": "Journal"
+    },
+    {
+      "type": "url",
+      "id": "link_4_url",
+      "label": "Link 4 URL"
+    },
+    {
+      "type": "text",
+      "id": "link_5_label",
+      "label": "Link 5 Label (Gold / Active)",
+      "default": "Shop"
+    },
+    {
+      "type": "url",
+      "id": "link_5_url",
+      "label": "Link 5 URL"
+    },
+    {
+      "type": "text",
+      "id": "link_6_label",
+      "label": "Link 6 Label",
+      "default": "Contact"
+    },
+    {
+      "type": "url",
+      "id": "link_6_url",
+      "label": "Link 6 URL"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Link Color",
+      "default": "#F5F0E8"
+    },
+    {
+      "type": "color",
+      "id": "gold_color",
+      "label": "Active / Gold Color",
+      "default": "#C9A84C"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rujo — Navigation Header"
+    }
+  ]
+}
+{% endschema %}
