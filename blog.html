@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Rujo Journal — Coffee Stories, Origin Guides & Brew Wisdom</title>
+  <meta name="description" content="Deep dives into coffee origins, roasting philosophy, and the rituals that make each cup meaningful. From Yirgacheffe valleys to Colombian hillsides.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://mister-97.github.io/rujo-coffee-house/blog.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="The Rujo Journal — Coffee Stories, Origin Guides & Brew Wisdom">
+  <meta property="og:description" content="Deep dives into coffee origins, roasting philosophy, and the rituals that make each cup meaningful.">
+  <meta property="og:url" content="https://mister-97.github.io/rujo-coffee-house/blog.html">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1200">
+  <meta name="twitter:card" content="summary_large_image">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Karla:wght@300;400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "The Rujo Journal",
+    "description": "Coffee stories, origin guides, and brew wisdom from Rujo Coffee House",
+    "url": "https://mister-97.github.io/rujo-coffee-house/blog.html",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Rujo Coffee House"
+    }
+  }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --cream: #f5f1e8; --forest: #204234; --forest-light: #2d5a47;
+      --gold: #d0a148; --gold-light: #e0b868; --charcoal: #1a1a1a;
+      --obsidian: #0f0f0f; --stone: #2a2a2a; --ash: #7a7a7a;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Karla', sans-serif; background: var(--obsidian); color: var(--cream); overflow-x: hidden; line-height: 1.6; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 40px; display: flex; align-items: center; justify-content: space-between; background: linear-gradient(to bottom, rgba(15,15,15,0.95), transparent); }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 300; letter-spacing: 0.2em; color: var(--cream); text-decoration: none; }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(245,241,232,0.7); text-decoration: none; transition: color 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .blog-hero { min-height: 45vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 40px 60px; position: relative; overflow: hidden; }
+    .blog-hero::before { content: ''; position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1600') center 40% / cover; filter: brightness(0.18) saturate(0.6) sepia(0.15); }
+    .blog-hero-content { position: relative; z-index: 1; }
+    .blog-hero-eyebrow { font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .blog-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 300; line-height: 1.15; color: var(--cream); margin-bottom: 16px; }
+    .blog-hero p { font-size: 1rem; color: rgba(245,241,232,0.6); max-width: 480px; font-weight: 300; }
+    .filter-bar { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; padding: 40px 40px 20px; }
+    .filter-btn { padding: 8px 20px; border-radius: 100px; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border: 1px solid; background: transparent; font-family: 'Karla', sans-serif; }
+    .filter-btn[data-active="true"] { background: var(--gold); border-color: var(--gold); color: var(--obsidian); }
+    .filter-btn[data-active="false"] { border-color: rgba(245,241,232,0.2); color: rgba(245,241,232,0.5); }
+    .filter-btn[data-active="false"]:hover { border-color: var(--gold); color: var(--gold); }
+    .posts-container { max-width: 1200px; margin: 0 auto; padding: 20px 40px 80px; }
+    .posts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 32px; }
+    .post-card { background: var(--stone); border: 1px solid rgba(245,241,232,0.06); border-radius: 4px; overflow: hidden; transition: transform 0.3s, border-color 0.3s; text-decoration: none; display: block; }
+    .post-card:hover { transform: translateY(-4px); border-color: rgba(208,161,72,0.3); }
+    .post-card-img { width: 100%; height: 220px; object-fit: cover; filter: saturate(0.7) brightness(0.85); transition: filter 0.4s; }
+    .post-card:hover .post-card-img { filter: saturate(0.9) brightness(0.95); }
+    .post-card-body { padding: 24px; }
+    .post-card-category { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .post-card-title { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 400; color: var(--cream); line-height: 1.3; margin-bottom: 10px; }
+    .post-card-excerpt { font-size: 0.85rem; color: rgba(245,241,232,0.5); line-height: 1.7; margin-bottom: 16px; }
+    .post-card-meta { display: flex; justify-content: space-between; align-items: center; }
+    .post-card-date { font-size: 0.72rem; color: rgba(245,241,232,0.35); letter-spacing: 0.1em; }
+    .post-card-read { font-size: 0.72rem; color: var(--gold); letter-spacing: 0.12em; text-transform: uppercase; }
+    .featured-post { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; min-height: 380px; }
+    .featured-post .post-card-img { height: 100%; }
+    .featured-post .post-card-body { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+    .featured-post .post-card-title { font-size: 2rem; margin-bottom: 14px; }
+    .featured-post .post-card-excerpt { font-size: 0.95rem; }
+    .featured-badge { display: inline-block; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--obsidian); background: var(--gold); padding: 3px 10px; border-radius: 2px; margin-bottom: 12px; }
+    footer { border-top: 1px solid rgba(245,241,232,0.08); padding: 40px; display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; color: rgba(245,241,232,0.3); }
+    footer a { color: var(--gold); text-decoration: none; }
+    .post-card[data-hidden="true"] { display: none; }
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; } .nav-links { display: none; }
+      .blog-hero { padding: 100px 20px 50px; }
+      .filter-bar { padding: 30px 20px 10px; }
+      .posts-container { padding: 20px 20px 60px; }
+      .posts-grid { grid-template-columns: 1fr; }
+      .featured-post { grid-template-columns: 1fr; }
+      .featured-post .post-card-img { height: 220px; }
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">RUJO <span>✦</span> COFFEE</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#origins">Origins</a></li>
+    <li><a href="index.html#experience">Experience</a></li>
+    <li><a href="blog.html" class="active">Journal</a></li>
+  </ul>
+</nav>
+<header class="blog-hero">
+  <div class="blog-hero-content">
+    <p class="blog-hero-eyebrow">The Rujo Journal</p>
+    <h1>Stories from<br><em>the source</em></h1>
+    <p>Origin dispatches, roasting notes, and the quiet wisdom of a well-made cup.</p>
+  </div>
+</header>
+<div class="filter-bar">
+  <button class="filter-btn" data-category="all" data-active="true" onclick="filterPosts('all', this)">All</button>
+  <button class="filter-btn" data-category="origins" data-active="false" onclick="filterPosts('origins', this)">Origins</button>
+  <button class="filter-btn" data-category="roasting" data-active="false" onclick="filterPosts('roasting', this)">Roasting</button>
+  <button class="filter-btn" data-category="ritual" data-active="false" onclick="filterPosts('ritual', this)">Ritual</button>
+  <button class="filter-btn" data-category="harvest" data-active="false" onclick="filterPosts('harvest', this)">Harvest</button>
+</div>
+<main class="posts-container">
+  <div class="posts-grid" id="postsGrid">
+    <a class="post-card featured-post" href="blog/yirgacheffe-valley-that-invented-coffee.html" data-category="origins" data-hidden="false">
+      <img class="post-card-img" src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=800" alt="Coffee plants in Yirgacheffe, Ethiopia" loading="lazy">
+      <div class="post-card-body">
+        <span class="featured-badge">Featured</span>
+        <p class="post-card-category">Origins</p>
+        <h2 class="post-card-title">Yirgacheffe: The Valley That Invented Coffee</h2>
+        <p class="post-card-excerpt">In the highlands of southern Ethiopia, where wild coffee trees still grow untended between teff fields and eucalyptus groves, there is a valley that the rest of the world has been trying to recreate ever since.</p>
+        <div class="post-card-meta">
+          <time class="post-card-date" datetime="2025-11-12">November 12, 2025</time>
+          <span class="post-card-read">Read Story →</span>
+        </div>
+      </div>
+    </a>
+    <a class="post-card" href="blog/why-we-roast-light.html" data-category="roasting" data-hidden="false">
+      <img class="post-card-img" src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600" alt="Light roast coffee beans" loading="lazy">
+      <div class="post-card-body">
+        <p class="post-card-category">Roasting</p>
+        <h2 class="post-card-title">Why We Roast Light (And What You're Really Tasting)</h2>
+        <p class="post-card-excerpt">A dark roast doesn't make a coffee better. It makes it uniform. Here's what gets lost in the fire — and why we refuse to burn it away.</p>
+        <div class="post-card-meta">
+          <time class="post-card-date" datetime="2025-10-28">October 28, 2025</time>
+          <span class="post-card-read">Read Story →</span>
+        </div>
+      </div>
+    </a>
+    <a class="post-card" href="blog/colombia-coffee-triangle.html" data-category="origins" data-hidden="false">
+      <img class="post-card-img" src="https://images.unsplash.com/photo-1587734195503-904fca47e0e9?w=600" alt="Coffee farm in Colombia" loading="lazy">
+      <div class="post-card-body">
+        <p class="post-card-category">Origins</p>
+        <h2 class="post-card-title">Inside Colombia's Coffee Triangle</h2>
+        <p class="post-card-excerpt">Three departments. One microclimate. The geography that makes Colombian washed coffees some of the cleanest, most balanced cups on earth.</p>
+        <div class="post-card-meta">
+          <time class="post-card-date" datetime="2025-10-05">October 5, 2025</time>
+          <span class="post-card-read">Read Story →</span>
+        </div>
+      </div>
+    </a>
+    <a class="post-card" href="blog/morning-ritual-more-than-habit.html" data-category="ritual" data-hidden="false">
+      <img class="post-card-img" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600" alt="Morning coffee ritual" loading="lazy">
+      <div class="post-card-body">
+        <p class="post-card-category">Ritual</p>
+        <h2 class="post-card-title">The Morning Ritual Is More Than Habit</h2>
+        <p class="post-card-excerpt">Neuroscience and ancient tradition agree: the act of preparing something carefully, slowly, with attention, changes what it becomes.</p>
+        <div class="post-card-meta">
+          <time class="post-card-date" datetime="2025-09-18">September 18, 2025</time>
+          <span class="post-card-read">Read Story →</span>
+        </div>
+      </div>
+    </a>
+    <a class="post-card" href="blog/harvest-season-your-cup.html" data-category="harvest" data-hidden="false">
+      <img class="post-card-img" src="https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?w=600" alt="Coffee cherry harvest" loading="lazy">
+      <div class="post-card-body">
+        <p class="post-card-category">Harvest</p>
+        <h2 class="post-card-title">Harvest Season and What It Means for Your Cup</h2>
+        <p class="post-card-excerpt">Coffee is a fruit. It has seasons. Understanding the harvest calendar — and why freshness windows matter — is the single most overlooked variable in home brewing.</p>
+        <div class="post-card-meta">
+          <time class="post-card-date" datetime="2025-09-02">September 2, 2025</time>
+          <span class="post-card-read">Read Story →</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</main>
+<footer>
+  <span>© 2025 Rujo Coffee House</span>
+  <a href="index.html">← Back to Home</a>
+</footer>
+<script>
+function filterPosts(category, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.dataset.active = 'false');
+  btn.dataset.active = 'true';
+  document.querySelectorAll('.post-card').forEach(card => {
+    if (category === 'all' || card.dataset.category === category) {
+      card.dataset.hidden = 'false'; card.style.display = '';
+    } else {
+      card.dataset.hidden = 'true'; card.style.display = 'none';
+    }
+  });
+  const featured = document.querySelector('.featured-post');
+  if (category !== 'all' && featured && featured.style.display !== 'none') {
+    featured.style.gridColumn = ''; featured.style.gridTemplateColumns = '';
+  } else if (category === 'all' && featured) {
+    featured.style.gridColumn = '1 / -1'; featured.style.gridTemplateColumns = '1fr 1fr';
+  }
+}
+</script>
+</body>
+</html>
