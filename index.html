@@ -5,7 +5,1055 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rujo Coffee House — Journey to the Source</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Karla:wght@300;400;500&display=swap" rel="stylesheet">
-  <!-- Full file too large for inline push — see outputs -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --cream: #f5f1e8;
+      --forest: #204234;
+      --forest-light: #2d5a47;
+      --gold: #d0a148;
+      --gold-light: #e0b868;
+      --charcoal: #1a1a1a;
+      --obsidian: #0f0f0f;
+      --stone: #2a2a2a;
+      --ash: #7a7a7a;
+      --silver: #b8b8b8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Karla', sans-serif;
+      background: var(--obsidian);
+      color: var(--cream);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    .loader {
+      position: fixed;
+      inset: 0;
+      background: var(--obsidian);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 1.2s ease, visibility 1.2s ease;
+    }
+    .loader.hidden { opacity: 0; visibility: hidden; }
+    .loader-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 400;
+      letter-spacing: 0.6em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 3rem;
+    }
+    .loader-line {
+      width: 120px;
+      height: 1px;
+      background: var(--stone);
+      position: relative;
+      overflow: hidden;
+    }
+    .loader-line::after {
+      content: '';
+      position: absolute;
+      left: 0; top: 0;
+      height: 100%;
+      width: 0;
+      background: var(--gold);
+      animation: loadProgress 2.5s ease-in-out forwards;
+    }
+    @keyframes loadProgress { 0% { width: 0; } 100% { width: 100%; } }
+    .loader-text {
+      margin-top: 2rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      color: var(--ash);
+      text-transform: uppercase;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background: linear-gradient(180deg, rgba(15,15,15,0.9) 0%, transparent 100%);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--cream);
+    }
+    .nav-links { display: flex; gap: 3rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--silver);
+      text-decoration: none;
+      transition: color 0.4s ease;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cart {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--silver);
+      cursor: pointer;
+      transition: color 0.4s ease;
+    }
+    .nav-cart:hover { color: var(--gold); }
+
+    .hero {
+      height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(15,15,15,0.3) 0%, rgba(15,15,15,0.5) 50%, rgba(15,15,15,0.95) 100%),
+        url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1920&q=80') center/cover no-repeat;
+      transform: scale(1.1);
+      animation: heroZoom 20s ease-in-out infinite alternate;
+    }
+    @keyframes heroZoom { 0% { transform: scale(1.1); } 100% { transform: scale(1); } }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 900px;
+      padding: 0 2rem;
+    }
+    .hero-eyebrow {
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.5s forwards;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.7s forwards;
+    }
+    .hero-title em { font-style: italic; color: var(--gold); }
+    .hero-subtitle {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--silver);
+      max-width: 500px;
+      margin: 0 auto 3rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.9s forwards;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 2.5rem;
+      background: var(--forest);
+      border: 1px solid var(--forest);
+      color: var(--cream);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.5s ease;
+      opacity: 0;
+      animation: fadeUp 1s 1.1s forwards;
+    }
+    .hero-cta:hover { background: var(--forest-light); border-color: var(--forest-light); }
+    .hero-cta svg { width: 16px; height: 16px; transition: transform 0.4s ease; }
+    .hero-cta:hover svg { transform: translateX(5px); }
+    .scroll-indicator {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeUp 1s 1.5s forwards;
+    }
+    .scroll-text { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ash); }
+    .scroll-line {
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(180deg, var(--gold) 0%, transparent 100%);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 1; transform: scaleY(1); }
+      50% { opacity: 0.5; transform: scaleY(0.7); }
+    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+    .map-section { min-height: auto; position: relative; padding: 6rem 0 4rem; }
+    .map-header { text-align: center; margin-bottom: 4rem; padding: 0 2rem; }
+    .section-eyebrow {
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 300;
+      margin-bottom: 1.5rem;
+    }
+    .section-subtitle {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--ash);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .map-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+    }
+    .flat-map-container { position: relative; flex: 1 1 auto; }
+    .flat-map-img { width: 110%; margin-left: -5%; height: auto; display: block; border: none; }
+
+    .map-pin {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      z-index: 10;
+    }
+    .map-pin-core {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #e8f4fd;
+      border: 2px solid #a8d4f0;
+      box-shadow: 0 0 8px rgba(168,212,240,0.8), 0 0 20px rgba(168,212,240,0.4);
+      position: relative;
+      z-index: 2;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+    .map-pin:hover .map-pin-core,
+    .map-pin.active .map-pin-core {
+      transform: scale(1.5);
+      background: #ffffff;
+      box-shadow: 0 0 12px rgba(200,230,255,1), 0 0 30px rgba(168,212,240,0.7);
+    }
+    .map-pin-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1.5px solid rgba(168,212,240,0.7);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      animation: pinPulse 2.4s ease-out infinite;
+    }
+    .map-pin-ring:nth-child(2) { width: 22px; height: 22px; animation-delay: 0s; }
+    .map-pin-ring:nth-child(3) { width: 36px; height: 36px; animation-delay: 0.5s; border-color: rgba(168,212,240,0.4); }
+    .map-pin-ring:nth-child(4) { width: 50px; height: 50px; animation-delay: 1s; border-color: rgba(168,212,240,0.2); }
+    @keyframes pinPulse {
+      0%   { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(1.3); opacity: 0; }
+    }
+    .map-pin-label {
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--obsidian);
+      border: 1px solid var(--stone);
+      padding: 0.45rem 0.85rem;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .map-pin:hover .map-pin-label,
+    .map-pin.active .map-pin-label { opacity: 1; }
+    .map-pin-label-name { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; color: var(--cream); display: block; }
+    .map-pin-label-sub { font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: #a8d4f0; display: block; }
+    .map-hint {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--ash);
+      animation: hintFade 3s ease 5s forwards;
+      opacity: 1;
+    }
+    @keyframes hintFade { to { opacity: 0; visibility: hidden; } }
+
+    .origin-panel {
+      position: relative;
+      width: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: width 0.6s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease;
+      flex-shrink: 0;
+    }
+    .origin-panel.active { width: 380px; opacity: 1; }
+    .origin-panel-inner {
+      width: 380px;
+      padding: 3rem 2.5rem 3rem 3rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid var(--stone);
+    }
+    .panel-close {
+      position: absolute;
+      top: 1.5rem; right: 1.5rem;
+      width: 36px; height: 36px;
+      background: transparent;
+      border: 1px solid var(--stone);
+      color: var(--ash);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      z-index: 5;
+    }
+    .panel-close:hover { border-color: var(--gold); color: var(--gold); }
+    .panel-image {
+      width: 100%;
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .panel-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 50%, rgba(15,15,15,0.8) 100%);
+    }
+    .panel-eyebrow { font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+    .panel-title { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; margin-bottom: 0.3rem; line-height: 1.1; }
+    .panel-altitude { font-size: 0.75rem; color: var(--ash); margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--stone); }
+    .panel-story { font-size: 0.88rem; line-height: 1.9; color: var(--silver); margin-bottom: 1.5rem; flex: 1; }
+    .panel-notes-label { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ash); margin-bottom: 0.75rem; }
+    .panel-notes { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 2rem; }
+    .panel-note-tag { padding: 0.4rem 0.8rem; border: 1px solid var(--forest); font-size: 0.72rem; color: var(--cream); }
+    .panel-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--stone);
+      margin-top: auto;
+    }
+    .panel-price { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 400; }
+    .panel-price span { font-size: 0.85rem; color: var(--ash); font-family: 'Karla', sans-serif; }
+    .panel-buy-btn {
+      padding: 0.85rem 1.8rem;
+      background: var(--forest);
+      border: none;
+      color: var(--cream);
+      font-family: 'Karla', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+    .panel-buy-btn:hover { background: var(--forest-light); }
+
+    .origins-section {
+      padding: 10rem 0;
+      background: linear-gradient(180deg, var(--obsidian) 0%, var(--charcoal) 50%, var(--obsidian) 100%);
+    }
+    .origins-header { text-align: center; margin-bottom: 6rem; padding: 0 2rem; }
+    .origins-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .origin-card { position: relative; aspect-ratio: 3/4; overflow: hidden; cursor: pointer; }
+    .origin-card-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.8s ease, filter 0.5s ease;
+      filter: brightness(0.7);
+    }
+    .origin-card:hover .origin-card-bg { transform: scale(1.1); filter: brightness(0.85); }
+    .origin-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 0%, transparent 30%, rgba(15,15,15,0.95) 100%);
+    }
+    .origin-card-content {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 2rem;
+      transform: translateY(20px);
+      transition: transform 0.5s ease;
+    }
+    .origin-card:hover .origin-card-content { transform: translateY(0); }
+    .origin-country { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+    .origin-name { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; margin-bottom: 0.5rem; }
+    .origin-altitude { font-size: 0.75rem; color: var(--ash); margin-bottom: 1rem; opacity: 0; transition: opacity 0.5s ease; }
+    .origin-card:hover .origin-altitude { opacity: 1; }
+    .origin-cta {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cream);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      transition: opacity 0.5s ease 0.2s;
+    }
+    .origin-card:hover .origin-cta { opacity: 1; }
+    .origin-cta svg { width: 14px; height: 14px; transition: transform 0.3s ease; }
+    .origin-card:hover .origin-cta svg { transform: translateX(5px); }
+
+    .card-ethiopia .origin-card-bg { background-image: url('https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=800&q=80'); }
+    .card-colombia .origin-card-bg { background-image: url('https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=800&q=80'); }
+    .card-brazil .origin-card-bg { background-image: url('https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800&q=80'); }
+    .card-sumatra .origin-card-bg { background-image: url('https://images.unsplash.com/photo-1501179691627-eeaa65ea017c?w=800&q=80'); }
+    .card-kenya .origin-card-bg { background-image: url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&q=80'); }
+
+    .experience-section {
+      position: relative;
+      overflow: hidden;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .experience-photo { position: absolute; inset: 0; z-index: 0; }
+    .experience-photo-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=2400&q=90');
+      background-size: cover;
+      background-position: center 40%;
+      filter: brightness(0.28) saturate(0.7) sepia(0.1);
+      transform: scale(1.04);
+      transition: transform 12s ease;
+    }
+    .experience-section:hover .experience-photo-bg { transform: scale(1.0); }
+    .experience-photo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 50% 100%, rgba(32,66,52,0.5) 0%, transparent 70%),
+        linear-gradient(to top, rgba(15,15,15,0.7) 0%, transparent 60%),
+        linear-gradient(to bottom, rgba(15,15,15,0.4) 0%, transparent 40%);
+    }
+    .experience-rule {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 0;
+      width: 1px;
+      height: 100%;
+      background: linear-gradient(to bottom, transparent, rgba(208,161,72,0.15) 20%, rgba(208,161,72,0.15) 80%, transparent);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .experience-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1100px;
+      width: 100%;
+      padding: 8rem 4rem;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 6rem;
+      align-items: center;
+    }
+    .experience-left { display: flex; flex-direction: column; align-items: flex-end; gap: 2rem; }
+    .experience-tag {
+      font-size: 0.58rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--gold);
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
+    }
+    .experience-ornament { width: 1px; height: 8rem; background: linear-gradient(to bottom, var(--gold), transparent); }
+    .experience-right { position: relative; }
+    .experience-right::before {
+      content: '\201C';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(14rem, 20vw, 22rem);
+      line-height: 0.8;
+      color: rgba(208,161,72,0.06);
+      position: absolute;
+      top: -3rem; left: -3rem;
+      pointer-events: none;
+      user-select: none;
+    }
+    .experience-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.2vw, 3.6rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.45;
+      color: var(--cream);
+      position: relative;
+      z-index: 1;
+      margin-bottom: 3rem;
+    }
+    .experience-quote span { color: var(--gold); font-style: normal; font-weight: 400; position: relative; }
+    .experience-quote span::after {
+      content: '';
+      position: absolute;
+      bottom: 0.1em; left: 0; right: 0;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.4;
+    }
+    .experience-author {
+      font-size: 0.62rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: rgba(208,161,72,0.6);
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+    .experience-author::before {
+      content: '';
+      display: block;
+      width: 3rem; height: 1px;
+      background: var(--gold);
+      opacity: 0.5;
+    }
+    .experience-scroll-cue {
+      position: absolute;
+      bottom: 3rem; left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+      opacity: 0.4;
+    }
+    .experience-scroll-cue span { font-size: 0.55rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--cream); }
+    .experience-scroll-line {
+      width: 1px; height: 3rem;
+      background: linear-gradient(to bottom, var(--cream), transparent);
+      animation: scrollPulse 2.5s ease-in-out infinite;
+    }
+
+    .process-section { position: relative; background: var(--obsidian); padding: 0 0 12rem; overflow: hidden; }
+    .process-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--stone) 20%, var(--stone) 80%, transparent);
+    }
+    .process-header { text-align: center; padding: 10rem 2rem 8rem; position: relative; z-index: 2; }
+    .process-steps { display: flex; flex-direction: column; gap: 0; }
+    .process-step {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 55vh;
+      position: relative;
+      overflow: hidden;
+    }
+    .process-step:nth-child(even) { direction: rtl; }
+    .process-step:nth-child(even) > * { direction: ltr; }
+    .step-photo { position: relative; overflow: hidden; }
+    .step-photo-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.72) saturate(0.85);
+      transform: scale(1.06);
+      transition: transform 1.2s cubic-bezier(0.25,0.46,0.45,0.94), filter 1.2s ease;
+    }
+    .process-step:hover .step-photo-bg { transform: scale(1.0); filter: brightness(0.88) saturate(1.0); }
+    .step-photo::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0; right: 0;
+      width: 80px;
+      background: var(--obsidian);
+      clip-path: polygon(100% 0, 100% 100%, 0 100%);
+      z-index: 2;
+    }
+    .process-step:nth-child(even) .step-photo::after { right: auto; left: 0; clip-path: polygon(0 0, 100% 0, 0 100%); }
+    .step-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 6rem;
+      position: relative;
+      background: var(--obsidian);
+    }
+    .step-ghost-num {
+      position: absolute;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(10rem, 18vw, 16rem);
+      font-weight: 300;
+      line-height: 1;
+      color: rgba(245,241,232,0.025);
+      bottom: -2rem; right: 2rem;
+      user-select: none;
+      pointer-events: none;
+      transition: color 0.8s ease;
+    }
+    .process-step:nth-child(even) .step-ghost-num { right: auto; left: 2rem; }
+    .process-step:hover .step-ghost-num { color: rgba(208,161,72,0.06); }
+    .step-num-badge {
+      font-size: 0.58rem;
+      font-weight: 500;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .step-num-badge::before {
+      content: '';
+      display: block;
+      width: 2rem; height: 1px;
+      background: var(--gold);
+      transition: width 0.5s ease;
+    }
+    .process-step:hover .step-num-badge::before { width: 4rem; }
+    .step-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 4vw, 4rem);
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+      color: var(--cream);
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .step-title em { font-style: normal; position: relative; color: var(--gold-light); }
+    .step-desc {
+      font-size: 0.88rem;
+      line-height: 1.9;
+      color: var(--ash);
+      max-width: 360px;
+      position: relative;
+      z-index: 1;
+      transition: color 0.4s ease;
+    }
+    .process-step:hover .step-desc { color: var(--silver); }
+    .process-step::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 10%; right: 10%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--stone), transparent);
+      z-index: 5;
+    }
+    .process-step:last-child::after { display: none; }
+
+    .step-source .step-photo-bg { background-image: url('https://images.unsplash.com/photo-1587734195503-904fca47e0e9?w=900&q=80'); background-position: center 35%; }
+    .step-select .step-photo-bg { background-image: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&q=80'); background-position: center 60%; }
+    .step-roast .step-photo-bg { background-image: url('https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=900&q=80'); }
+    .step-deliver .step-photo-bg { background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=900&q=80'); background-position: center 30%; }
+
+    footer {
+      padding: 8rem 4rem 4rem;
+      background: var(--charcoal);
+      border-top: 1px solid var(--stone);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 4rem;
+      max-width: 1400px;
+      margin: 0 auto 6rem;
+    }
+    .footer-brand .nav-logo { font-size: 1rem; margin-bottom: 1.5rem; display: block; }
+    .footer-brand p { font-size: 0.85rem; color: var(--ash); line-height: 1.8; max-width: 300px; }
+    .footer-col h4 { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 0.75rem; }
+    .footer-col a { font-size: 0.85rem; color: var(--ash); text-decoration: none; transition: color 0.3s ease; }
+    .footer-col a:hover { color: var(--cream); }
+    .footer-bottom {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-top: 3rem;
+      border-top: 1px solid var(--stone);
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--ash);
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 1.5rem 2rem; }
+      .nav-links { display: none; }
+      .origins-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+      .process-step { grid-template-columns: 1fr; min-height: auto; }
+      .process-step:nth-child(even) { direction: ltr; }
+      .step-photo { height: 55vw; min-height: 250px; }
+      .step-photo::after, .process-step:nth-child(even) .step-photo::after { display: none; }
+      .step-content { padding: 3.5rem 3rem; }
+      .experience-content { grid-template-columns: auto 1fr; gap: 3rem; padding: 6rem 3rem; }
+    }
+    @media (max-width: 600px) {
+      .origins-grid { grid-template-columns: 1fr; }
+      .origin-card { aspect-ratio: 4/3; }
+      .experience-content { grid-template-columns: 1fr; padding: 5rem 2rem; gap: 2.5rem; }
+      .experience-left { flex-direction: row; align-items: center; gap: 1.5rem; }
+      .experience-tag { writing-mode: horizontal-tb; transform: none; }
+      .experience-ornament { width: 3rem; height: 1px; background: linear-gradient(to right, var(--gold), transparent); }
+      .step-content { padding: 3rem 2rem; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
 </head>
-<body></body>
+<body>
+  <div class="loader" id="loader">
+    <div class="loader-logo">Rujo Coffee House</div>
+    <div class="loader-line"></div>
+    <div class="loader-text">Discovering Origins</div>
+  </div>
+
+  <nav>
+    <div class="nav-logo">Rujo Coffee House</div>
+    <ul class="nav-links">
+      <li><a href="#origins">Origins</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="blog.html">Journal</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-cart">
+      <span>Cart</span>
+      <span id="cartCount">(0)</span>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Single Origin Coffee</p>
+      <h1 class="hero-title">Journey to <em>the Source</em></h1>
+      <p class="hero-subtitle">Explore the world's most exceptional coffee regions. Click, discover, and taste the terroir.</p>
+      <a href="#map" class="hero-cta">
+        Explore the Map
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+    <div class="scroll-indicator">
+      <span class="scroll-text">Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <section class="map-section" id="map">
+    <div class="map-header">
+      <p class="section-eyebrow">Global Origins</p>
+      <h2 class="section-title">Select Your Origin</h2>
+      <p class="section-subtitle">Explore the world's finest coffee regions. Click a pin to discover the story behind every cup.</p>
+    </div>
+    <div class="map-container" style="max-width:1200px;margin:0 auto;padding:0 2rem 5rem;">
+      <div class="map-wrap" id="mapWrap">
+        <div class="flat-map-container">
+          <img src="https://i.ibb.co/zVrgLsX3/Untitled-design-62.png" alt="World Map" class="flat-map-img" id="flatMap" />
+          <div class="map-pin" id="pin-ethiopia" style="left:58.2%;top:46.5%;" onclick="openPanel('ethiopia')">
+            <div class="map-pin-ring"></div><div class="map-pin-ring"></div><div class="map-pin-ring"></div>
+            <div class="map-pin-core"></div>
+            <div class="map-pin-label"><span class="map-pin-label-name">Yirgacheffe</span><span class="map-pin-label-sub">Ethiopia</span></div>
+          </div>
+          <div class="map-pin" id="pin-colombia" style="left:26.5%;top:47.5%;" onclick="openPanel('colombia')">
+            <div class="map-pin-ring"></div><div class="map-pin-ring"></div><div class="map-pin-ring"></div>
+            <div class="map-pin-core"></div>
+            <div class="map-pin-label"><span class="map-pin-label-name">Huila</span><span class="map-pin-label-sub">Colombia</span></div>
+          </div>
+          <div class="map-pin" id="pin-brazil" style="left:31.5%;top:57.5%;" onclick="openPanel('brazil')">
+            <div class="map-pin-ring"></div><div class="map-pin-ring"></div><div class="map-pin-ring"></div>
+            <div class="map-pin-core"></div>
+            <div class="map-pin-label"><span class="map-pin-label-name">Cerrado</span><span class="map-pin-label-sub">Brazil</span></div>
+          </div>
+          <div class="map-pin" id="pin-sumatra" style="left:75.5%;top:52.5%;" onclick="openPanel('sumatra')">
+            <div class="map-pin-ring"></div><div class="map-pin-ring"></div><div class="map-pin-ring"></div>
+            <div class="map-pin-core"></div>
+            <div class="map-pin-label"><span class="map-pin-label-name">Mandheling</span><span class="map-pin-label-sub">Sumatra</span></div>
+          </div>
+          <div class="map-pin" id="pin-kenya" style="left:59.0%;top:50.5%;" onclick="openPanel('kenya')">
+            <div class="map-pin-ring"></div><div class="map-pin-ring"></div><div class="map-pin-ring"></div>
+            <div class="map-pin-core"></div>
+            <div class="map-pin-label"><span class="map-pin-label-name">AA Grade</span><span class="map-pin-label-sub">Kenya</span></div>
+          </div>
+        </div>
+        <div class="origin-panel" id="originPanel">
+          <div class="origin-panel-inner">
+            <button class="panel-close" onclick="closePanel()">×</button>
+            <div class="panel-image" id="panelImage"></div>
+            <p class="panel-eyebrow" id="panelEyebrow"></p>
+            <h2 class="panel-title" id="panelTitle"></h2>
+            <p class="panel-altitude" id="panelAltitude"></p>
+            <p class="panel-story" id="panelStory"></p>
+            <p class="panel-notes-label">Tasting Notes</p>
+            <div class="panel-notes" id="panelNotes"></div>
+            <div class="panel-footer">
+              <div class="panel-price" id="panelPrice"></div>
+              <button class="panel-buy-btn" onclick="addToCart()">Buy Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="map-hint">Click a pin to explore the origin</p>
+    </div>
+  </section>
+
+  <section class="origins-section" id="origins">
+    <div class="origins-header">
+      <p class="section-eyebrow">The Collection</p>
+      <h2 class="section-title">Five Exceptional Terroirs</h2>
+      <p class="section-subtitle">Each origin tells a story of land, climate, and generations of expertise.</p>
+    </div>
+    <div class="origins-grid">
+      <div class="origin-card card-ethiopia" onclick="openPanel('ethiopia')">
+        <div class="origin-card-bg"></div><div class="origin-card-overlay"></div>
+        <div class="origin-card-content">
+          <p class="origin-country">Ethiopia</p><h3 class="origin-name">Yirgacheffe</h3>
+          <p class="origin-altitude">1,800 - 2,200m elevation</p>
+          <span class="origin-cta">Explore Origin <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></span>
+        </div>
+      </div>
+      <div class="origin-card card-colombia" onclick="openPanel('colombia')">
+        <div class="origin-card-bg"></div><div class="origin-card-overlay"></div>
+        <div class="origin-card-content">
+          <p class="origin-country">Colombia</p><h3 class="origin-name">Huila</h3>
+          <p class="origin-altitude">1,500 - 1,900m elevation</p>
+          <span class="origin-cta">Explore Origin <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></span>
+        </div>
+      </div>
+      <div class="origin-card card-brazil" onclick="openPanel('brazil')">
+        <div class="origin-card-bg"></div><div class="origin-card-overlay"></div>
+        <div class="origin-card-content">
+          <p class="origin-country">Brazil</p><h3 class="origin-name">Cerrado</h3>
+          <p class="origin-altitude">900 - 1,200m elevation</p>
+          <span class="origin-cta">Explore Origin <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></span>
+        </div>
+      </div>
+      <div class="origin-card card-sumatra" onclick="openPanel('sumatra')">
+        <div class="origin-card-bg"></div><div class="origin-card-overlay"></div>
+        <div class="origin-card-content">
+          <p class="origin-country">Indonesia</p><h3 class="origin-name">Sumatra</h3>
+          <p class="origin-altitude">1,100 - 1,500m elevation</p>
+          <span class="origin-cta">Explore Origin <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></span>
+        </div>
+      </div>
+      <div class="origin-card card-kenya" onclick="openPanel('kenya')">
+        <div class="origin-card-bg"></div><div class="origin-card-overlay"></div>
+        <div class="origin-card-content">
+          <p class="origin-country">Kenya</p><h3 class="origin-name">AA Grade</h3>
+          <p class="origin-altitude">1,700 - 2,000m elevation</p>
+          <span class="origin-cta">Explore Origin <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="experience-section" id="experience">
+    <div class="experience-photo"><div class="experience-photo-bg"></div></div>
+    <div class="experience-rule"></div>
+    <div class="experience-content">
+      <div class="experience-left">
+        <div class="experience-ornament"></div>
+        <span class="experience-tag">Philosophy</span>
+      </div>
+      <div class="experience-right">
+        <p class="experience-quote">"Coffee is far more than a beverage. It is an <span>invitation to life</span>, disguised as a cup of warm liquid."</p>
+        <span class="experience-author">Rujo Coffee House</span>
+      </div>
+    </div>
+    <div class="experience-scroll-cue">
+      <span>Continue</span>
+      <div class="experience-scroll-line"></div>
+    </div>
+  </section>
+
+  <section class="process-section" id="process">
+    <div class="process-header">
+      <p class="section-eyebrow">Our Process</p>
+      <h2 class="section-title">From Seed to Cup</h2>
+      <p class="section-subtitle">Every step is intentional. Every detail matters.</p>
+    </div>
+    <div class="process-steps">
+      <div class="process-step step-source">
+        <div class="step-photo"><div class="step-photo-bg"></div></div>
+        <div class="step-content">
+          <span class="step-ghost-num">01</span>
+          <span class="step-num-badge">01 — Source</span>
+          <h3 class="step-title"><em>Grown</em> at Altitude</h3>
+          <p class="step-desc">Direct partnerships with smallholder farmers across five continents, paying meaningful premiums for exceptional lots and building relationships that last generations.</p>
+        </div>
+      </div>
+      <div class="process-step step-select">
+        <div class="step-photo"><div class="step-photo-bg"></div></div>
+        <div class="step-content">
+          <span class="step-ghost-num">02</span>
+          <span class="step-num-badge">02 — Select</span>
+          <h3 class="step-title"><em>Chosen</em> by the Cup</h3>
+          <p class="step-desc">Rigorous cupping sessions evaluate every lot against exacting flavor standards. Only the top 1% of each harvest earns a place in our collection.</p>
+        </div>
+      </div>
+      <div class="process-step step-roast">
+        <div class="step-photo"><div class="step-photo-bg"></div></div>
+        <div class="step-content">
+          <span class="step-ghost-num">03</span>
+          <span class="step-num-badge">03 — Roast</span>
+          <h3 class="step-title"><em>Small Batch</em> Craft</h3>
+          <p class="step-desc">Every origin demands a different roast curve. Our roasters work slowly, reading color and aroma to coax out what each bean was born to become.</p>
+        </div>
+      </div>
+      <div class="process-step step-deliver">
+        <div class="step-photo"><div class="step-photo-bg"></div></div>
+        <div class="step-content">
+          <span class="step-ghost-num">04</span>
+          <span class="step-num-badge">04 — Deliver</span>
+          <h3 class="step-title"><em>48 Hours</em> to Your Door</h3>
+          <p class="step-desc">Shipped within 48 hours of roasting, sealed for freshness. Peak flavor has a narrow window — we make sure you're in it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="nav-logo">Rujo Coffee House</span>
+        <p>Discovering the world's most exceptional coffee, one origin at a time. Roasted with intention, delivered with care.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul><li><a href="#">All Origins</a></li><li><a href="#">Subscriptions</a></li><li><a href="#">Equipment</a></li><li><a href="#">Gift Sets</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Learn</h4>
+        <ul><li><a href="#">Brewing Guides</a></li><li><a href="#">Origin Stories</a></li><li><a href="#">Our Process</a></li><li><a href="blog.html">Journal</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul><li><a href="#">Instagram</a></li><li><a href="#">Newsletter</a></li><li><a href="#">Contact</a></li><li><a href="#">Wholesale</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Rujo Coffee House. All rights reserved.</span>
+      <span>Crafted with intention</span>
+    </div>
+  </footer>
+
+  <script>
+    const coffeeData = {
+      ethiopia: { eyebrow: 'Single Origin • Ethiopia', title: 'Yirgacheffe', altitude: 'Altitude: 1,800 – 2,200m', story: 'From the birthplace of coffee comes this exceptional lot. Hand-picked by smallholder farmers in the Gedeo zone, these beans are processed using traditional washed methods passed down through generations. The result is a cup that speaks of ancient forests and morning mist.', notes: ['Bergamot', 'Jasmine', 'Raw Honey', 'Bright Citrus'], price: 28, image: 'https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=800&q=80' },
+      colombia: { eyebrow: 'Single Origin • Colombia', title: 'Huila', altitude: 'Altitude: 1,500 – 1,900m', story: 'From the lush mountains of Huila, where volcanic soil meets perfect climate. Small family farms cultivate these beans with generations of expertise, creating a balanced cup with remarkable sweetness and complexity.', notes: ['Caramel', 'Red Apple', 'Milk Chocolate', 'Toasted Almond'], price: 26, image: 'https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=800&q=80' },
+      brazil: { eyebrow: 'Single Origin • Brazil', title: 'Cerrado', altitude: 'Altitude: 900 – 1,200m', story: "The Cerrado region's consistent climate produces incredibly smooth, full-bodied coffee. These natural-processed beans develop deep chocolate notes and a syrupy sweetness that makes them perfect for espresso or filter.", notes: ['Dark Chocolate', 'Hazelnut', 'Toffee', 'Low Acidity'], price: 24, image: 'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800&q=80' },
+      sumatra: { eyebrow: 'Single Origin • Indonesia', title: 'Mandheling', altitude: 'Altitude: 1,100 – 1,500m', story: 'From the misty highlands of North Sumatra comes this bold, earthy coffee. Wet-hulled processing creates its signature full body and complex flavor profile that has made it legendary among coffee enthusiasts.', notes: ['Earth', 'Cedar', 'Dark Cocoa', 'Wild Herbs'], price: 30, image: 'https://images.unsplash.com/photo-1501179691627-eeaa65ea017c?w=800&q=80' },
+      kenya: { eyebrow: 'Single Origin • Kenya', title: 'AA Grade', altitude: 'Altitude: 1,700 – 2,000m', story: "Kenya's finest AA grade beans are known for their wine-like acidity and explosive fruit flavors. Grown in the red volcanic soil of the highlands, each cup delivers a bright, complex experience unlike any other origin.", notes: ['Blackcurrant', 'Tomato Vine', 'Grapefruit', 'Wine Finish'], price: 32, image: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&q=80' }
+    };
+
+    let cartCount = 0;
+
+    setTimeout(() => { document.getElementById('loader').classList.add('hidden'); }, 3000);
+
+    function openPanel(region) {
+      const data = coffeeData[region];
+      document.getElementById('panelEyebrow').textContent = data.eyebrow;
+      document.getElementById('panelTitle').textContent = data.title;
+      document.getElementById('panelAltitude').textContent = data.altitude;
+      document.getElementById('panelStory').textContent = data.story;
+      document.getElementById('panelPrice').innerHTML = `$${data.price} <span>/ 250g</span>`;
+      document.getElementById('panelImage').style.backgroundImage = `url('${data.image}')`;
+      document.getElementById('panelNotes').innerHTML = data.notes.map(n => `<span class="panel-note-tag">${n}</span>`).join('');
+      document.getElementById('originPanel').classList.add('active');
+      document.querySelectorAll('.map-pin').forEach(p => p.classList.remove('active'));
+      document.getElementById('pin-' + region)?.classList.add('active');
+    }
+
+    function closePanel() {
+      document.getElementById('originPanel').classList.remove('active');
+      document.querySelectorAll('.map-pin').forEach(p => p.classList.remove('active'));
+    }
+
+    function addToCart() {
+      cartCount++;
+      document.getElementById('cartCount').textContent = `(${cartCount})`;
+      const btn = document.querySelector('.panel-buy-btn');
+      btn.textContent = 'Added ✓';
+      btn.style.background = 'var(--forest-light)';
+      setTimeout(() => { btn.textContent = 'Buy Now'; btn.style.background = ''; }, 2000);
+    }
+
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
 </html>
