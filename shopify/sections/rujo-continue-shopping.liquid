@@ -1,83 +1,24 @@
 {% assign shop_url = section.settings.shop_url | default: 'https://mister-97.github.io/rujo-coffee-house/shop.html' %}
-{% comment %}
-  Rujo Coffee House — Continue Shopping Banner
-  Add this section to your Shopify product page template.
-  It shows a branded CTA strip that sends customers back to
-  https://mister-97.github.io/rujo-coffee-house/shop.html
-  to browse and add more coffees.
-{% endcomment %}
 
-<section class="rujo-continue-shopping" style="
-  background: {{ section.settings.background_color }};
-  border-top: 1px solid rgba(201,168,76,0.18);
-  border-bottom: 1px solid rgba(201,168,76,0.18);
-  padding: {{ section.settings.vertical_padding }}px 40px;
-  font-family: 'Karla', 'Helvetica Neue', sans-serif;
-">
-  <div class="rujo-cs-inner" style="
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    flex-wrap: wrap;
-  ">
-
-    <!-- Left: Wordmark + tagline -->
+<section class="rujo-continue-shopping" style="background: {{ section.settings.background_color }}; border-top: 1px solid rgba(201,168,76,0.18); border-bottom: 1px solid rgba(201,168,76,0.18); padding: {{ section.settings.vertical_padding }}px 40px; font-family: 'Karla', 'Helvetica Neue', sans-serif;">
+  <div class="rujo-cs-inner" style="max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
     <div class="rujo-cs-text">
-      <p class="rujo-cs-eyebrow" style="
-        font-size: 0.62rem;
-        letter-spacing: 0.4em;
-        text-transform: uppercase;
-        color: {{ section.settings.gold_color }};
-        margin: 0 0 6px;
-      ">{{ section.settings.eyebrow_text }}</p>
-      <p class="rujo-cs-headline" style="
-        font-family: 'Cormorant Garamond', 'Georgia', serif;
-        font-size: clamp(1.2rem, 2.5vw, 1.7rem);
-        font-weight: 300;
-        color: {{ section.settings.headline_color }};
-        margin: 0;
-        line-height: 1.25;
-      ">{{ section.settings.headline_text }}</p>
+      <p style="font-size: 0.62rem; letter-spacing: 0.4em; text-transform: uppercase; color: {{ section.settings.gold_color }}; margin: 0 0 6px;">{{ section.settings.eyebrow_text }}</p>
+      <p style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.5rem; font-weight: 300; color: {{ section.settings.headline_color }}; margin: 0; line-height: 1.25;">{{ section.settings.headline_text }}</p>
     </div>
-
-    <!-- Right: CTA button -->
-    <a
-      href="{{ shop_url }}"
-      class="rujo-cs-btn"
-      target="_blank"
-      rel="noopener"
-      style="
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        padding: 14px 32px;
-        background: transparent;
-        border: 1px solid {{ section.settings.gold_color }};
-        color: {{ section.settings.gold_color }};
-        font-family: 'Karla', 'Helvetica Neue', sans-serif;
-        font-size: 0.7rem;
-        font-weight: 500;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-        text-decoration: none;
-        transition: background 0.35s ease, color 0.35s ease;
-        white-space: nowrap;
-        cursor: pointer;
-      "
-      onmouseover="this.style.background='{{ section.settings.gold_color }}';this.style.color='{{ section.settings.background_color }}'"
-      onmouseout="this.style.background='transparent';this.style.color='{{ section.settings.gold_color }}'"
-    >
+    <a href="{{ shop_url }}" target="_blank" rel="noopener" class="rujo-cs-btn" style="display: inline-flex; align-items: center; gap: 10px; padding: 14px 32px; background: transparent; border: 1px solid {{ section.settings.gold_color }}; color: {{ section.settings.gold_color }}; font-family: 'Karla', 'Helvetica Neue', sans-serif; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; white-space: nowrap; cursor: pointer;">
       {{ section.settings.button_text }}
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M5 12h14M12 5l7 7-7 7"/>
-      </svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
-
   </div>
 </section>
+
+<style>
+  .rujo-cs-btn:hover {
+    background: {{ section.settings.gold_color }} !important;
+    color: {{ section.settings.background_color }} !important;
+  }
+</style>
 
 {% schema %}
 {
