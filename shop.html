@@ -19,6 +19,7 @@
       --gold-dark: #b59744;
       --obsidian: #0A0A0A;
       --obsidian-2: #111111;
+      --obsidian-3: #161616;
       --cream: #F5F0E8;
       --cream-dim: rgba(245,240,232,0.6);
       --border: rgba(201,168,76,0.14);
@@ -32,9 +33,9 @@
       overflow-x: hidden;
     }
 
-    /* NAV */
+    /* ── NAV ── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 300;
       display: flex; align-items: center; justify-content: space-between;
       padding: 1.25rem 3.5rem;
       background: rgba(10,10,10,0.94);
@@ -54,7 +55,7 @@
     }
     .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--gold); }
 
-    /* HERO */
+    /* ── HERO ── */
     .shop-hero {
       position: relative; padding: 11rem 3.5rem 6rem; text-align: center; overflow: hidden;
     }
@@ -95,7 +96,7 @@
     }
     .shipping-pill::before, .shipping-pill::after { content: '✦'; font-size: 0.5rem; opacity: 0.6; }
 
-    /* SECTION LABELS */
+    /* ── SECTION LABELS ── */
     .section-label {
       display: flex; align-items: center; gap: 1.25rem; margin-bottom: 3.5rem;
     }
@@ -105,11 +106,10 @@
     }
     .section-label-line { flex: 1; height: 1px; background: var(--border); }
 
-    /* BESTSELLERS */
+    /* ── BESTSELLERS ── */
     .bestsellers { padding: 6rem 3.5rem; position: relative; }
     .bestsellers::before {
-      content: ''; position: absolute; top: 0; left: 3.5rem; right: 3.5rem;
-      height: 1px;
+      content: ''; position: absolute; top: 0; left: 3.5rem; right: 3.5rem; height: 1px;
       background: linear-gradient(90deg, transparent, var(--gold) 30%, var(--gold) 70%, transparent);
       opacity: 0.2;
     }
@@ -167,7 +167,7 @@
       color: var(--cream-dim); opacity: 0.45;
     }
 
-    /* BRAND STRIP */
+    /* ── BRAND STRIP ── */
     .brand-strip {
       padding: 4rem 3.5rem;
       display: flex; align-items: center; justify-content: center;
@@ -186,11 +186,10 @@
     }
     .brand-divider { width: 1px; height: 50px; background: var(--border); }
 
-    /* FULL COLLECTION */
+    /* ── FULL COLLECTION ── */
     .all-products { padding: 6rem 3.5rem; position: relative; }
     .all-products::before {
-      content: ''; position: absolute; top: 0; left: 3.5rem; right: 3.5rem;
-      height: 1px;
+      content: ''; position: absolute; top: 0; left: 3.5rem; right: 3.5rem; height: 1px;
       background: linear-gradient(90deg, transparent, var(--gold) 30%, var(--gold) 70%, transparent);
       opacity: 0.2;
     }
@@ -215,7 +214,214 @@
     .shopify-wrapper { max-width: 1400px; margin: 0 auto; }
     #collection-component-1772087671634 { width: 100%; }
 
-    /* FOOTER */
+    /* ── SINGLE USE CUPS SECTION ── */
+    .cups-section { padding: 6rem 3.5rem; position: relative; }
+    .cups-section::before {
+      content: ''; position: absolute; top: 0; left: 3.5rem; right: 3.5rem; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold) 30%, var(--gold) 70%, transparent);
+      opacity: 0.2;
+    }
+    .cups-grid {
+      max-width: 1400px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+    }
+    .cup-card {
+      background: var(--obsidian-2); overflow: hidden; cursor: pointer;
+      position: relative; group: true;
+      transition: background 0.3s;
+    }
+    .cup-card:hover { background: var(--obsidian-3); }
+    .cup-card-image {
+      position: relative; overflow: hidden; background: #0d0d0d;
+      aspect-ratio: 1 / 1;
+    }
+    .cup-card-image img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.4s;
+      filter: brightness(0.85);
+    }
+    .cup-card:hover .cup-card-image img { transform: scale(1.06); filter: brightness(1); }
+    .cup-card-overlay {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(10,10,10,0.3);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .cup-card:hover .cup-card-overlay { opacity: 1; }
+    .cup-card-overlay span {
+      font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold); border: 1px solid rgba(201,168,76,0.5);
+      padding: 0.6rem 1.2rem; background: rgba(10,10,10,0.7);
+    }
+    .cup-card-body { padding: 1.5rem 1.25rem 1.75rem; }
+    .cup-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem; font-weight: 400; color: var(--cream);
+      line-height: 1.25; margin-bottom: 0.35rem;
+    }
+    .cup-card-roast {
+      font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); opacity: 0.6; margin-bottom: 0.6rem;
+    }
+    .cup-card-notes {
+      font-size: 0.62rem; color: var(--cream-dim); opacity: 0.5;
+      letter-spacing: 0.04em; margin-bottom: 1rem; line-height: 1.5;
+    }
+    .cup-card-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-weight: 300; color: var(--gold);
+    }
+
+    /* ── PRODUCT DRAWER ── */
+    .drawer-overlay {
+      position: fixed; inset: 0; z-index: 400;
+      background: rgba(0,0,0,0); pointer-events: none;
+      transition: background 0.4s;
+    }
+    .drawer-overlay.open {
+      background: rgba(0,0,0,0.75); pointer-events: all;
+    }
+    .drawer {
+      position: fixed; top: 0; right: 0; bottom: 0; z-index: 401;
+      width: min(520px, 100vw);
+      background: var(--obsidian-2);
+      border-left: 1px solid var(--border);
+      transform: translateX(100%);
+      transition: transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94);
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+    .drawer.open { transform: translateX(0); }
+    .drawer-close {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      background: none; border: none; cursor: pointer;
+      color: var(--cream); opacity: 0.4;
+      font-size: 1.2rem; line-height: 1;
+      transition: opacity 0.2s;
+      z-index: 10; padding: 0.25rem;
+    }
+    .drawer-close:hover { opacity: 1; }
+    .drawer-image {
+      width: 100%; aspect-ratio: 4/3; overflow: hidden; flex-shrink: 0;
+      position: relative;
+    }
+    .drawer-image img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      filter: brightness(0.9);
+    }
+    .drawer-image-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 50%;
+      background: linear-gradient(to top, var(--obsidian-2), transparent);
+    }
+    .drawer-body {
+      padding: 2rem 2.5rem 2.5rem; overflow-y: auto; flex: 1;
+    }
+    .drawer-eyebrow {
+      font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold); opacity: 0.7; margin-bottom: 0.75rem;
+    }
+    .drawer-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 400; color: var(--cream);
+      line-height: 1.1; margin-bottom: 0.5rem;
+    }
+    .drawer-tagline {
+      font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold); opacity: 0.6; margin-bottom: 1.5rem;
+    }
+    .drawer-divider {
+      height: 1px; background: var(--border); margin-bottom: 1.5rem;
+    }
+    .drawer-description {
+      font-size: 0.78rem; line-height: 1.95; color: var(--cream-dim);
+      margin-bottom: 1.5rem;
+    }
+    .drawer-notes { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.75rem; }
+    .drawer-note-pill {
+      font-size: 0.52rem; letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 0.3rem 0.75rem; border: 1px solid var(--border); color: var(--cream); opacity: 0.6;
+    }
+    .drawer-specs {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 2rem;
+    }
+    .drawer-spec {
+      background: rgba(201,168,76,0.04); border: 1px solid var(--border);
+      padding: 0.75rem 1rem;
+    }
+    .drawer-spec-label {
+      font-size: 0.5rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold); opacity: 0.6; display: block; margin-bottom: 0.3rem;
+    }
+    .drawer-spec-value {
+      font-size: 0.72rem; color: var(--cream); letter-spacing: 0.05em;
+    }
+    .drawer-variants { margin-bottom: 2rem; }
+    .drawer-variant-label {
+      font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--cream-dim); opacity: 0.6; display: block; margin-bottom: 0.75rem;
+    }
+    .drawer-variant-group { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.25rem; }
+    .drawer-variant-options { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .variant-btn {
+      background: none; border: 1px solid var(--border);
+      color: var(--cream); font-family: 'Montserrat', sans-serif;
+      font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.5rem 1rem; cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+    }
+    .variant-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .variant-btn.selected {
+      border-color: var(--gold); background: rgba(201,168,76,0.1); color: var(--gold);
+    }
+    .drawer-price-row {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+    .drawer-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 300; color: var(--gold);
+    }
+    .drawer-atc-btn {
+      width: 100%; padding: 1rem 2rem;
+      background: var(--gold); color: #000;
+      border: none; cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.68rem; font-weight: 500;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      transition: background 0.25s;
+      position: relative; overflow: hidden;
+    }
+    .drawer-atc-btn:hover { background: var(--gold-dark); }
+    .drawer-atc-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .drawer-atc-btn .btn-text { transition: opacity 0.2s; }
+    .drawer-atc-btn.loading .btn-text { opacity: 0; }
+    .drawer-atc-btn .btn-spinner {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .drawer-atc-btn.loading .btn-spinner { opacity: 1; }
+    .btn-spinner-ring {
+      width: 18px; height: 18px; border: 2px solid rgba(0,0,0,0.2);
+      border-top-color: #000; border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .drawer-success {
+      display: none; text-align: center;
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); padding: 0.75rem;
+    }
+    .drawer-success.show { display: block; }
+    .drawer-shopify-link {
+      display: block; text-align: center; margin-top: 0.75rem;
+      font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--cream); opacity: 0.3; text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .drawer-shopify-link:hover { opacity: 0.7; }
+
+    /* ── FOOTER ── */
     footer {
       padding: 4rem 3.5rem 3rem;
       display: flex; flex-direction: column; align-items: center; gap: 2rem; text-align: center;
@@ -238,13 +444,16 @@
     .footer-links a:hover { opacity: 1; }
     .footer-copy { font-size: 0.58rem; letter-spacing: 0.1em; color: var(--cream); opacity: 0.2; }
 
-    /* RESPONSIVE */
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) {
+      .cups-grid { grid-template-columns: repeat(2, 1fr); }
+    }
     @media (max-width: 900px) {
       nav { padding: 1rem 1.5rem; }
       .nav-links { gap: 1.5rem; }
       .shop-hero { padding: 8rem 1.5rem 4rem; }
-      .bestsellers, .all-products { padding: 4rem 1.5rem; }
-      .bestsellers::before, .all-products::before { left: 1.5rem; right: 1.5rem; }
+      .bestsellers, .all-products, .cups-section { padding: 4rem 1.5rem; }
+      .bestsellers::before, .all-products::before, .cups-section::before { left: 1.5rem; right: 1.5rem; }
       .bestsellers-grid { grid-template-columns: 1fr; }
       .bs-card-inner { grid-template-columns: 1fr; min-height: auto; }
       .bs-card-image { height: 260px; }
@@ -254,9 +463,12 @@
       .brand-strip { gap: 2rem; padding: 3rem 1.5rem; }
       .brand-divider { display: none; }
       footer { padding: 3rem 1.5rem 2rem; }
+      .drawer-body { padding: 1.5rem 1.5rem 2rem; }
     }
-    @media (max-width: 480px) {
+    @media (max-width: 600px) {
+      .cups-grid { grid-template-columns: repeat(2, 1fr); }
       .nav-links { display: none; }
+      .drawer-specs { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -290,22 +502,16 @@
       <span class="section-label-line"></span>
     </div>
     <div class="bestsellers-grid">
-
-      <!-- Dubai Chocolate -->
       <div class="bs-card">
         <div class="bs-card-inner">
           <div class="bs-card-image">
-            <img
-              src="https://rujocoffeehouse.com/cdn/shop/files/Dubai.png?v=1762638677&width=1200"
-              alt="Dubai Chocolate"
-              loading="eager"
-            />
+            <img src="https://rujocoffeehouse.com/cdn/shop/files/Dubai.png?v=1762638677&width=1200" alt="Dubai Chocolate" loading="eager" />
           </div>
           <div class="bs-card-content">
             <p class="bs-badge">Best Seller No. 1</p>
             <h2 class="bs-name">Dubai<br>Chocolate</h2>
             <p class="bs-tagline">Luxurious · Silky · Indulgent</p>
-            <p class="bs-description">Inspired by the opulence of Dubai, this blend begins with select Arabica beans, medium-roasted to perfection and infused with natural chocolate flavorings for a taste that's both refined and irresistible. Each cup unfolds with velvety cocoa, warm vanilla, and a whisper of caramel spice.</p>
+            <p class="bs-description">Inspired by the opulence of Dubai, this blend begins with select Arabica beans, medium-roasted to perfection and infused with natural chocolate flavorings. Each cup unfolds with velvety cocoa, warm vanilla, and a whisper of caramel spice.</p>
             <div class="bs-notes">
               <span class="bs-note-pill">Milky Cocoa</span>
               <span class="bs-note-pill">Dates</span>
@@ -316,22 +522,16 @@
           </div>
         </div>
       </div>
-
-      <!-- Genesis Breakfast Blend -->
       <div class="bs-card">
         <div class="bs-card-inner">
           <div class="bs-card-image">
-            <img
-              src="https://rujocoffeehouse.com/cdn/shop/files/BBlend_6bd23615-2120-4517-ab9c-3fe0baffc1eb.png?v=1763761560&width=1200"
-              alt="Genesis Breakfast Blend"
-              loading="eager"
-            />
+            <img src="https://rujocoffeehouse.com/cdn/shop/files/BBlend_6bd23615-2120-4517-ab9c-3fe0baffc1eb.png?v=1763761560&width=1200" alt="Genesis Breakfast Blend" loading="eager" />
           </div>
           <div class="bs-card-content">
             <p class="bs-badge">Best Seller No. 2</p>
             <h2 class="bs-name">Genesis<br>Breakfast Blend</h2>
             <p class="bs-tagline">Bright · Smooth · Invigorating</p>
-            <p class="bs-description">A blend where every morning begins. Central and South American beans roasted to a smooth medium finish, revealing notes of honeyed citrus, toasted almond, and milk chocolate. Made for the thinkers, creators, and early risers who turn routine into ritual.</p>
+            <p class="bs-description">Central and South American beans roasted to a smooth medium finish, revealing notes of honeyed citrus, toasted almond, and milk chocolate. Made for the thinkers, creators, and early risers who turn routine into ritual.</p>
             <div class="bs-notes">
               <span class="bs-note-pill">Caramel</span>
               <span class="bs-note-pill">Toasted Almond</span>
@@ -342,7 +542,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </section>
 
@@ -379,9 +578,117 @@
       <div class="collection-count">11</div>
     </div>
     <div class="shopify-wrapper">
-      <div id='collection-component-1772087671634'></div>
+      <div id="collection-component-1772087671634"></div>
     </div>
   </section>
+
+  <!-- SINGLE-USE CUPS -->
+  <section class="cups-section">
+    <div class="cups-section" style="padding:0 0 0 0; position:static;">
+      <div style="max-width:1400px; margin: 0 auto;">
+        <div class="collection-intro" style="margin-bottom:3rem;">
+          <div>
+            <h2 class="collection-title">Single-Use<br><em>Cups</em></h2>
+            <p class="collection-sub">The same Rujo quality, brewed in seconds. Compatible with all K-Cup® brewers.</p>
+          </div>
+          <div class="collection-count">4</div>
+        </div>
+        <p style="font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--cream-dim);opacity:0.4;margin-bottom:2rem;">
+          Click any product to explore details &amp; add to cart
+        </p>
+      </div>
+    </div>
+    <div class="cups-grid">
+
+      <!-- Genesis Breakfast Blend Cups -->
+      <div class="cup-card" onclick="openDrawer('genesis-cups')">
+        <div class="cup-card-image">
+          <img src="https://rujocoffeehouse.com/cdn/shop/files/BBlend_Kcup_68e06327-8894-4d46-9fb5-eb42cb902f03.png?v=1763761560&width=800" alt="Genesis Breakfast Blend Single Use Cups" loading="lazy" />
+          <div class="cup-card-overlay"><span>View &amp; Add to Cart</span></div>
+        </div>
+        <div class="cup-card-body">
+          <p class="cup-card-roast">Medium Roast</p>
+          <h3 class="cup-card-name">Genesis Breakfast Blend</h3>
+          <p class="cup-card-notes">Caramel · Toasted Almond · Citrus</p>
+          <p class="cup-card-price">$21</p>
+        </div>
+      </div>
+
+      <!-- Signature Decaf Cups -->
+      <div class="cup-card" onclick="openDrawer('decaf-cups')">
+        <div class="cup-card-image">
+          <img src="https://rujocoffeehouse.com/cdn/shop/files/Decaf_Kcup_442f3bdb-7f5a-4c61-8c4b-0b5b36fdf76e.png?v=1763761560&width=800" alt="Signature Decaf Single Use Cups" loading="lazy" />
+          <div class="cup-card-overlay"><span>View &amp; Add to Cart</span></div>
+        </div>
+        <div class="cup-card-body">
+          <p class="cup-card-roast">Dark Roast · Caffeine-Free</p>
+          <h3 class="cup-card-name">Signature Decaf</h3>
+          <p class="cup-card-notes">Dark Chocolate · Toffee · Hazelnut</p>
+          <p class="cup-card-price">$21</p>
+        </div>
+      </div>
+
+      <!-- Symphony IV 6-Bean Cups -->
+      <div class="cup-card" onclick="openDrawer('symphony-cups')">
+        <div class="cup-card-image">
+          <img src="https://rujocoffeehouse.com/cdn/shop/files/6bean_Kcup_aa560b21-a293-4264-997b-e07929ccc051.png?v=1763761560&width=800" alt="Symphony IV 6 Bean Single Use Cups" loading="lazy" />
+          <div class="cup-card-overlay"><span>View &amp; Add to Cart</span></div>
+        </div>
+        <div class="cup-card-body">
+          <p class="cup-card-roast">Dark Roast</p>
+          <h3 class="cup-card-name">Symphony IV · 6 Bean</h3>
+          <p class="cup-card-notes">Molasses · Toasted Walnut · Cocoa</p>
+          <p class="cup-card-price">$21</p>
+        </div>
+      </div>
+
+      <!-- Peruvian Cups -->
+      <div class="cup-card" onclick="openDrawer('peru-cups')">
+        <div class="cup-card-image">
+          <img src="https://rujocoffeehouse.com/cdn/shop/files/Peru_Kcup_b39494c8-9c16-4013-85c3-90d235fe7a39.png?v=1763761560&width=800" alt="Peruvian Single Use Cups" loading="lazy" />
+          <div class="cup-card-overlay"><span>View &amp; Add to Cart</span></div>
+        </div>
+        <div class="cup-card-body">
+          <p class="cup-card-roast">Medium Roast · Single Origin</p>
+          <h3 class="cup-card-name">Select Peruvian</h3>
+          <p class="cup-card-notes">Herbal · Milk Chocolate · Lemon</p>
+          <p class="cup-card-price">$21</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DRAWER OVERLAY -->
+  <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+
+  <!-- DRAWER -->
+  <div class="drawer" id="productDrawer" role="dialog" aria-modal="true" aria-label="Product details">
+    <button class="drawer-close" onclick="closeDrawer()" aria-label="Close">✕</button>
+    <div class="drawer-image">
+      <img id="drawerImg" src="" alt="" />
+      <div class="drawer-image-overlay"></div>
+    </div>
+    <div class="drawer-body">
+      <p class="drawer-eyebrow" id="drawerEyebrow"></p>
+      <h2 class="drawer-name" id="drawerName"></h2>
+      <p class="drawer-tagline" id="drawerTagline"></p>
+      <div class="drawer-divider"></div>
+      <p class="drawer-description" id="drawerDescription"></p>
+      <div class="drawer-notes" id="drawerNotes"></div>
+      <div class="drawer-specs" id="drawerSpecs"></div>
+      <div class="drawer-variants" id="drawerVariants"></div>
+      <div class="drawer-price-row">
+        <span class="drawer-price" id="drawerPrice"></span>
+      </div>
+      <button class="drawer-atc-btn" id="drawerAtcBtn" onclick="addToCart()">
+        <span class="btn-text">Add to Cart</span>
+        <span class="btn-spinner"><span class="btn-spinner-ring"></span></span>
+      </button>
+      <div class="drawer-success" id="drawerSuccess">✦ Added to cart successfully</div>
+      <a class="drawer-shopify-link" id="drawerShopifyLink" href="#" target="_blank">View full product page ↗</a>
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <footer>
@@ -398,9 +705,8 @@
     <p class="footer-copy">© 2025 Rujo Coffee House. All rights reserved.</p>
   </footer>
 
-  <!-- SHOPIFY BUY BUTTON -->
+  <!-- SHOPIFY BUY BUTTON (main collection) -->
   <script type="text/javascript">
-  /*<![CDATA[*/
   (function () {
     var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
     if (window.ShopifyBuy) {
@@ -433,14 +739,8 @@
                   "img": { "height": "calc(100% - 15px)", "position": "absolute", "left": "0", "right": "0", "top": "0" },
                   "imgWrapper": { "padding-top": "calc(75% + 15px)", "position": "relative", "height": "0" }
                 },
-                "title": {
-                  "font-family": "Cormorant Garamond, serif",
-                  "font-size": "17px", "color": "#F5F0E8", "font-weight": "400"
-                },
-                "price": {
-                  "font-family": "Cormorant Garamond, serif",
-                  "font-size": "16px", "color": "#C9A84C"
-                },
+                "title": { "font-family": "Cormorant Garamond, serif", "font-size": "17px", "color": "#F5F0E8", "font-weight": "400" },
+                "price": { "font-family": "Cormorant Garamond, serif", "font-size": "16px", "color": "#C9A84C" },
                 "button": {
                   "color": "#000000", "background-color": "#c9a84c",
                   ":hover": { "color": "#000000", "background-color": "#b59744" },
@@ -452,18 +752,12 @@
               },
               "text": { "button": "Add to cart" }
             },
-            "productSet": {
-              "styles": { "products": { "@media (min-width: 601px)": { "margin-left": "-20px" } } }
-            },
+            "productSet": { "styles": { "products": { "@media (min-width: 601px)": { "margin-left": "-20px" } } } },
             "modalProduct": {
               "contents": { "img": false, "imgWithCarousel": true, "button": false, "buttonWithQuantity": true },
               "styles": {
                 "product": { "@media (min-width: 601px)": { "max-width": "100%", "margin-left": "0px", "margin-bottom": "0px" } },
-                "button": {
-                  "color": "#000000", "background-color": "#c9a84c",
-                  ":hover": { "color": "#000000", "background-color": "#b59744" },
-                  ":focus": { "background-color": "#b59744" }, "border-radius": "0"
-                }
+                "button": { "color": "#000000", "background-color": "#c9a84c", ":hover": { "color": "#000000", "background-color": "#b59744" }, ":focus": { "background-color": "#b59744" }, "border-radius": "0" }
               },
               "text": { "button": "Add to cart" }
             },
@@ -482,11 +776,7 @@
             },
             "toggle": {
               "styles": {
-                "toggle": {
-                  "background-color": "#c9a84c",
-                  ":hover": { "background-color": "#b59744" },
-                  ":focus": { "background-color": "#b59744" }
-                },
+                "toggle": { "background-color": "#c9a84c", ":hover": { "background-color": "#b59744" }, ":focus": { "background-color": "#b59744" } },
                 "count": { "color": "#000000", ":hover": { "color": "#000000" } },
                 "iconPath": { "fill": "#000000" }
               }
@@ -496,7 +786,177 @@
       });
     }
   })();
-  /*]]>*/
+  </script>
+
+  <!-- DRAWER LOGIC -->
+  <script>
+  const STOREFRONT_DOMAIN = 'sqq1xj-x7.myshopify.com';
+  const STOREFRONT_TOKEN  = 'c41566edaf27f7b26ca3521aba0e5845';
+
+  // Product data — variant IDs are the Shopify numeric variant IDs
+  const CUPS_DATA = {
+    'genesis-cups': {
+      eyebrow:     'Single-Use Cups · Medium Roast',
+      name:        'Genesis Breakfast Blend',
+      tagline:     'Bright · Smooth · Invigorating',
+      description: 'A blend where every morning begins. This signature blend combines Central and South American beans roasted to a smooth medium finish, revealing notes of honeyed citrus, toasted almond, and milk chocolate. Each cup delivers a gentle brightness that lifts the morning while maintaining Rujo\'s signature depth. Made for the thinkers, creators, and early risers who turn routine into ritual.',
+      notes:       ['Caramel', 'Toasted Almond', 'Citrus'],
+      specs:       { 'Roast': 'Medium', 'Body': 'Balanced & Silky', 'Finish': 'Clean & Refreshing', 'Origin': 'Central & South America' },
+      price:       '$21',
+      image:       'https://rujocoffeehouse.com/cdn/shop/files/BBlend_Kcup_68e06327-8894-4d46-9fb5-eb42cb902f03.png?v=1763761560&width=900',
+      shopifyUrl:  'https://rujocoffeehouse.com/products/breakfast-blend-single-use-cups',
+      variantId:   '50614472868146'
+    },
+    'decaf-cups': {
+      eyebrow:     'Single-Use Cups · Dark Roast · Caffeine-Free',
+      name:        'Signature Decaf Espresso',
+      tagline:     'Bold · Smooth · Caffeine-Free',
+      description: 'Crafted for those who crave the depth of espresso without the buzz. Our master roasters select premium Arabica beans from high-altitude farms, carefully roasted to draw out dark chocolate, roasted hazelnut, and caramel undertones. The result is a full-bodied, aromatic cup that\'s perfect for late nights, mindful moments, or anytime you want rich espresso flavor without compromise.',
+      notes:       ['Dark Chocolate', 'Toffee', 'Hazelnut'],
+      specs:       { 'Roast': 'Dark', 'Body': 'Full & Balanced', 'Finish': 'Smooth & Deep', 'Caffeine': 'Free' },
+      price:       '$21',
+      image:       'https://rujocoffeehouse.com/cdn/shop/files/Decaf_Kcup_442f3bdb-7f5a-4c61-8c4b-0b5b36fdf76e.png?v=1763761560&width=900',
+      shopifyUrl:  'https://rujocoffeehouse.com/products/decaf-espresso-single-use-cups',
+      variantId:   '50614471164210'
+    },
+    'symphony-cups': {
+      eyebrow:     'Single-Use Cups · Dark Roast',
+      name:        'Symphony IV · 6 Bean',
+      tagline:     'Complex · Rich · Harmonious',
+      description: 'Six beans working in harmony to create a symphony. This dark roast unveils layers of molasses, toasted walnut, and bittersweet cocoa, with a velvety texture and lingering finish that warms the soul. Designed for coffee lovers who crave richness without bitterness — every sip carries the craftsmanship and care of our roasters.',
+      notes:       ['Molasses', 'Toasted Walnut', 'Cocoa'],
+      specs:       { 'Roast': 'Dark', 'Body': 'Full & Smooth', 'Finish': 'Long & Caramelized', 'Blend': '6 Bean' },
+      price:       '$21',
+      image:       'https://rujocoffeehouse.com/cdn/shop/files/6bean_Kcup_aa560b21-a293-4264-997b-e07929ccc051.png?v=1763761560&width=900',
+      shopifyUrl:  'https://rujocoffeehouse.com/products/6-bean-blend-single-use-cups',
+      variantId:   '50614473425202'
+    },
+    'peru-cups': {
+      eyebrow:     'Single-Use Cups · Medium Roast · Single Origin',
+      name:        'Select Peruvian',
+      tagline:     'Bright · Nutty · Harmonious',
+      description: 'Peruvian coffee from high-altitude micro-lots. Ethnically grown and expertly roasted. Each cup opens with hints of almond and milk chocolate, followed by a touch of citrus and brown sugar — a flavor journey that\'s both comforting and refined. Sustainably grown, crafted for those who believe that simplicity done well is the ultimate luxury.',
+      notes:       ['Herbal', 'Milk Chocolate', 'Lemon'],
+      specs:       { 'Roast': 'Medium', 'Body': 'Silky & Balanced', 'Finish': 'Clean & Sweet', 'Origin': 'Peru' },
+      price:       '$21',
+      image:       'https://rujocoffeehouse.com/cdn/shop/files/Peru_Kcup_b39494c8-9c16-4013-85c3-90d235fe7a39.png?v=1763761560&width=900',
+      shopifyUrl:  'https://rujocoffeehouse.com/products/peru-single-use-cups',
+      variantId:   '50614389375282'
+    }
+  };
+
+  let activeProductId = null;
+  let checkoutUrl = null;
+
+  function openDrawer(productId) {
+    const p = CUPS_DATA[productId];
+    if (!p) return;
+    activeProductId = productId;
+    checkoutUrl = null;
+
+    document.getElementById('drawerImg').src = p.image;
+    document.getElementById('drawerImg').alt = p.name;
+    document.getElementById('drawerEyebrow').textContent = p.eyebrow;
+    document.getElementById('drawerName').textContent = p.name;
+    document.getElementById('drawerTagline').textContent = p.tagline;
+    document.getElementById('drawerDescription').textContent = p.description;
+    document.getElementById('drawerPrice').textContent = p.price;
+    document.getElementById('drawerShopifyLink').href = p.shopifyUrl;
+
+    // Notes
+    const notesEl = document.getElementById('drawerNotes');
+    notesEl.innerHTML = p.notes.map(n => `<span class="drawer-note-pill">${n}</span>`).join('');
+
+    // Specs
+    const specsEl = document.getElementById('drawerSpecs');
+    specsEl.innerHTML = Object.entries(p.specs).map(([k, v]) =>
+      `<div class="drawer-spec"><span class="drawer-spec-label">${k}</span><span class="drawer-spec-value">${v}</span></div>`
+    ).join('');
+
+    // No variant selector needed — single variant per product, just go direct
+    document.getElementById('drawerVariants').innerHTML = '';
+
+    // Reset button state
+    const btn = document.getElementById('drawerAtcBtn');
+    btn.disabled = false;
+    btn.classList.remove('loading');
+    document.getElementById('drawerSuccess').classList.remove('show');
+
+    // Open
+    document.getElementById('drawerOverlay').classList.add('open');
+    document.getElementById('productDrawer').classList.add('open');
+    document.body.style.overflow = 'hidden';
+
+    // Keyboard trap
+    document.addEventListener('keydown', handleEscape);
+  }
+
+  function closeDrawer() {
+    document.getElementById('drawerOverlay').classList.remove('open');
+    document.getElementById('productDrawer').classList.remove('open');
+    document.body.style.overflow = '';
+    document.removeEventListener('keydown', handleEscape);
+    activeProductId = null;
+  }
+
+  function handleEscape(e) {
+    if (e.key === 'Escape') closeDrawer();
+  }
+
+  async function addToCart() {
+    const p = CUPS_DATA[activeProductId];
+    if (!p) return;
+
+    const btn = document.getElementById('drawerAtcBtn');
+    btn.disabled = true;
+    btn.classList.add('loading');
+
+    try {
+      // Create a checkout via Storefront API
+      const mutation = `
+        mutation {
+          checkoutCreate(input: {
+            lineItems: [{ variantId: "gid://shopify/ProductVariant/${p.variantId}", quantity: 1 }]
+          }) {
+            checkout { webUrl }
+            checkoutUserErrors { message }
+          }
+        }
+      `;
+      const res = await fetch(`https://${STOREFRONT_DOMAIN}/api/2023-10/graphql.json`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Shopify-Storefront-Access-Token': STOREFRONT_TOKEN
+        },
+        body: JSON.stringify({ query: mutation })
+      });
+      const data = await res.json();
+      const errors = data?.data?.checkoutCreate?.checkoutUserErrors;
+      if (errors && errors.length > 0) throw new Error(errors[0].message);
+
+      checkoutUrl = data?.data?.checkoutCreate?.checkout?.webUrl;
+      if (!checkoutUrl) throw new Error('No checkout URL returned');
+
+      // Show success + redirect
+      btn.classList.remove('loading');
+      document.getElementById('drawerSuccess').classList.add('show');
+
+      // Brief pause then redirect to Shopify checkout
+      setTimeout(() => {
+        window.location.href = checkoutUrl;
+      }, 800);
+
+    } catch (err) {
+      console.error('Add to cart error:', err);
+      btn.disabled = false;
+      btn.classList.remove('loading');
+      btn.querySelector('.btn-text').textContent = 'Try Again';
+      setTimeout(() => {
+        btn.querySelector('.btn-text').textContent = 'Add to Cart';
+      }, 2500);
+    }
+  }
   </script>
 
 </body>
