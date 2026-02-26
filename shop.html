@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop • Rujo Coffee House</title>
+  <meta name="description" content="Shop Rujo Coffee House's gourmet estate coffees, specialty teas, and single-use cups. Free shipping on orders over $50." />
+  <meta property="og:title" content="Shop • Rujo Coffee House" />
+  <meta property="og:description" content="Gourmet estate coffee and specialty teas, roasted with intention." />
+  <meta property="og:image" content="https://rujocoffeehouse.com/cdn/shop/files/Rujo_Coffee_House_Logo_Update_big.png" />
+  <meta property="og:url" content="https://mister-97.github.io/rujo-coffee-house/shop.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C9A84C;
+      --gold-dark: #b59744;
+      --obsidian: #0D0D0D;
+      --cream: #F5F0E8;
+      --warm-gray: #1a1a1a;
+      --text-muted: #8a7a5a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--obsidian);
+      color: var(--cream);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 3rem;
+      background: rgba(13,13,13,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.75;
+      transition: opacity 0.2s, color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      opacity: 1;
+      color: var(--gold);
+    }
+
+    /* ── HERO ── */
+    .shop-hero {
+      padding: 9rem 3rem 4rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+    }
+
+    .shop-hero .eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      opacity: 0.8;
+    }
+
+    .shop-hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--cream);
+      margin-bottom: 1.25rem;
+    }
+
+    .shop-hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .shop-hero p {
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      color: var(--cream);
+      opacity: 0.6;
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    .free-shipping-banner {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.75rem;
+      padding: 0.5rem 1.25rem;
+      border: 1px solid rgba(201,168,76,0.3);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.8;
+    }
+
+    /* ── SHOPIFY COLLECTION WRAPPER ── */
+    .shop-section {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 4rem 3rem 6rem;
+    }
+
+    #collection-component-1772087671634 {
+      width: 100%;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(201,168,76,0.12);
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.5;
+      transition: opacity 0.2s;
+    }
+
+    .footer-links a:hover { opacity: 1; }
+
+    .footer-copy {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--cream);
+      opacity: 0.3;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      .shop-hero { padding: 7rem 1.5rem 3rem; }
+      .shop-section { padding: 3rem 1.5rem 5rem; }
+      footer { padding: 2.5rem 1.5rem; }
+      .footer-links { flex-wrap: wrap; justify-content: center; gap: 1.25rem; }
+    }
+
+    @media (max-width: 480px) {
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Rujo Coffee House</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html" class="active">Shop</a></li>
+      <li><a href="blog.html">Journal</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="shop-hero">
+    <p class="eyebrow">Gourmet Estate Coffee & Tea</p>
+    <h1>Crafted for <em>the ritual</em></h1>
+    <p>Single origins, signature blends, and specialty teas — roasted with intention and sourced with care.</p>
+    <div class="free-shipping-banner">
+      ✦ &nbsp; Free shipping on orders over $50
+    </div>
+  </section>
+
+  <!-- SHOPIFY COLLECTION -->
+  <section class="shop-section">
+    <div id='collection-component-1772087671634'></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Rujo Coffee House</div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="blog.html">Journal</a></li>
+      <li><a href="https://rujocoffeehouse.com/policies/privacy-policy" target="_blank">Privacy</a></li>
+      <li><a href="https://rujocoffeehouse.com/policies/shipping-policy" target="_blank">Shipping</a></li>
+      <li><a href="https://rujocoffeehouse.com/policies/refund-policy" target="_blank">Returns</a></li>
+    </ul>
+    <p class="footer-copy">© 2025 Rujo Coffee House. All rights reserved.</p>
+  </footer>
+
+  <!-- SHOPIFY BUY BUTTON SDK -->
+  <script type="text/javascript">
+  /*<![CDATA[*/
+  (function () {
+    var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+    if (window.ShopifyBuy) {
+      if (window.ShopifyBuy.UI) {
+        ShopifyBuyInit();
+      } else {
+        loadScript();
+      }
+    } else {
+      loadScript();
+    }
+    function loadScript() {
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = scriptURL;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+      script.onload = ShopifyBuyInit;
+    }
+    function ShopifyBuyInit() {
+      var client = ShopifyBuy.buildClient({
+        domain: 'sqq1xj-x7.myshopify.com',
+        storefrontAccessToken: 'c41566edaf27f7b26ca3521aba0e5845',
+      });
+      ShopifyBuy.UI.onReady(client).then(function (ui) {
+        ui.createComponent('collection', {
+          id: '504690573618',
+          node: document.getElementById('collection-component-1772087671634'),
+          moneyFormat: '%24%7B%7Bamount%7D%7D',
+          options: {
+            "product": {
+              "styles": {
+                "product": {
+                  "@media (min-width: 601px)": {
+                    "max-width": "calc(25% - 20px)",
+                    "margin-left": "20px",
+                    "margin-bottom": "50px",
+                    "width": "calc(25% - 20px)"
+                  },
+                  "img": {
+                    "height": "calc(100% - 15px)",
+                    "position": "absolute",
+                    "left": "0",
+                    "right": "0",
+                    "top": "0"
+                  },
+                  "imgWrapper": {
+                    "padding-top": "calc(75% + 15px)",
+                    "position": "relative",
+                    "height": "0"
+                  }
+                },
+                "button": {
+                  "color": "#000000",
+                  ":hover": {
+                    "color": "#000000",
+                    "background-color": "#b59744"
+                  },
+                  "background-color": "#c9a84c",
+                  ":focus": {
+                    "background-color": "#b59744"
+                  },
+                  "font-family": "Montserrat, sans-serif",
+                  "font-weight": "500",
+                  "letter-spacing": "0.12em",
+                  "text-transform": "uppercase",
+                  "font-size": "11px"
+                },
+                "title": {
+                  "font-family": "Cormorant Garamond, serif",
+                  "font-size": "18px",
+                  "color": "#F5F0E8"
+                },
+                "price": {
+                  "font-family": "Montserrat, sans-serif",
+                  "color": "#C9A84C"
+                }
+              },
+              "text": {
+                "button": "Add to cart"
+              }
+            },
+            "productSet": {
+              "styles": {
+                "products": {
+                  "@media (min-width: 601px)": {
+                    "margin-left": "-20px"
+                  }
+                }
+              }
+            },
+            "modalProduct": {
+              "contents": {
+                "img": false,
+                "imgWithCarousel": true,
+                "button": false,
+                "buttonWithQuantity": true
+              },
+              "styles": {
+                "product": {
+                  "@media (min-width: 601px)": {
+                    "max-width": "100%",
+                    "margin-left": "0px",
+                    "margin-bottom": "0px"
+                  }
+                },
+                "button": {
+                  "color": "#000000",
+                  ":hover": {
+                    "color": "#000000",
+                    "background-color": "#b59744"
+                  },
+                  "background-color": "#c9a84c",
+                  ":focus": {
+                    "background-color": "#b59744"
+                  }
+                }
+              },
+              "text": {
+                "button": "Add to cart"
+              }
+            },
+            "option": {},
+            "cart": {
+              "styles": {
+                "button": {
+                  "color": "#000000",
+                  ":hover": {
+                    "color": "#000000",
+                    "background-color": "#b59744"
+                  },
+                  "background-color": "#c9a84c",
+                  ":focus": {
+                    "background-color": "#b59744"
+                  },
+                  "font-family": "Montserrat, sans-serif",
+                  "letter-spacing": "0.12em",
+                  "text-transform": "uppercase"
+                }
+              },
+              "text": {
+                "total": "Subtotal",
+                "button": "Checkout"
+              }
+            },
+            "toggle": {
+              "styles": {
+                "toggle": {
+                  "background-color": "#c9a84c",
+                  ":hover": {
+                    "background-color": "#b59744"
+                  },
+                  ":focus": {
+                    "background-color": "#b59744"
+                  }
+                },
+                "count": {
+                  "color": "#000000",
+                  ":hover": {
+                    "color": "#000000"
+                  }
+                },
+                "iconPath": {
+                  "fill": "#000000"
+                }
+              }
+            }
+          },
+        });
+      });
+    }
+  })();
+  /*]]>*/
+  </script>
+
+</body>
+</html>
