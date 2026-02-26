@@ -6,6 +6,8 @@
   to browse and add more coffees.
 {% endcomment %}
 
+{% assign shop_url = section.settings.shop_url | default: 'https://mister-97.github.io/rujo-coffee-house/shop.html' %}
+
 <section class="rujo-continue-shopping" style="
   background: {{ section.settings.background_color }};
   border-top: 1px solid rgba(201,168,76,0.18);
@@ -44,7 +46,7 @@
 
     <!-- Right: CTA button -->
     <a
-      href="{{ section.settings.shop_url }}"
+      href="{{ shop_url }}"
       class="rujo-cs-btn"
       target="_blank"
       rel="noopener"
@@ -105,8 +107,7 @@
     {
       "type": "url",
       "id": "shop_url",
-      "label": "Shop Page URL",
-      "default": "https://mister-97.github.io/rujo-coffee-house/shop.html"
+      "label": "Shop Page URL"
     },
     {
       "type": "color",
