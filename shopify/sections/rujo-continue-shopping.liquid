@@ -1,3 +1,4 @@
+{% assign shop_url = section.settings.shop_url | default: 'https://mister-97.github.io/rujo-coffee-house/shop.html' %}
 {% comment %}
   Rujo Coffee House — Continue Shopping Banner
   Add this section to your Shopify product page template.
@@ -5,8 +6,6 @@
   https://mister-97.github.io/rujo-coffee-house/shop.html
   to browse and add more coffees.
 {% endcomment %}
-
-{% assign shop_url = section.settings.shop_url | default: 'https://mister-97.github.io/rujo-coffee-house/shop.html' %}
 
 <section class="rujo-continue-shopping" style="
   background: {{ section.settings.background_color }};
