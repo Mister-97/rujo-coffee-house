@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rujo Admin — Journal Publisher</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Karla:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --cream: #f5f1e8; --gold: #d0a148; --gold-light: #e0b868;
+      --obsidian: #0f0f0f; --stone: #1e1e1e; --stone2: #2a2a2a;
+      --border: rgba(245,241,232,0.08); --ash: #7a7a7a;
+      --red: #c0392b; --green: #27ae60;
+    }
+    body { font-family: 'Karla', sans-serif; background: var(--obsidian); color: var(--cream); min-height: 100vh; }
+
+    /* LOGIN */
+    #loginScreen {
+      position: fixed; inset: 0; background: var(--obsidian);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1000; flex-direction: column; gap: 32px;
+    }
+    .login-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300; letter-spacing: 0.3em; color: var(--cream); }
+    .login-logo span { color: var(--gold); }
+    .login-box { background: var(--stone); border: 1px solid var(--border); border-radius: 4px; padding: 40px; width: 340px; }
+    .login-box h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; margin-bottom: 6px; }
+    .login-box p { font-size: 0.8rem; color: var(--ash); margin-bottom: 28px; }
+    .login-box input {
+      width: 100%; padding: 12px 16px; background: var(--obsidian);
+      border: 1px solid var(--border); border-radius: 3px;
+      color: var(--cream); font-family: 'Karla', sans-serif; font-size: 0.9rem;
+      margin-bottom: 12px; outline: none; transition: border-color 0.2s;
+    }
+    .login-box input:focus { border-color: var(--gold); }
+    .login-box input.error { border-color: var(--red); }
+    .login-error { font-size: 0.78rem; color: var(--red); margin-bottom: 12px; display: none; }
+    .btn-primary {
+      width: 100%; padding: 12px; background: var(--gold); border: none;
+      color: var(--obsidian); font-family: 'Karla', sans-serif; font-size: 0.8rem;
+      letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer;
+      border-radius: 3px; transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--gold-light); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* ADMIN LAYOUT */
+    #adminApp { display: none; min-height: 100vh; }
+    .admin-header {
+      border-bottom: 1px solid var(--border); padding: 16px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; background: var(--obsidian); z-index: 10;
+    }
+    .admin-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 300; letter-spacing: 0.2em; }
+    .admin-logo span { color: var(--gold); }
+    .admin-logo small { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ash); margin-left: 12px; font-family: 'Karla', sans-serif; }
+    .header-actions { display: flex; gap: 12px; align-items: center; }
+    .btn-secondary {
+      padding: 8px 18px; border: 1px solid var(--border); background: transparent;
+      color: rgba(245,241,232,0.6); font-family: 'Karla', sans-serif; font-size: 0.75rem;
+      letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer;
+      border-radius: 3px; transition: all 0.2s; text-decoration: none; display: inline-block;
+    }
+    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+    .btn-publish {
+      padding: 8px 20px; background: var(--gold); border: none;
+      color: var(--obsidian); font-family: 'Karla', sans-serif; font-size: 0.75rem;
+      letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer;
+      border-radius: 3px; transition: background 0.2s;
+    }
+    .btn-publish:hover { background: var(--gold-light); }
+    .btn-publish:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* EDITOR */
+    .editor-wrap { display: grid; grid-template-columns: 1fr 360px; min-height: calc(100vh - 57px); }
+    .editor-main { padding: 40px; border-right: 1px solid var(--border); }
+    .field-group { margin-bottom: 28px; }
+    .field-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ash); margin-bottom: 8px; display: block; }
+    .field-input {
+      width: 100%; padding: 12px 16px; background: var(--stone);
+      border: 1px solid var(--border); border-radius: 3px;
+      color: var(--cream); font-family: 'Karla', sans-serif; font-size: 0.95rem;
+      outline: none; transition: border-color 0.2s;
+    }
+    .field-input:focus { border-color: var(--gold); }
+    .field-input.title-input { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300; padding: 14px 16px; }
+    .field-textarea {
+      width: 100%; padding: 16px; background: var(--stone);
+      border: 1px solid var(--border); border-radius: 3px;
+      color: rgba(245,241,232,0.85); font-family: 'Karla', sans-serif; font-size: 0.95rem;
+      line-height: 1.8; outline: none; resize: vertical; transition: border-color 0.2s;
+      min-height: 420px;
+    }
+    .field-textarea:focus { border-color: var(--gold); }
+    .field-hint { font-size: 0.72rem; color: var(--ash); margin-top: 6px; }
+    .slug-preview { font-size: 0.78rem; color: var(--ash); margin-top: 6px; }
+    .slug-preview span { color: var(--gold); font-family: monospace; }
+    .editor-toolbar { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+    .toolbar-btn {
+      padding: 5px 12px; border: 1px solid var(--border); background: transparent;
+      color: rgba(245,241,232,0.5); font-family: 'Karla', sans-serif; font-size: 0.72rem;
+      cursor: pointer; border-radius: 3px; transition: all 0.2s;
+    }
+    .toolbar-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* SIDEBAR */
+    .editor-sidebar { padding: 32px; display: flex; flex-direction: column; gap: 24px; overflow-y: auto; }
+    .sidebar-title { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ash); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    .token-wrap { position: relative; }
+    .token-input { padding-right: 48px !important; font-family: monospace !important; font-size: 0.8rem !important; }
+    .token-toggle { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--ash); cursor: pointer; font-size: 0.75rem; }
+
+    #statusBar {
+      padding: 12px 16px; border-radius: 3px; font-size: 0.82rem;
+      display: none; line-height: 1.5;
+    }
+    #statusBar.success { background: rgba(39,174,96,0.12); border: 1px solid rgba(39,174,96,0.3); color: #5dba7e; display: block; }
+    #statusBar.error { background: rgba(192,57,43,0.12); border: 1px solid rgba(192,57,43,0.3); color: #e07070; display: block; }
+    #statusBar.loading { background: rgba(208,161,72,0.1); border: 1px solid rgba(208,161,72,0.2); color: var(--gold); display: block; }
+
+    .img-preview { width: 100%; height: 120px; object-fit: cover; border-radius: 3px; margin-top: 8px; filter: saturate(0.7) brightness(0.85); display: none; }
+    .img-preview.visible { display: block; }
+
+    .post-list { display: flex; flex-direction: column; gap: 8px; }
+    .post-item {
+      padding: 10px 14px; background: var(--stone2); border-radius: 3px;
+      font-size: 0.8rem; display: flex; justify-content: space-between; align-items: center;
+      border: 1px solid transparent;
+    }
+    .post-item-title { color: rgba(245,241,232,0.8); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; }
+    .post-item-cat { font-size: 0.68rem; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; flex-shrink: 0; }
+    select.field-input { cursor: pointer; }
+    option { background: var(--stone); }
+
+    @media (max-width: 900px) {
+      .editor-wrap { grid-template-columns: 1fr; }
+      .editor-sidebar { border-top: 1px solid var(--border); }
+      .admin-header { padding: 14px 20px; }
+      .editor-main { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="loginScreen">
+  <div class="login-logo">RUJO <span>✦</span> COFFEE</div>
+  <div class="login-box">
+    <h2>Journal Admin</h2>
+    <p>Publisher access only</p>
+    <input type="password" id="passwordInput" class="field-input" placeholder="Enter password" autocomplete="current-password">
+    <div class="login-error" id="loginError">Incorrect password</div>
+    <button class="btn-primary" onclick="checkPassword()">Enter</button>
+  </div>
+</div>
+
+<div id="adminApp">
+  <header class="admin-header">
+    <span class="admin-logo">RUJO <span>✦</span> COFFEE <small>Admin</small></span>
+    <div class="header-actions">
+      <a href="../blog.html" class="btn-secondary" target="_blank">View Journal ↗</a>
+      <button class="btn-publish" id="publishBtn" onclick="publishPost()">Publish Post</button>
+    </div>
+  </header>
+
+  <div class="editor-wrap">
+    <div class="editor-main">
+      <div class="field-group">
+        <label class="field-label">Post Title</label>
+        <input type="text" id="postTitle" class="field-input title-input" placeholder="e.g. The Morning Ritual Is More Than Habit" oninput="updateSlug()">
+        <div class="slug-preview">URL: <span id="slugPreview">blog/your-post-title.html</span></div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Lead Paragraph <span style="color:var(--ash);font-size:0.65rem;margin-left:6px;">ITALIC OPENER WITH GOLD BORDER</span></label>
+        <textarea id="postLead" class="field-textarea" style="min-height:90px;" placeholder="One strong italic opening paragraph."></textarea>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Body Content</label>
+        <div class="editor-toolbar">
+          <button class="toolbar-btn" onclick="wrap('## ', '')">H2</button>
+          <button class="toolbar-btn" onclick="wrap('### ', '')">H3</button>
+          <button class="toolbar-btn" onclick="wrap('> ', '')">Quote</button>
+          <button class="toolbar-btn" onclick="wrap('[img:', ']')">Image</button>
+          <button class="toolbar-btn" onclick="insertFigure()">Figure + Caption</button>
+        </div>
+        <textarea id="postBody" class="field-textarea" placeholder="## Heading&#10;> Blockquote&#10;[img:https://images.unsplash.com/photo-xxx]&#10;[figure:URL|Caption text]"></textarea>
+        <div class="field-hint">## Heading &nbsp;·&nbsp; > Blockquote &nbsp;·&nbsp; [img:URL] &nbsp;·&nbsp; [figure:URL|Caption]</div>
+      </div>
+    </div>
+
+    <div class="editor-sidebar">
+      <div id="statusBar"></div>
+
+      <div>
+        <div class="sidebar-title">Post Meta</div>
+        <div class="field-group" style="margin-bottom:16px;">
+          <label class="field-label">Category</label>
+          <select id="postCategory" class="field-input">
+            <option value="origins">Origins</option>
+            <option value="roasting">Roasting</option>
+            <option value="ritual">Ritual</option>
+            <option value="harvest">Harvest</option>
+          </select>
+        </div>
+        <div class="field-group" style="margin-bottom:16px;">
+          <label class="field-label">Excerpt <span style="color:var(--ash);font-size:0.65rem;">(blog index card)</span></label>
+          <textarea id="postExcerpt" class="field-textarea" style="min-height:80px;" placeholder="One or two sentences."></textarea>
+        </div>
+        <div class="field-group" style="margin-bottom:0;">
+          <label class="field-label">Read Time</label>
+          <input type="text" id="postReadTime" class="field-input" placeholder="6 min read" value="6 min read">
+        </div>
+      </div>
+
+      <div>
+        <div class="sidebar-title">Hero Image</div>
+        <div class="field-group" style="margin-bottom:12px;">
+          <label class="field-label">Image URL</label>
+          <input type="text" id="postImage" class="field-input" placeholder="https://images.unsplash.com/photo-..." oninput="previewImage()">
+          <img id="imgPreview" class="img-preview" alt="Hero preview">
+        </div>
+        <div class="field-group" style="margin-bottom:0;">
+          <label class="field-label">Alt Text</label>
+          <input type="text" id="postImageAlt" class="field-input" placeholder="Descriptive alt text for SEO">
+        </div>
+      </div>
+
+      <div>
+        <div class="sidebar-title">SEO</div>
+        <div class="field-group" style="margin-bottom:16px;">
+          <label class="field-label">Meta Description</label>
+          <textarea id="postMetaDesc" class="field-textarea" style="min-height:70px;" placeholder="150-160 chars for Google."></textarea>
+        </div>
+        <div class="field-group" style="margin-bottom:0;">
+          <label class="field-label">Tags (comma-separated)</label>
+          <input type="text" id="postTags" class="field-input" placeholder="Ethiopia, Washed Process, Origins">
+        </div>
+      </div>
+
+      <div>
+        <div class="sidebar-title">GitHub Publishing</div>
+        <div class="field-group" style="margin-bottom:0;">
+          <label class="field-label">Personal Access Token</label>
+          <div class="token-wrap">
+            <input type="password" id="ghToken" class="field-input token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+            <button class="token-toggle" onclick="toggleToken()">show</button>
+          </div>
+          <div class="field-hint">Needs <code>repo</code> scope. Stored in sessionStorage only.</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="sidebar-title">Published Posts</div>
+        <div class="post-list" id="postList">
+          <div class="post-item"><span class="post-item-title">Yirgacheffe: The Valley That Invented Coffee</span><span class="post-item-cat">Origins</span></div>
+          <div class="post-item"><span class="post-item-title">Why We Roast Light</span><span class="post-item-cat">Roasting</span></div>
+          <div class="post-item"><span class="post-item-title">Inside Colombia's Coffee Triangle</span><span class="post-item-cat">Origins</span></div>
+          <div class="post-item"><span class="post-item-title">The Morning Ritual Is More Than Habit</span><span class="post-item-cat">Ritual</span></div>
+          <div class="post-item"><span class="post-item-title">Harvest Season and What It Means for Your Cup</span><span class="post-item-cat">Harvest</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const PASS = 'rujo2025';
+
+function checkPassword() {
+  const val = document.getElementById('passwordInput').value;
+  if (val === PASS) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminApp').style.display = 'block';
+    const saved = sessionStorage.getItem('gh_token');
+    if (saved) document.getElementById('ghToken').value = saved;
+  } else {
+    const inp = document.getElementById('passwordInput');
+    inp.classList.add('error');
+    document.getElementById('loginError').style.display = 'block';
+    setTimeout(() => { inp.classList.remove('error'); document.getElementById('loginError').style.display = 'none'; }, 2000);
+  }
+}
+document.getElementById('passwordInput').addEventListener('keydown', e => { if (e.key === 'Enter') checkPassword(); });
+
+function toSlug(str) {
+  return str.toLowerCase().replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-').replace(/-+/g, '-');
+}
+function updateSlug() {
+  const slug = toSlug(document.getElementById('postTitle').value) || 'your-post-title';
+  document.getElementById('slugPreview').textContent = `blog/${slug}.html`;
+}
+function toggleToken() {
+  const inp = document.getElementById('ghToken');
+  const btn = document.querySelector('.token-toggle');
+  if (inp.type === 'password') { inp.type = 'text'; btn.textContent = 'hide'; }
+  else { inp.type = 'password'; btn.textContent = 'show'; }
+}
+function previewImage() {
+  const url = document.getElementById('postImage').value.trim();
+  const img = document.getElementById('imgPreview');
+  if (url) { img.src = url.includes('unsplash') ? url + '&w=600&q=60' : url; img.classList.add('visible'); }
+  else img.classList.remove('visible');
+}
+function wrap(before, after) {
+  const ta = document.getElementById('postBody');
+  const s = ta.selectionStart, e = ta.selectionEnd;
+  ta.value = ta.value.substring(0, s) + before + (ta.value.substring(s, e) || 'text') + after + ta.value.substring(e);
+  ta.focus();
+}
+function insertFigure() {
+  const ta = document.getElementById('postBody');
+  const pos = ta.selectionStart;
+  ta.value = ta.value.substring(0, pos) + '\n[figure:https://images.unsplash.com/photo-xxx|Caption text here]\n' + ta.value.substring(pos);
+  ta.focus();
+}
+
+function parseBody(md) {
+  let html = '';
+  for (let line of md.split('\n')) {
+    line = line.trim();
+    if (!line) continue;
+    if (line.startsWith('### ')) html += `<h3>${line.slice(4)}</h3>\n`;
+    else if (line.startsWith('## ')) html += `<h2>${line.slice(3)}</h2>\n`;
+    else if (line.startsWith('> ')) html += `<blockquote>${line.slice(2)}</blockquote>\n`;
+    else if (line.startsWith('[figure:')) {
+      const [url, cap] = line.slice(8, -1).split('|');
+      html += `<figure><img src="${url.trim()}" alt="${(cap||'').trim()}" loading="lazy">${cap ? `<figcaption>${cap.trim()}</figcaption>` : ''}</figure>\n`;
+    } else if (line.startsWith('[img:')) {
+      html += `<img src="${line.slice(5,-1)}" alt="" loading="lazy" style="width:100%;border-radius:2px;margin:24px 0;">\n`;
+    } else html += `<p>${line}</p>\n`;
+  }
+  return html;
+}
+
+function buildPostHTML({ title, slug, lead, bodyHTML, category, excerpt, metaDesc, image, imageAlt, readTime, tags, date }) {
+  const tagList = tags.split(',').map(t => `<span class="tag">${t.trim()}</span>`).join(' ');
+  const fd = new Date(date).toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+  const kw = tags.split(',').map(t => `"${t.trim()}"`).join(', ');
+  const desc = metaDesc || excerpt;
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${title} — Rujo Journal</title>
+  <meta name="description" content="${desc}">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://mister-97.github.io/rujo-coffee-house/blog/${slug}.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="${title}">
+  <meta property="og:description" content="${desc}">
+  <meta property="og:image" content="${image}">
+  <meta property="og:url" content="https://mister-97.github.io/rujo-coffee-house/blog/${slug}.html">
+  <meta property="article:published_time" content="${date}">
+  <meta property="article:section" content="${category}">
+  <meta name="twitter:card" content="summary_large_image">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Karla:wght@300;400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"${title}","description":"${desc}","image":"${image}","datePublished":"${date}","author":{"@type":"Organization","name":"Rujo Coffee House"},"publisher":{"@type":"Organization","name":"Rujo Coffee House"},"url":"https://mister-97.github.io/rujo-coffee-house/blog/${slug}.html","articleSection":"${category}","keywords":[${kw}]}<\/script>
+  <style>*{margin:0;padding:0;box-sizing:border-box}:root{--cream:#f5f1e8;--gold:#d0a148;--obsidian:#0f0f0f}body{font-family:'Karla',sans-serif;background:var(--obsidian);color:var(--cream);overflow-x:hidden}nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 40px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(15,15,15,.95),transparent)}.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;letter-spacing:.2em;color:var(--cream);text-decoration:none}.nav-logo span{color:var(--gold)}.nav-links{display:flex;gap:32px;list-style:none}.nav-links a{font-size:.78rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(245,241,232,.7);text-decoration:none;transition:color .3s}.nav-links a:hover{color:var(--gold)}.post-hero{height:70vh;position:relative;display:flex;align-items:flex-end}.post-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.35) saturate(.75) sepia(.1)}.post-hero-content{position:relative;z-index:1;padding:60px;max-width:800px}.post-hero-category{font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}.post-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:300;line-height:1.15;color:var(--cream);margin-bottom:20px}.post-hero-meta{font-size:.78rem;color:rgba(245,241,232,.45);letter-spacing:.1em}.post-body{max-width:680px;margin:0 auto;padding:70px 40px 100px}.post-lead{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:300;line-height:1.7;color:rgba(245,241,232,.85);margin-bottom:48px;font-style:italic;border-left:2px solid var(--gold);padding-left:24px}.post-body p{font-size:1.05rem;line-height:1.9;color:rgba(245,241,232,.75);margin-bottom:28px}.post-body h2{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:400;color:var(--cream);margin:52px 0 20px}.post-body h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;color:var(--cream);margin:36px 0 14px}.post-body blockquote{border-left:2px solid var(--gold);padding:4px 0 4px 24px;margin:36px 0;font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-style:italic;color:rgba(245,241,232,.7);line-height:1.6}.post-body figure{margin:48px 0}.post-body figure img{width:100%;border-radius:2px;filter:saturate(.75) brightness(.9)}.post-body figcaption{font-size:.78rem;color:rgba(245,241,232,.35);margin-top:10px}.post-footer-nav{max-width:680px;margin:0 auto;padding:40px 40px 80px;display:flex;justify-content:space-between;border-top:1px solid rgba(245,241,232,.08)}.post-footer-nav a{font-size:.78rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);text-decoration:none}.tag-list{display:flex;gap:8px;flex-wrap:wrap;margin-top:40px;padding-top:40px;border-top:1px solid rgba(245,241,232,.08)}.tag{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;padding:5px 14px;border:1px solid rgba(245,241,232,.15);border-radius:100px;color:rgba(245,241,232,.4)}@media(max-width:768px){nav{padding:16px 20px}.nav-links{display:none}.post-hero-content{padding:40px 20px}.post-body{padding:50px 20px 60px}.post-footer-nav{padding:30px 20px 60px;flex-direction:column;gap:16px}}</style>
+</head>
+<body>
+<nav><a href="../index.html" class="nav-logo">RUJO <span>✦</span> COFFEE</a><ul class="nav-links"><li><a href="../index.html">Home</a></li><li><a href="../blog.html">Journal</a></li></ul></nav>
+<header class="post-hero">
+  <img class="post-hero-img" src="${image}" alt="${imageAlt}">
+  <div class="post-hero-content">
+    <p class="post-hero-category">${category}</p>
+    <h1>${title}</h1>
+    <p class="post-hero-meta"><time datetime="${date}">${fd}</time> &nbsp;·&nbsp; ${readTime}</p>
+  </div>
+</header>
+<article class="post-body">
+  <p class="post-lead">${lead}</p>
+  ${bodyHTML}
+  <div class="tag-list">${tagList}</div>
+</article>
+<nav class="post-footer-nav"><a href="../blog.html">← All Stories</a></nav>
+</body></html>`;
+}
+
+async function publishPost() {
+  const get = id => document.getElementById(id).value.trim();
+  const token = get('ghToken'), title = get('postTitle'), lead = get('postLead'),
+    body = get('postBody'), category = get('postCategory'), excerpt = get('postExcerpt'),
+    metaDesc = get('postMetaDesc'), image = get('postImage'), imageAlt = get('postImageAlt'),
+    readTime = get('postReadTime'), tags = get('postTags');
+  const btn = document.getElementById('publishBtn');
+
+  if (!token) return showStatus('error', 'Add your GitHub token.');
+  if (!title) return showStatus('error', 'Title is required.');
+  if (!lead) return showStatus('error', 'Lead paragraph is required.');
+  if (!body) return showStatus('error', 'Body content is required.');
+  if (!image) return showStatus('error', 'Hero image URL is required.');
+  if (!excerpt) return showStatus('error', 'Excerpt is required.');
+
+  sessionStorage.setItem('gh_token', token);
+  const slug = toSlug(title);
+  const date = new Date().toISOString().split('T')[0];
+  const postHTML = buildPostHTML({ title, slug, lead, bodyHTML: parseBody(body), category, excerpt, metaDesc, image, imageAlt, readTime, tags, date });
+
+  btn.disabled = true;
+  showStatus('loading', 'Publishing to GitHub...');
+
+  const owner = 'Mister-97', repo = 'rujo-coffee-house';
+  const path = `blog/${slug}.html`;
+  const apiURL = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+  const headers = { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' };
+
+  try {
+    let sha = null;
+    const check = await fetch(apiURL, { headers });
+    if (check.ok) sha = (await check.json()).sha;
+
+    const content = btoa(unescape(encodeURIComponent(postHTML)));
+    const res = await fetch(apiURL, {
+      method: 'PUT', headers,
+      body: JSON.stringify({ message: `Add post: ${title}`, content, ...(sha ? { sha } : {}) })
+    });
+    if (!res.ok) throw new Error((await res.json()).message || 'GitHub API error');
+
+    showStatus('success', `✓ Published! Live in ~30s at:<br><a href="https://mister-97.github.io/rujo-coffee-house/${path}" target="_blank" style="color:var(--gold)">/${path} ↗</a><br><small style="opacity:0.7;display:block;margin-top:6px;">Remember to add it to blog.html and sitemap.xml.</small>`);
+    const item = document.createElement('div');
+    item.className = 'post-item';
+    item.innerHTML = `<span class="post-item-title">${title}</span><span class="post-item-cat">${category}</span>`;
+    document.getElementById('postList').prepend(item);
+  } catch(e) {
+    showStatus('error', `Error: ${e.message}`);
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+function showStatus(type, msg) {
+  const el = document.getElementById('statusBar');
+  el.className = type;
+  el.innerHTML = msg;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: https://mister-97.github.io/rujo-coffee-house/sitemap.xml
