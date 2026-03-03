@@ -769,7 +769,26 @@
       .step-photo::after, .process-step:nth-child(even) .step-photo::after { display: none; }
       .step-content { padding: 3.5rem 3rem; }
       .experience-content { grid-template-columns: auto 1fr; gap: 3rem; padding: 6rem 3rem; }
-      .origin-panel { display: none !important; }
+      .origin-panel {
+        position: fixed !important;
+        bottom: 0; left: 0; right: 0;
+        width: 100% !important;
+        max-height: 80vh;
+        overflow-y: auto;
+        border-top: 1px solid rgba(201,168,76,0.2);
+        border-right: none;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(100%);
+        transition: transform 0.35s ease, opacity 0.3s ease;
+        z-index: 200;
+      }
+      .origin-panel.active {
+        opacity: 1 !important;
+        pointer-events: all;
+        transform: translateY(0);
+        width: 100% !important;
+      }
       .map-section { padding: 3rem 0 1rem; }
       .map-header { margin-bottom: 2rem; }
     }
@@ -822,10 +841,6 @@
       <li><a href="/shop" class="nav-shop">Shop</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <div class="nav-cart">
-      <span>Cart</span>
-      <span id="cartCount">(0)</span>
-    </div>
   </nav>
 
   <section class="hero">
@@ -891,7 +906,7 @@
             <div class="panel-notes" id="panelNotes"></div>
             <div class="panel-footer">
               <div class="panel-price" id="panelPrice"></div>
-              <button class="panel-buy-btn" onclick="addToCart()">Buy Now</button>
+              <a class="panel-buy-btn" href="/shop">Buy Now</a>
             </div>
           </div>
         </div>
@@ -907,7 +922,7 @@
       <p class="section-subtitle">Each origin tells a story of land, climate, and generations of expertise.</p>
     </div>
     <div class="origins-grid">
-      <div class="origin-card card-ethiopia" onclick="openPanel('ethiopia')">
+      <div class="origin-card card-ethiopia" onclick="window.location.href='/shop'">
         <div class="origin-card-bg"></div><div class="origin-card-overlay"></div>
         <div class="origin-card-content">
           <p class="origin-country">Ethiopia</p><h3 class="origin-name">Yirgacheffe</h3>
@@ -915,7 +930,7 @@
           <span class="origin-cta">Explore Origin <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></span>
         </div>
       </div>
-      <div class="origin-card card-colombia" onclick="openPanel('colombia')">
+      <div class="origin-card card-colombia" onclick="window.location.href='/shop'">
         <div class="origin-card-bg"></div><div class="origin-card-overlay"></div>
         <div class="origin-card-content">
           <p class="origin-country">Colombia</p><h3 class="origin-name">Huila</h3>
@@ -923,7 +938,7 @@
           <span class="origin-cta">Explore Origin <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></span>
         </div>
       </div>
-      <div class="origin-card card-brazil" onclick="openPanel('brazil')">
+      <div class="origin-card card-brazil" onclick="window.location.href='/shop'">
         <div class="origin-card-bg"></div><div class="origin-card-overlay"></div>
         <div class="origin-card-content">
           <p class="origin-country">Brazil</p><h3 class="origin-name">Cerrado</h3>
@@ -931,7 +946,7 @@
           <span class="origin-cta">Explore Origin <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></span>
         </div>
       </div>
-      <div class="origin-card card-sumatra" onclick="openPanel('sumatra')">
+      <div class="origin-card card-sumatra" onclick="window.location.href='/shop'">
         <div class="origin-card-bg"></div><div class="origin-card-overlay"></div>
         <div class="origin-card-content">
           <p class="origin-country">Indonesia</p><h3 class="origin-name">Sumatra</h3>
@@ -939,7 +954,7 @@
           <span class="origin-cta">Explore Origin <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></span>
         </div>
       </div>
-      <div class="origin-card card-kenya" onclick="openPanel('kenya')">
+      <div class="origin-card card-kenya" onclick="window.location.href='/shop'">
         <div class="origin-card-bg"></div><div class="origin-card-overlay"></div>
         <div class="origin-card-content">
           <p class="origin-country">Kenya</p><h3 class="origin-name">AA Grade</h3>
