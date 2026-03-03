@@ -53,11 +53,18 @@
     .post-body figure { margin: 48px 0; }
     .post-body figure img { width: 100%; border-radius: 2px; filter: saturate(0.75) brightness(0.9); }
     .post-body figcaption { font-size: 0.78rem; color: rgba(245,241,232,0.35); margin-top: 10px; }
-    .post-footer-nav { max-width: 680px; margin: 0 auto; padding: 40px 40px 80px; display: flex; justify-content: space-between; border-top: 1px solid rgba(245,241,232,0.08); }
+    .post-footer-nav { max-width: 680px; margin: 0 auto; padding: 32px 40px 80px; display: flex; justify-content: space-between; border-top: 1px solid rgba(245,241,232,0.08); }
     .post-footer-nav a { font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); text-decoration: none; }
     .tag-list { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 40px; padding-top: 40px; border-top: 1px solid rgba(245,241,232,0.08); }
     .tag { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 5px 14px; border: 1px solid rgba(245,241,232,0.15); border-radius: 100px; color: rgba(245,241,232,0.4); }
-    @media (max-width: 768px) { nav { padding: 16px 20px; } .nav-links { display: none; } .post-hero-content { padding: 40px 20px; } .post-body { padding: 50px 20px 60px; } .post-footer-nav { padding: 30px 20px 60px; } }
+    .post-body { max-width: 680px; margin: 0 auto; padding: 70px 40px 60px; }
+    .post-cta { max-width: 680px; margin: 0 auto; padding: 48px 40px; border-top: 1px solid rgba(201,168,76,0.2); text-align: center; }
+    .post-cta-label { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+    .post-cta h3 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: var(--cream); margin-bottom: 14px; }
+    .post-cta p { font-size: 0.9rem; color: rgba(245,241,232,0.55); line-height: 1.8; max-width: 460px; margin: 0 auto 28px; }
+    .post-cta-btn { display: inline-block; padding: 13px 32px; border: 1px solid var(--gold); color: var(--gold); font-family: 'Karla', sans-serif; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; transition: all 0.3s; }
+    .post-cta-btn:hover { background: var(--gold); color: var(--obsidian); }
+    @media (max-width: 768px) { nav { padding: 16px 20px; } .nav-links { display: none; } .post-hero-content { padding: 40px 20px; } .post-body { padding: 50px 20px 40px; } .post-cta { padding: 40px 20px; } .post-footer-nav { padding: 30px 20px 60px; flex-direction: column; gap: 16px; } }
   </style>
 </head>
 <body>
@@ -107,6 +114,13 @@
     <span class="tag">Specialty Coffee</span>
   </div>
 </article>
+<div class="post-cta">
+  <p class="post-cta-label">From Yirgacheffe to your cup</p>
+  <h3>Taste the Valley</h3>
+  <p>Our Ethiopian Yirgacheffe is sourced directly from the highlands you just read about — washed, light-roasted to preserve every floral note, shipped fresh.</p>
+  <a href="../shop.html" class="post-cta-btn">Explore Our Coffees →</a>
+</div>
+
 <nav class="post-footer-nav">
   <a href="../blog.html">← All Stories</a>
   <a href="why-we-roast-light.html">Next: Why We Roast Light →</a>
