@@ -1235,6 +1235,15 @@
     document.getElementById('drawerOverlay').classList.add('open');
     document.getElementById('productDrawer').classList.add('open');
     document.body.style.overflow = 'hidden';
+
+    fbq('track', 'ViewContent', {
+      content_name: p.name,
+      content_ids: [productId],
+      content_type: 'product',
+      content_category: p.isBag ? 'Coffee Bags' : 'Single-Use Cups',
+      value: p.basePrice,
+      currency: 'USD'
+    });
   }
 
   function closeDrawer() {
@@ -1268,6 +1277,14 @@
     }
     saveCart(cart);
     updateCartBadge();
+
+    fbq('track', 'AddToCart', {
+      content_name: p.name,
+      content_ids: [variantId],
+      content_type: 'product',
+      value: price,
+      currency: 'USD'
+    });
 
     // Button feedback: show "Added ✓" then close drawer and open cart
     setTimeout(() => {
@@ -1355,6 +1372,15 @@
   function checkout() {
     const items = Object.values(getCart());
     if (!items.length) return;
+
+    fbq('track', 'InitiateCheckout', {
+      content_ids: items.map(i => i.variantId),
+      content_type: 'product',
+      num_items: items.reduce((sum, i) => sum + i.qty, 0),
+      value: items.reduce((sum, i) => sum + i.price * i.qty, 0),
+      currency: 'USD'
+    });
+
     const lineItems = items.map(i => `${i.variantId}:${i.qty}`).join(',');
     // Clear cart immediately — Shopify owns it from here
     localStorage.removeItem('rujo_cart');
