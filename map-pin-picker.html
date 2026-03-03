@@ -7,34 +7,56 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: #0a0a0a; color: #f5f0e8; font-family: 'Helvetica Neue', sans-serif; padding: 2rem; }
     h1 { font-size: 1rem; letter-spacing: 0.3em; text-transform: uppercase; color: #c9a84c; margin-bottom: 0.5rem; }
-    p { font-size: 0.75rem; color: #888; margin-bottom: 1.5rem; letter-spacing: 0.1em; }
+    .subtitle { font-size: 0.75rem; color: #888; margin-bottom: 1.5rem; letter-spacing: 0.1em; }
 
     #map-wrap {
       position: relative;
-      display: inline-block;
+      display: block;
+      width: 100%;
+      max-width: 900px;
       cursor: crosshair;
-      border: 1px solid #222;
+      border: 1px solid #333;
+      background: #111;
+      line-height: 0;
     }
-    #map-wrap img { display: block; max-width: 100%; user-select: none; }
+    #map-wrap img {
+      display: block;
+      width: 100%;
+      height: auto;
+      pointer-events: none;
+      user-select: none;
+    }
+    #status {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.5rem;
+      color: #555;
+      text-align: center;
+    }
 
     .dot {
       position: absolute;
-      width: 10px; height: 10px;
+      width: 12px; height: 12px;
       background: #c9a84c;
       border-radius: 50%;
       transform: translate(-50%, -50%);
       pointer-events: none;
-      box-shadow: 0 0 0 3px rgba(201,168,76,0.3);
+      border: 2px solid #fff;
+      z-index: 10;
     }
     .dot-label {
       position: absolute;
-      font-size: 0.55rem;
-      letter-spacing: 0.15em;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #c9a84c;
+      color: #fff;
+      background: rgba(0,0,0,0.75);
+      padding: 2px 5px;
       white-space: nowrap;
-      transform: translate(-50%, 8px);
+      transform: translate(-50%, 10px);
       pointer-events: none;
+      z-index: 10;
     }
 
     #output {
@@ -42,46 +64,53 @@
       background: #111;
       border: 1px solid #222;
       padding: 1.5rem;
-      border-radius: 4px;
-      max-width: 800px;
+      max-width: 900px;
     }
     #output h2 { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: #c9a84c; margin-bottom: 1rem; }
+
     #coords-list { list-style: none; }
     #coords-list li {
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       font-family: 'Courier New', monospace;
       color: #a8d4f0;
-      padding: 0.4rem 0;
+      padding: 0.5rem 0;
       border-bottom: 1px solid #1a1a1a;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
     #coords-list li:last-child { border-bottom: none; }
-    #coords-list span.label { color: #888; margin-right: 0.5rem; }
+    .li-label { color: #c9a84c; min-width: 80px; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; }
+    .li-val { color: #f5f0e8; }
+    .li-copy {
+      margin-left: auto;
+      background: none;
+      border: 1px solid #333;
+      color: #666;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      cursor: pointer;
+    }
+    .li-copy:hover { border-color: #c9a84c; color: #c9a84c; }
 
     #last-click {
-      margin-top: 1rem;
-      font-size: 0.8rem;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
       font-family: 'Courier New', monospace;
       color: #f5f0e8;
       background: #1a1a1a;
       padding: 0.75rem 1rem;
-      border-radius: 3px;
       border-left: 3px solid #c9a84c;
+      display: none;
     }
 
-    #instructions {
-      margin-bottom: 1.5rem;
-      max-width: 800px;
-      font-size: 0.72rem;
-      color: #666;
-      line-height: 1.8;
-    }
-    #instructions strong { color: #c9a84c; }
-
+    .btn-row { margin-top: 1.25rem; display: flex; gap: 0.5rem; }
     .btn-clear {
-      margin-top: 1rem;
       background: none;
       border: 1px solid #333;
-      color: #888;
+      color: #666;
       font-size: 0.65rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -89,109 +118,143 @@
       cursor: pointer;
     }
     .btn-clear:hover { border-color: #c9a84c; color: #c9a84c; }
-
     #copy-all {
-      margin-top: 0.5rem;
       background: #c9a84c;
       border: none;
       color: #0a0a0a;
       font-size: 0.65rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 1.25rem;
       cursor: pointer;
-      font-weight: 600;
+      font-weight: 700;
     }
     #copy-all:hover { background: #e0bc6a; }
+
+    #instructions {
+      margin-bottom: 1.5rem;
+      max-width: 900px;
+      font-size: 0.72rem;
+      color: #666;
+      line-height: 1.9;
+      border-left: 2px solid #222;
+      padding-left: 1rem;
+    }
+    #instructions strong { color: #c9a84c; }
   </style>
 </head>
 <body>
 
   <h1>Rujo — Map Pin Picker</h1>
-  <p>Click anywhere on the map to get the exact left/top percentages for that pin location.</p>
+  <p class="subtitle">Click the map to get exact pin coordinates</p>
 
   <div id="instructions">
-    <strong>How to use:</strong><br>
-    1. Click on the map where you want a pin (e.g. click on Colombia)<br>
-    2. Copy the <strong>left</strong> and <strong>top</strong> values shown below<br>
-    3. Paste them into <strong>home.html</strong> in the matching <code>style="left:XX%;top:YY%;"</code> attribute<br>
-    4. Each click adds a marker so you can place all 5 origins at once
+    <strong>Instructions:</strong><br>
+    1. Click on the exact spot on the map for each origin (Colombia, Brazil, Ethiopia, Kenya, Sumatra)<br>
+    2. The coordinates appear below instantly — copy each one individually or use <strong>Copy All</strong><br>
+    3. Paste the values into <strong>home.html</strong> lines 847–871 in the <code>style="left:XX%;top:YY%;"</code> of each pin
   </div>
 
   <div id="map-wrap">
-    <img src="https://i.ibb.co/zVrgLsX3/Untitled-design-62.png" alt="World Map" id="mapImg" draggable="false" />
+    <img
+      src="https://i.ibb.co/zVrgLsX3/Untitled-design-62.png"
+      alt="World Map"
+      id="mapImg"
+      crossorigin="anonymous"
+    />
+    <div id="status">Loading map...</div>
   </div>
 
   <div id="output">
-    <h2>Clicked Coordinates</h2>
-    <ul id="coords-list"><li style="color:#444;">No clicks yet — click on the map above</li></ul>
-    <div id="last-click" style="display:none;"></div>
-    <br>
-    <button class="btn-clear" onclick="clearAll()">Clear All</button>
-    <button id="copy-all" onclick="copyAll()" style="margin-left:0.5rem;">Copy HTML</button>
+    <div id="last-click"></div>
+    <h2>Pin Coordinates</h2>
+    <ul id="coords-list">
+      <li style="color:#444; font-size:0.72rem;">No clicks yet — click directly on the map above</li>
+    </ul>
+    <div class="btn-row">
+      <button class="btn-clear" onclick="clearAll()">Clear All</button>
+      <button id="copy-all" onclick="copyAll()">Copy All</button>
+    </div>
   </div>
 
   <script>
-    const wrap = document.getElementById('map-wrap');
-    const img = document.getElementById('mapImg');
-    const list = document.getElementById('coords-list');
-    const lastClick = document.getElementById('last-click');
+    const wrap     = document.getElementById('map-wrap');
+    const img      = document.getElementById('mapImg');
+    const list     = document.getElementById('coords-list');
+    const lastEl   = document.getElementById('last-click');
+    const statusEl = document.getElementById('status');
 
-    const origins = ['Colombia','Brazil','Ethiopia','Kenya','Sumatra','Custom'];
+    const NAMES = ['Colombia','Brazil','Ethiopia','Kenya','Sumatra'];
     let clickCount = 0;
     let clicks = [];
 
+    img.onload  = () => { statusEl.remove(); };
+    img.onerror = () => { statusEl.textContent = 'Map image failed to load — check your connection'; statusEl.style.color = '#e55'; };
+
     wrap.addEventListener('click', function(e) {
-      const rect = img.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1);
+      const rect = wrap.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+
+      const x = ((e.clientX - rect.left) / rect.width  * 100).toFixed(1);
       const y = ((e.clientY - rect.top)  / rect.height * 100).toFixed(1);
 
+      const label = NAMES[clickCount] || `Point ${clickCount + 1}`;
       clickCount++;
-      const label = origins[clickCount - 1] || `Point ${clickCount}`;
       clicks.push({ label, x, y });
 
-      // Place dot on map
+      // Dot
       const dot = document.createElement('div');
       dot.className = 'dot';
       dot.style.left = x + '%';
       dot.style.top  = y + '%';
       wrap.appendChild(dot);
 
-      const dotLabel = document.createElement('div');
-      dotLabel.className = 'dot-label';
-      dotLabel.style.left = x + '%';
-      dotLabel.style.top  = y + '%';
-      dotLabel.textContent = label;
-      wrap.appendChild(dotLabel);
+      // Label
+      const lbl = document.createElement('div');
+      lbl.className = 'dot-label';
+      lbl.style.left = x + '%';
+      lbl.style.top  = y + '%';
+      lbl.textContent = label;
+      wrap.appendChild(lbl);
 
-      // Update last click display
-      lastClick.style.display = 'block';
-      lastClick.innerHTML = `<strong style="color:#c9a84c;">${label}</strong> &nbsp;→&nbsp; left:<strong>${x}%</strong> &nbsp; top:<strong>${y}%</strong>`;
+      // Last click banner
+      lastEl.style.display = 'block';
+      lastEl.innerHTML = `<strong style="color:#c9a84c">${label}</strong> &nbsp;→&nbsp; left:<strong>${x}%</strong> &nbsp; top:<strong>${y}%</strong>`;
 
-      // Rebuild list
+      // List
       if (clickCount === 1) list.innerHTML = '';
-      const li = document.createElement('li');
-      li.innerHTML = `<span class="label">${label}</span> style="left:${x}%;top:${y}%;"`;
+      const li   = document.createElement('li');
+      const val  = `left:${x}%;top:${y}%;`;
+      li.innerHTML = `
+        <span class="li-label">${label}</span>
+        <span class="li-val">${val}</span>
+        <button class="li-copy" onclick="copySingle('${val}', this)">Copy</button>
+      `;
       list.appendChild(li);
     });
+
+    function copySingle(val, btn) {
+      navigator.clipboard.writeText(val).then(() => {
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy', 1200);
+      });
+    }
 
     function clearAll() {
       clickCount = 0;
       clicks = [];
-      list.innerHTML = '<li style="color:#444;">No clicks yet — click on the map above</li>';
-      lastClick.style.display = 'none';
+      list.innerHTML = '<li style="color:#444; font-size:0.72rem;">No clicks yet — click directly on the map above</li>';
+      lastEl.style.display = 'none';
       document.querySelectorAll('.dot, .dot-label').forEach(el => el.remove());
     }
 
     function copyAll() {
       if (!clicks.length) return;
-      const lines = clicks.map(c =>
-        `<!-- ${c.label} -->\nstyle="left:${c.x}%;top:${c.y}%;"`
-      ).join('\n\n');
-      navigator.clipboard.writeText(lines).then(() => {
+      const txt = clicks.map(c => `${c.label}: left:${c.x}%;top:${c.y}%;`).join('\n');
+      navigator.clipboard.writeText(txt).then(() => {
         const btn = document.getElementById('copy-all');
         btn.textContent = 'Copied!';
-        setTimeout(() => btn.textContent = 'Copy HTML', 1500);
+        setTimeout(() => btn.textContent = 'Copy All', 1500);
       });
     }
   </script>
