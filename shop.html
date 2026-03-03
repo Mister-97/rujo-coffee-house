@@ -1339,6 +1339,9 @@
     const items = Object.values(getCart());
     if (!items.length) return;
     const lineItems = items.map(i => `${i.variantId}:${i.qty}`).join(',');
+    // Clear cart immediately — Shopify owns it from here
+    localStorage.removeItem('rujo_cart');
+    updateCartBadge();
     window.location.href = `https://${SHOP_DOMAIN}/cart/${lineItems}`;
   }
 
