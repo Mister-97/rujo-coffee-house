@@ -55,6 +55,47 @@
     }
     .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--gold); }
 
+    /* ── Mobile hamburger ── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 401;
+    }
+    .nav-hamburger span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--cream); transition: all 0.3s ease;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed; inset: 0;
+      background: rgba(10,10,10,0.98);
+      z-index: 400;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 2rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .mobile-menu.open { opacity: 1; pointer-events: all; }
+    .mobile-menu-links { display: flex; flex-direction: column; align-items: center; gap: 2rem; list-style: none; }
+    .mobile-menu-links a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem; font-weight: 300;
+      color: var(--cream); text-decoration: none; letter-spacing: 0.06em;
+      transition: color 0.3s ease;
+    }
+    .mobile-menu-links a:hover { color: var(--gold); }
+    .mobile-menu-links .m-shop { color: var(--gold); }
+    .mobile-menu-divider { width: 40px; height: 1px; background: rgba(255,255,255,0.1); }
+
     /* ── HERO ── */
     .shop-hero {
       position: relative; padding: 11rem 3.5rem 6rem; text-align: center; overflow: hidden;
@@ -588,6 +629,7 @@
     @media (max-width: 600px) {
       .products-grid { grid-template-columns: repeat(2, 1fr); }
       .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
       .drawer-specs { grid-template-columns: 1fr; }
     }
   </style>
@@ -625,7 +667,25 @@
       Cart
       <span class="cart-count-badge" id="cartCount">0</span>
     </button>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <!-- Mobile menu overlay -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-menu-links">
+      <li><a href="/home" onclick="toggleMenu()">Home</a></li>
+      <li><a href="/shop" class="m-shop" onclick="toggleMenu()">Shop</a></li>
+      <li><a href="/blog" onclick="toggleMenu()">Journal</a></li>
+      <div class="mobile-menu-divider"></div>
+      <li>
+        <button onclick="toggleMenu(); openCart();" style="background:none;border:1px solid rgba(201,168,76,0.3);color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;letter-spacing:0.06em;cursor:pointer;padding:0.5rem 1.5rem;">
+          Cart <span id="menuCartCount"></span>
+        </button>
+      </li>
+    </ul>
+  </div>
 
   <!-- HERO -->
   <section class="shop-hero">
@@ -1235,7 +1295,7 @@
     document.getElementById('productDrawer').classList.add('open');
     document.body.style.overflow = 'hidden';
 
-    fbq('track', 'ViewContent', {
+    if (typeof fbq !== 'undefined') fbq('track', 'ViewContent', {
       content_name: p.name,
       content_ids: [productId],
       content_type: 'product',
@@ -1277,7 +1337,7 @@
     saveCart(cart);
     updateCartBadge();
 
-    fbq('track', 'AddToCart', {
+    if (typeof fbq !== 'undefined') fbq('track', 'AddToCart', {
       content_name: p.name,
       content_ids: [variantId],
       content_type: 'product',
@@ -1372,7 +1432,7 @@
     const items = Object.values(getCart());
     if (!items.length) return;
 
-    fbq('track', 'InitiateCheckout', {
+    if (typeof fbq !== 'undefined') fbq('track', 'InitiateCheckout', {
       content_ids: items.map(i => i.variantId),
       content_type: 'product',
       num_items: items.reduce((sum, i) => sum + i.qty, 0),
@@ -1387,10 +1447,26 @@
     window.location.href = `https://${SHOP_DOMAIN}/cart/${lineItems}`;
   }
 
+  // ── MOBILE MENU ───────────────────────────────────────────────────────────
+  function toggleMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const btn  = document.getElementById('hamburger');
+    const open = menu.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+    // sync cart count in mobile menu
+    const badge = document.getElementById('menuCartCount');
+    if (badge) {
+      const total = Object.values(getCart()).reduce((s, i) => s + i.qty, 0);
+      badge.textContent = total > 0 ? `(${total})` : '';
+    }
+  }
+
   // ── KEYBOARD / ESCAPE ────────────────────────────────────────────────────
   document.addEventListener('keydown', e => {
     if (e.key !== 'Escape') return;
-    if (document.getElementById('productDrawer').classList.contains('open')) closeDrawer();
+    if (document.getElementById('mobileMenu').classList.contains('open')) toggleMenu();
+    else if (document.getElementById('productDrawer').classList.contains('open')) closeDrawer();
     else if (document.getElementById('cartSidebar').classList.contains('open')) closeCart();
   });
 

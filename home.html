@@ -138,6 +138,69 @@
     }
     .nav-cart:hover { color: var(--gold); }
 
+    /* ── Mobile hamburger ── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 201;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--silver);
+      transition: all 0.3s ease;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* ── Mobile menu overlay ── */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: rgba(15,15,15,0.98);
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .mobile-menu.open { opacity: 1; pointer-events: all; }
+    .mobile-menu-links {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+    .mobile-menu-links a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--cream);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      transition: color 0.3s ease;
+    }
+    .mobile-menu-links a:hover { color: var(--gold); }
+    .mobile-menu-links .m-shop { color: var(--gold); }
+    .mobile-menu-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--stone);
+      margin: 0.5rem 0;
+    }
+
     .hero {
       height: 100vh;
       position: relative;
@@ -340,20 +403,36 @@
     }
     @keyframes hintFade { to { opacity: 0; visibility: hidden; } }
 
+    /* Panel overlay (dim bg behind panel on desktop) */
+    .panel-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 499;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .panel-overlay.active { opacity: 1; pointer-events: all; }
+
     .origin-panel {
-      position: relative;
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
       width: 0;
-      height: 0;
       overflow: hidden;
       opacity: 0;
-      transition: width 0.6s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease, height 0.6s cubic-bezier(0.16,1,0.3,1);
-      flex-shrink: 0;
+      transition: width 0.55s cubic-bezier(0.16,1,0.3,1), opacity 0.35s ease;
+      z-index: 500;
+      background: #0a0a0a;
     }
-    .origin-panel.active { width: 380px; height: auto; opacity: 1; }
+    .origin-panel.active { width: 400px; opacity: 1; }
     .origin-panel-inner {
-      width: 380px;
+      width: 400px;
       padding: 3rem 2.5rem 3rem 3rem;
       height: 100%;
+      overflow-y: auto;
       display: flex;
       flex-direction: column;
       border-left: 1px solid var(--stone);
@@ -761,6 +840,7 @@
     @media (max-width: 900px) {
       nav { padding: 1.5rem 2rem; }
       .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
       .origins-grid { grid-template-columns: 1fr 1fr; }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
       .process-step { grid-template-columns: 1fr; min-height: auto; }
@@ -769,26 +849,24 @@
       .step-photo::after, .process-step:nth-child(even) .step-photo::after { display: none; }
       .step-content { padding: 3.5rem 3rem; }
       .experience-content { grid-template-columns: auto 1fr; gap: 3rem; padding: 6rem 3rem; }
+      /* Panel slides up from bottom on mobile */
       .origin-panel {
-        position: fixed !important;
-        bottom: 0; left: 0; right: 0;
+        top: auto;
+        right: 0;
+        left: 0;
+        bottom: 0;
         width: 100% !important;
-        max-height: 80vh;
-        overflow-y: auto;
-        border-top: 1px solid rgba(201,168,76,0.2);
-        border-right: none;
-        opacity: 0;
-        pointer-events: none;
+        max-height: 85vh;
+        border-left: none;
+        border-top: 1px solid var(--stone);
         transform: translateY(100%);
-        transition: transform 0.35s ease, opacity 0.3s ease;
-        z-index: 200;
+        transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.3s ease;
       }
       .origin-panel.active {
-        opacity: 1 !important;
-        pointer-events: all;
-        transform: translateY(0);
         width: 100% !important;
+        transform: translateY(0);
       }
+      .origin-panel-inner { width: 100%; }
       .map-section { padding: 3rem 0 1rem; }
       .map-header { margin-bottom: 2rem; }
     }
@@ -843,7 +921,27 @@
       <li><a href="/shop" class="nav-shop">Shop</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <!-- Mobile menu overlay -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-menu-links">
+      <li><a href="#origins" onclick="toggleMenu()">Origins</a></li>
+      <li><a href="#process" onclick="toggleMenu()">Process</a></li>
+      <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
+      <div class="mobile-menu-divider"></div>
+      <li><a href="/blog" onclick="toggleMenu()">Journal</a></li>
+      <li><a href="/shop" class="m-shop" onclick="toggleMenu()">Shop</a></li>
+      <div class="mobile-menu-divider"></div>
+      <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Panel backdrop -->
+  <div class="panel-overlay" id="panelOverlay" onclick="closePanel()"></div>
 
   <section class="hero">
     <div class="hero-bg"></div>
@@ -1080,13 +1178,25 @@
       document.getElementById('panelImage').style.backgroundImage = `url('${data.image}')`;
       document.getElementById('panelNotes').innerHTML = data.notes.map(n => `<span class="panel-note-tag">${n}</span>`).join('');
       document.getElementById('originPanel').classList.add('active');
+      document.getElementById('panelOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
       document.querySelectorAll('.map-pin').forEach(p => p.classList.remove('active'));
       document.getElementById('pin-' + region)?.classList.add('active');
     }
 
     function closePanel() {
       document.getElementById('originPanel').classList.remove('active');
+      document.getElementById('panelOverlay').classList.remove('active');
+      document.body.style.overflow = '';
       document.querySelectorAll('.map-pin').forEach(p => p.classList.remove('active'));
+    }
+
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const btn  = document.getElementById('hamburger');
+      const open = menu.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
     }
 
     function addToCart() {
@@ -1098,7 +1208,12 @@
       setTimeout(() => { btn.textContent = 'Buy Now'; btn.style.background = ''; }, 2000);
     }
 
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        closePanel();
+        if (document.getElementById('mobileMenu').classList.contains('open')) toggleMenu();
+      }
+    });
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();
