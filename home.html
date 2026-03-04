@@ -857,6 +857,8 @@
         bottom: 0;
         width: 100% !important;
         max-height: 85vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
         border-left: none;
         border-top: 1px solid var(--stone);
         transform: translateY(100%);
@@ -866,7 +868,7 @@
         width: 100% !important;
         transform: translateY(0);
       }
-      .origin-panel-inner { width: 100%; }
+      .origin-panel-inner { width: 100%; overflow-y: visible; }
       .map-section { padding: 3rem 0 1rem; }
       .map-header { margin-bottom: 2rem; }
     }

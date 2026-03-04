@@ -1201,7 +1201,7 @@
   function getCart() {
     try { return JSON.parse(localStorage.getItem('rujo_cart') || '{}'); } catch { return {}; }
   }
-  function saveCart(cart) { localStorage.setItem('rujo_cart', JSON.stringify(cart)); }
+  function saveCart(cart) { try { localStorage.setItem('rujo_cart', JSON.stringify(cart)); } catch(e) {} }
 
   function updateCartBadge() {
     const total = Object.values(getCart()).reduce((s, i) => s + i.qty, 0);
@@ -1316,36 +1316,29 @@
     const p = PRODUCTS[activeProductId];
     if (!p) return;
 
-    const variantId   = resolveVariantId();
-    const price       = resolvePrice();
+    const variantId    = resolveVariantId();
+    const price        = resolvePrice();
     const variantLabel = p.isBag ? `${selectedSize} · ${selectedGrind}` : 'Single-Use Cups';
 
     const btn = document.getElementById('drawerAtcBtn');
     btn.disabled = true;
     btn.classList.add('loading');
 
-    // Add/increment in localStorage cart
-    const cart = getCart();
-    if (cart[variantId]) {
-      cart[variantId].qty++;
-    } else {
-      cart[variantId] = {
-        variantId, name: p.name, variant: variantLabel,
-        price, image: p.image, qty: 1
-      };
-    }
-    saveCart(cart);
-    updateCartBadge();
+    try {
+      const cart = getCart();
+      if (cart[variantId]) {
+        cart[variantId].qty++;
+      } else {
+        cart[variantId] = { variantId, name: p.name, variant: variantLabel, price, image: p.image, qty: 1 };
+      }
+      saveCart(cart);
+      updateCartBadge();
+      if (typeof fbq !== 'undefined') fbq('track', 'AddToCart', {
+        content_name: p.name, content_ids: [variantId],
+        content_type: 'product', value: price, currency: 'USD'
+      });
+    } catch(e) { console.warn('addToCart error:', e); }
 
-    if (typeof fbq !== 'undefined') fbq('track', 'AddToCart', {
-      content_name: p.name,
-      content_ids: [variantId],
-      content_type: 'product',
-      value: price,
-      currency: 'USD'
-    });
-
-    // Button feedback: show "Added ✓" then close drawer and open cart
     setTimeout(() => {
       btn.classList.remove('loading');
       btn.classList.add('success');
