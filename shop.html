@@ -1016,7 +1016,6 @@
         <span class="btn-text">Add to Cart</span>
         <span class="btn-spinner"><span class="btn-spinner-ring"></span></span>
       </button>
-      <a id="drawerShopifyLink" class="drawer-shopify-link" href="#" target="_blank">View on rujocoffeehouse.com →</a>
     </div>
   </div>
 
@@ -1286,7 +1285,6 @@
     document.getElementById('drawerTagline').textContent= p.tagline;
     document.getElementById('drawerDescription').textContent = p.description;
     document.getElementById('drawerPrice').textContent  = '$' + p.basePrice;
-    document.getElementById('drawerShopifyLink').href   = p.shopifyUrl;
 
     document.getElementById('drawerNotes').innerHTML =
       p.notes.map(n => `<span class="drawer-note-pill">${n}</span>`).join('');
