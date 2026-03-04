@@ -205,8 +205,17 @@
     }
     .bs-roast {
       font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--cream-dim); opacity: 0.45;
+      color: var(--cream-dim); opacity: 0.45; margin-bottom: 1.5rem;
     }
+    .bs-btn {
+      display: inline-block; padding: 0.65rem 1.4rem;
+      border: 1px solid rgba(201,168,76,0.5); background: rgba(201,168,76,0.06);
+      color: var(--gold); cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .bs-btn:hover { background: rgba(201,168,76,0.14); border-color: var(--gold); }
 
     /* ── BRAND STRIP ── */
     .brand-strip {
@@ -631,6 +640,13 @@
       .nav-links { display: none; }
       .nav-hamburger { display: flex; }
       .drawer-specs { grid-template-columns: 1fr; }
+      .brand-strip {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem 1rem;
+        padding: 2.5rem 1.5rem;
+      }
+      .brand-divider { display: none; }
     }
   </style>
   <!-- Meta Pixel Code -->
@@ -723,6 +739,7 @@
             </div>
             <p class="bs-price">$23</p>
             <p class="bs-roast">Medium Roast · Smooth &amp; Velvety</p>
+            <button class="bs-btn" onclick="event.stopPropagation(); openDrawer('dubai')">Select Options</button>
           </div>
         </div>
       </div>
@@ -743,6 +760,7 @@
             </div>
             <p class="bs-price">$21</p>
             <p class="bs-roast">Medium Roast · Balanced &amp; Silky</p>
+            <button class="bs-btn" onclick="event.stopPropagation(); openDrawer('genesis')">Select Options</button>
           </div>
         </div>
       </div>
@@ -998,6 +1016,7 @@
         <span class="btn-text">Add to Cart</span>
         <span class="btn-spinner"><span class="btn-spinner-ring"></span></span>
       </button>
+      <a id="drawerShopifyLink" class="drawer-shopify-link" href="#" target="_blank">View on rujocoffeehouse.com →</a>
     </div>
   </div>
 
