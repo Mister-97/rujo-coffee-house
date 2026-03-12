@@ -15,7 +15,7 @@ module.exports = async function handler(req, res) {
 
   try {
     await resend.emails.send({
-      from: 'Rujo Coffee House <support@rujocoffeehouse.com>',
+      from: 'Rujo Coffee House <noreply@rujocoffeehouse.com>',
       to:   ['support@rujocoffeehouse.com'],
       replyTo: email,
       subject: `[Contact] ${subject} — ${firstName} ${lastName}`,
@@ -60,7 +60,7 @@ module.exports = async function handler(req, res) {
 
     // Auto-reply to sender
     await resend.emails.send({
-      from: 'Rujo Coffee House <support@rujocoffeehouse.com>',
+      from: 'Rujo Coffee House <noreply@rujocoffeehouse.com>',
       to:   [email],
       subject: 'We received your message — Rujo Coffee House',
       html: `
