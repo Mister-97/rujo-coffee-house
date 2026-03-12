@@ -507,7 +507,7 @@
     .origins-header { text-align: center; margin-bottom: 6rem; padding: 0 2rem; }
     .origins-grid {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       max-width: 1600px;
       margin: 0 auto;
       padding: 0 2rem;
@@ -554,11 +554,12 @@
     .origin-cta svg { width: 14px; height: 14px; transition: transform 0.3s ease; }
     .origin-card:hover .origin-cta svg { transform: translateX(5px); }
 
-    .card-ethiopia .origin-card-bg { background-image: url('https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=800&q=80'); }
-    .card-colombia .origin-card-bg { background-image: url('https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=800&q=80'); }
-    .card-brazil .origin-card-bg { background-image: url('https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800&q=80'); }
-    .card-sumatra .origin-card-bg { background-image: url('https://images.unsplash.com/photo-1501179691627-eeaa65ea017c?w=800&q=80'); }
-    .card-kenya .origin-card-bg { background-image: url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&q=80'); }
+    .card-dubai .origin-card-bg { background-image: url('https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=800&q=80'); }
+    .card-genesis .origin-card-bg { background-image: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80'); }
+    .card-symphony .origin-card-bg { background-image: url('https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800&q=80'); }
+    .card-decaf .origin-card-bg { background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&q=80'); }
+    .card-peru .origin-card-bg { background-image: url('https://images.unsplash.com/photo-1501179691627-eeaa65ea017c?w=800&q=80'); }
+    .card-kopi .origin-card-bg { background-image: url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&q=80'); }
 
     .experience-section {
       position: relative;
@@ -962,38 +963,28 @@
 
   <section class="map-section" id="map">
     <div class="map-header">
-      <p class="section-eyebrow">Global Origins</p>
-      <h2 class="section-title">Select Your Origin</h2>
-      <p class="section-subtitle">Explore the world's finest coffee regions. Click a pin to discover the story behind every cup.</p>
+      <p class="section-eyebrow">Bean Sourcing</p>
+      <h2 class="section-title">Where Our Beans Come From</h2>
+      <p class="section-subtitle">From high-altitude Peruvian micro-lots to the wild landscapes of East Africa — click a pin to discover the story behind the cup.</p>
     </div>
     <div class="map-container" style="max-width:1400px;margin:0 auto;padding:0 2rem 2rem;">
       <div class="map-wrap" id="mapWrap">
         <div class="flat-map-container">
           <img src="https://i.ibb.co/zVrgLsX3/Untitled-design-62.png" alt="World Map" class="flat-map-img" id="flatMap" />
-          <div class="map-pin" id="pin-ethiopia" style="left:54.8%;top:58.7%;" onclick="openPanel('ethiopia')">
+          <div class="map-pin" id="pin-peru" style="left:27.5%;top:66.5%;" onclick="openPanel('peru')">
             <div class="map-pin-ring"></div><div class="map-pin-ring"></div><div class="map-pin-ring"></div>
             <div class="map-pin-core"></div>
-            <div class="map-pin-label"><span class="map-pin-label-name">Yirgacheffe</span><span class="map-pin-label-sub">Ethiopia</span></div>
+            <div class="map-pin-label"><span class="map-pin-label-name">Select Peruvian</span><span class="map-pin-label-sub">Peru</span></div>
           </div>
-          <div class="map-pin" id="pin-colombia" style="left:26.3%;top:61.1%;" onclick="openPanel('colombia')">
+          <div class="map-pin" id="pin-genesis" style="left:26.3%;top:60.0%;" onclick="openPanel('genesis')">
             <div class="map-pin-ring"></div><div class="map-pin-ring"></div><div class="map-pin-ring"></div>
             <div class="map-pin-core"></div>
-            <div class="map-pin-label"><span class="map-pin-label-name">Huila</span><span class="map-pin-label-sub">Colombia</span></div>
+            <div class="map-pin-label"><span class="map-pin-label-name">Genesis Blend</span><span class="map-pin-label-sub">Central &amp; South America</span></div>
           </div>
-          <div class="map-pin" id="pin-brazil" style="left:33.6%;top:66.6%;" onclick="openPanel('brazil')">
+          <div class="map-pin" id="pin-kopi" style="left:54.4%;top:67.0%;" onclick="openPanel('kopi')">
             <div class="map-pin-ring"></div><div class="map-pin-ring"></div><div class="map-pin-ring"></div>
             <div class="map-pin-core"></div>
-            <div class="map-pin-label"><span class="map-pin-label-name">Cerrado</span><span class="map-pin-label-sub">Brazil</span></div>
-          </div>
-          <div class="map-pin" id="pin-sumatra" style="left:75.5%;top:68.7%;" onclick="openPanel('sumatra')">
-            <div class="map-pin-ring"></div><div class="map-pin-ring"></div><div class="map-pin-ring"></div>
-            <div class="map-pin-core"></div>
-            <div class="map-pin-label"><span class="map-pin-label-name">Mandheling</span><span class="map-pin-label-sub">Sumatra</span></div>
-          </div>
-          <div class="map-pin" id="pin-kenya" style="left:54.4%;top:69.0%;" onclick="openPanel('kenya')">
-            <div class="map-pin-ring"></div><div class="map-pin-ring"></div><div class="map-pin-ring"></div>
-            <div class="map-pin-core"></div>
-            <div class="map-pin-label"><span class="map-pin-label-name">AA Grade</span><span class="map-pin-label-sub">Kenya</span></div>
+            <div class="map-pin-label"><span class="map-pin-label-name">Kopi Safari</span><span class="map-pin-label-sub">East Africa</span></div>
           </div>
         </div>
         <div class="origin-panel" id="originPanel">
@@ -1013,55 +1004,63 @@
           </div>
         </div>
       </div>
-      <p class="map-hint">Click a pin to explore the origin</p>
+      <p class="map-hint">Click a pin to discover the product</p>
     </div>
   </section>
 
   <section class="origins-section" id="origins">
     <div class="origins-header">
       <p class="section-eyebrow">The Collection</p>
-      <h2 class="section-title">Five Exceptional Terroirs</h2>
-      <p class="section-subtitle">Each origin tells a story of land, climate, and generations of expertise.</p>
+      <h2 class="section-title">Six Signature Roasts</h2>
+      <p class="section-subtitle">Signature blends and single origins, roasted with intention and crafted for those who demand more from every cup.</p>
     </div>
     <div class="origins-grid">
-      <div class="origin-card card-ethiopia" onclick="window.location.href='/shop'">
+      <div class="origin-card card-dubai" onclick="window.location.href='/shop'">
         <div class="origin-card-bg"></div><div class="origin-card-overlay"></div>
         <div class="origin-card-content">
-          <p class="origin-country">Ethiopia</p><h3 class="origin-name">Yirgacheffe</h3>
-          <p class="origin-altitude">1,800 - 2,200m elevation</p>
-          <span class="origin-cta">Explore Origin <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></span>
+          <p class="origin-country">Signature Blend · Medium Roast</p><h3 class="origin-name">Dubai Chocolate</h3>
+          <p class="origin-altitude">Milky Cocoa · Dates · Caramel</p>
+          <span class="origin-cta">Shop Now <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></span>
         </div>
       </div>
-      <div class="origin-card card-colombia" onclick="window.location.href='/shop'">
+      <div class="origin-card card-genesis" onclick="window.location.href='/shop'">
         <div class="origin-card-bg"></div><div class="origin-card-overlay"></div>
         <div class="origin-card-content">
-          <p class="origin-country">Colombia</p><h3 class="origin-name">Huila</h3>
-          <p class="origin-altitude">1,500 - 1,900m elevation</p>
-          <span class="origin-cta">Explore Origin <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></span>
+          <p class="origin-country">Signature Blend · Medium Roast</p><h3 class="origin-name">Genesis Breakfast Blend</h3>
+          <p class="origin-altitude">Caramel · Toasted Almond · Citrus</p>
+          <span class="origin-cta">Shop Now <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></span>
         </div>
       </div>
-      <div class="origin-card card-brazil" onclick="window.location.href='/shop'">
+      <div class="origin-card card-symphony" onclick="window.location.href='/shop'">
         <div class="origin-card-bg"></div><div class="origin-card-overlay"></div>
         <div class="origin-card-content">
-          <p class="origin-country">Brazil</p><h3 class="origin-name">Cerrado</h3>
-          <p class="origin-altitude">900 - 1,200m elevation</p>
-          <span class="origin-cta">Explore Origin <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></span>
+          <p class="origin-country">Signature Blend · Dark Roast</p><h3 class="origin-name">Symphony IV · 6 Bean</h3>
+          <p class="origin-altitude">Molasses · Toasted Walnut · Cocoa</p>
+          <span class="origin-cta">Shop Now <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></span>
         </div>
       </div>
-      <div class="origin-card card-sumatra" onclick="window.location.href='/shop'">
+      <div class="origin-card card-decaf" onclick="window.location.href='/shop'">
         <div class="origin-card-bg"></div><div class="origin-card-overlay"></div>
         <div class="origin-card-content">
-          <p class="origin-country">Indonesia</p><h3 class="origin-name">Sumatra</h3>
-          <p class="origin-altitude">1,100 - 1,500m elevation</p>
-          <span class="origin-cta">Explore Origin <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></span>
+          <p class="origin-country">Espresso · Dark Roast · Caffeine-Free</p><h3 class="origin-name">Signature Decaf</h3>
+          <p class="origin-altitude">Dark Chocolate · Toffee · Hazelnut</p>
+          <span class="origin-cta">Shop Now <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></span>
         </div>
       </div>
-      <div class="origin-card card-kenya" onclick="window.location.href='/shop'">
+      <div class="origin-card card-peru" onclick="window.location.href='/shop'">
         <div class="origin-card-bg"></div><div class="origin-card-overlay"></div>
         <div class="origin-card-content">
-          <p class="origin-country">Kenya</p><h3 class="origin-name">AA Grade</h3>
-          <p class="origin-altitude">1,700 - 2,000m elevation</p>
-          <span class="origin-cta">Explore Origin <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></span>
+          <p class="origin-country">Single Origin · Peru</p><h3 class="origin-name">Select Peruvian</h3>
+          <p class="origin-altitude">Herbal · Milk Chocolate · Lemon</p>
+          <span class="origin-cta">Shop Now <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></span>
+        </div>
+      </div>
+      <div class="origin-card card-kopi" onclick="window.location.href='/shop'">
+        <div class="origin-card-bg"></div><div class="origin-card-overlay"></div>
+        <div class="origin-card-content">
+          <p class="origin-country">Signature Blend · Medium-Dark Roast</p><h3 class="origin-name">Kopi Safari</h3>
+          <p class="origin-altitude">Raw Cacao · Cedar · Brown Sugar</p>
+          <span class="origin-cta">Shop Now <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></span>
         </div>
       </div>
     </div>
@@ -1159,11 +1158,9 @@
 
   <script>
     const coffeeData = {
-      ethiopia: { eyebrow: 'Single Origin • Ethiopia', title: 'Yirgacheffe', altitude: 'Altitude: 1,800 – 2,200m', story: 'From the birthplace of coffee comes this exceptional lot. Hand-picked by smallholder farmers in the Gedeo zone, these beans are processed using traditional washed methods passed down through generations. The result is a cup that speaks of ancient forests and morning mist.', notes: ['Bergamot', 'Jasmine', 'Raw Honey', 'Bright Citrus'], price: 28, image: 'https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=800&q=80' },
-      colombia: { eyebrow: 'Single Origin • Colombia', title: 'Huila', altitude: 'Altitude: 1,500 – 1,900m', story: 'From the lush mountains of Huila, where volcanic soil meets perfect climate. Small family farms cultivate these beans with generations of expertise, creating a balanced cup with remarkable sweetness and complexity.', notes: ['Caramel', 'Red Apple', 'Milk Chocolate', 'Toasted Almond'], price: 26, image: 'https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=800&q=80' },
-      brazil: { eyebrow: 'Single Origin • Brazil', title: 'Cerrado', altitude: 'Altitude: 900 – 1,200m', story: "The Cerrado region's consistent climate produces incredibly smooth, full-bodied coffee. These natural-processed beans develop deep chocolate notes and a syrupy sweetness that makes them perfect for espresso or filter.", notes: ['Dark Chocolate', 'Hazelnut', 'Toffee', 'Low Acidity'], price: 24, image: 'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800&q=80' },
-      sumatra: { eyebrow: 'Single Origin • Indonesia', title: 'Mandheling', altitude: 'Altitude: 1,100 – 1,500m', story: 'From the misty highlands of North Sumatra comes this bold, earthy coffee. Wet-hulled processing creates its signature full body and complex flavor profile that has made it legendary among coffee enthusiasts.', notes: ['Earth', 'Cedar', 'Dark Cocoa', 'Wild Herbs'], price: 30, image: 'https://images.unsplash.com/photo-1501179691627-eeaa65ea017c?w=800&q=80' },
-      kenya: { eyebrow: 'Single Origin • Kenya', title: 'AA Grade', altitude: 'Altitude: 1,700 – 2,000m', story: "Kenya's finest AA grade beans are known for their wine-like acidity and explosive fruit flavors. Grown in the red volcanic soil of the highlands, each cup delivers a bright, complex experience unlike any other origin.", notes: ['Blackcurrant', 'Tomato Vine', 'Grapefruit', 'Wine Finish'], price: 32, image: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&q=80' }
+      peru: { eyebrow: 'Single Origin · Peru', title: 'Select Peruvian', altitude: 'High-altitude micro-lot · Medium Roast', story: "Peruvian coffee sourced from high-altitude micro-lots and expertly roasted to highlight the terroir. Each cup opens with hints of almond and milk chocolate, followed by a touch of citrus and brown sugar — a flavor journey that's both comforting and refined.", notes: ['Herbal', 'Milk Chocolate', 'Lemon'], price: 23, image: 'https://images.unsplash.com/photo-1501179691627-eeaa65ea017c?w=800&q=80' },
+      genesis: { eyebrow: 'Signature Blend · Central & South America', title: 'Genesis Breakfast Blend', altitude: 'Medium Roast · Best Seller', story: 'A blend where every morning begins. Central and South American beans roasted to a smooth medium finish, revealing notes of honeyed citrus, toasted almond, and milk chocolate. Made for the thinkers and early risers who turn routine into ritual.', notes: ['Caramel', 'Toasted Almond', 'Citrus'], price: 21, image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80' },
+      kopi: { eyebrow: 'Signature Blend · East Africa & Southeast Asia', title: 'Kopi Safari', altitude: 'Medium-Dark Roast · Bold & Earthy', story: 'An expedition in every cup. Kopi Safari draws inspiration from the rich coffee cultures of East Africa and Southeast Asia, blending beans that carry the wild spirit of the savanna. Notes of raw cacao emerge first, giving way to earthy cedar and a finish of brown sugar.', notes: ['Raw Cacao', 'Cedar', 'Brown Sugar'], price: 21, image: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&q=80' }
     };
 
     let cartCount = 0;
