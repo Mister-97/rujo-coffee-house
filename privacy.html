@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — Rujo Coffee House</title>
+  <link rel="canonical" href="https://rujocoffeehouse.com/privacy">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Karla:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{--cream:#f5f1e8;--gold:#d0a148;--gold-light:#e0b868;--obsidian:#0f0f0f;--stone:#2a2a2a;--ash:#7a7a7a;--silver:#b8b8b8;--charcoal:#1a1a1a}
+    html{scroll-behavior:smooth}
+    body{font-family:'Karla',sans-serif;background:var(--obsidian);color:var(--cream);overflow-x:hidden;line-height:1.6}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:2rem 4rem;background:rgba(15,15,15,0.97)}
+    .nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;letter-spacing:.15em;text-transform:uppercase;color:var(--cream);text-decoration:none}
+    .nav-links{display:flex;gap:3rem;list-style:none}
+    .nav-links a{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--silver);text-decoration:none;transition:color .4s ease}
+    .nav-links a:hover{color:var(--gold)}
+    .nav-links a.nav-shop{color:var(--gold);border-bottom:1px solid rgba(208,161,72,.4);padding-bottom:2px}
+    .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+    .nav-hamburger span{display:block;width:22px;height:1px;background:var(--cream);transition:all .3s ease}
+    .nav-hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+    .nav-hamburger.open span:nth-child(2){opacity:0}
+    .nav-hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+    .mobile-menu{position:fixed;inset:0;background:var(--obsidian);z-index:99;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s ease}
+    .mobile-menu.open{opacity:1;pointer-events:all}
+    .mobile-menu-links{display:flex;flex-direction:column;align-items:center;gap:2rem;list-style:none}
+    .mobile-menu-links a{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:var(--cream);text-decoration:none;letter-spacing:.05em;transition:color .3s ease}
+    .mobile-menu-links a:hover{color:var(--gold)}
+    .mobile-menu-links .m-shop{color:var(--gold)}
+    .mobile-menu-divider{width:40px;height:1px;background:var(--stone)}
+
+    .policy-hero{padding:14rem 4rem 5rem;max-width:860px;margin:0 auto}
+    .hero-eyebrow{font-size:.65rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+    .hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,6vw,4.5rem);font-weight:300;line-height:1.05;margin-bottom:1rem}
+    .hero-date{font-size:.78rem;color:var(--ash);letter-spacing:.1em}
+
+    .policy-body{max-width:860px;margin:0 auto;padding:0 4rem 8rem}
+    .policy-rule{width:40px;height:1px;background:var(--gold);margin-bottom:3rem}
+    .policy-section{margin-bottom:3.5rem;padding-bottom:3.5rem;border-bottom:1px solid var(--stone)}
+    .policy-section:last-child{border-bottom:none}
+    .policy-section h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--cream);margin-bottom:1.2rem}
+    .policy-section p{font-size:.9rem;color:var(--silver);line-height:1.9;margin-bottom:1rem}
+    .policy-section p:last-child{margin-bottom:0}
+    .policy-section ul{list-style:none;margin:.5rem 0 1rem;display:flex;flex-direction:column;gap:.6rem}
+    .policy-section ul li{font-size:.9rem;color:var(--silver);line-height:1.8;padding-left:1.2rem;position:relative}
+    .policy-section ul li::before{content:'—';position:absolute;left:0;color:var(--gold);font-size:.75rem}
+    .policy-section a{color:var(--gold);text-decoration:none;transition:opacity .3s}
+    .policy-section a:hover{opacity:.7}
+
+    footer{padding:6rem 4rem 3rem;border-top:1px solid var(--stone)}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:4rem;max-width:1400px;margin:0 auto 4rem}
+    .footer-brand p{font-size:.82rem;color:var(--ash);line-height:1.8;margin-top:1rem;max-width:280px}
+    footer h4{font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem}
+    footer ul{list-style:none;display:flex;flex-direction:column;gap:.75rem}
+    footer a{font-size:.82rem;color:var(--silver);text-decoration:none;transition:color .3s ease}
+    footer a:hover{color:var(--cream)}
+    .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:2rem;border-top:1px solid var(--stone);font-size:.7rem;color:var(--ash);max-width:1400px;margin:0 auto}
+
+    @media(max-width:900px){
+      nav{padding:1.5rem 2rem}
+      .nav-links{display:none}
+      .nav-hamburger{display:flex}
+      .policy-hero{padding:10rem 2rem 3rem}
+      .policy-body{padding:0 2rem 5rem}
+      footer{padding:4rem 2rem 2rem}
+      .footer-grid{grid-template-columns:1fr 1fr;gap:2.5rem}
+      .footer-bottom{flex-direction:column;gap:.5rem;text-align:center}
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/home" class="nav-logo">Rujo Coffee House</a>
+    <ul class="nav-links">
+      <li><a href="/shop" class="nav-shop">Shop</a></li>
+      <li><a href="/home#origins">Origins</a></li>
+      <li><a href="/home#process">Process</a></li>
+      <li><a href="/home#experience">Experience</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-menu-links">
+      <li><a href="/shop" class="m-shop" onclick="toggleMenu()">Shop</a></li>
+      <div class="mobile-menu-divider"></div>
+      <li><a href="/home#origins" onclick="toggleMenu()">Origins</a></li>
+      <li><a href="/home#process" onclick="toggleMenu()">Process</a></li>
+      <li><a href="/home#experience" onclick="toggleMenu()">Experience</a></li>
+      <div class="mobile-menu-divider"></div>
+      <li><a href="/blog" onclick="toggleMenu()">Blog</a></li>
+      <li><a href="/contact" onclick="toggleMenu()">Contact</a></li>
+    </ul>
+  </div>
+
+  <div class="policy-hero">
+    <p class="hero-eyebrow">Legal</p>
+    <h1 class="hero-title">Privacy Policy</h1>
+    <p class="hero-date">Last updated: March 12, 2026</p>
+  </div>
+
+  <div class="policy-body">
+    <div class="policy-rule"></div>
+
+    <div class="policy-section">
+      <p>Rujo Coffee House operates this store and website, including all related information, content, features, tools, products and services, in order to provide you, the customer, with a curated shopping experience (the "Services"). Rujo Coffee House is powered by Shopify, which enables us to provide the Services to you. This Privacy Policy describes how we collect, use, and disclose your personal information when you visit, use, or make a purchase or other transaction using the Services or otherwise communicate with us.</p>
+      <p>Please read this Privacy Policy carefully. By using and accessing any of the Services, you acknowledge that you have read this Privacy Policy and understand the collection, use, and disclosure of your information as described herein.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Personal Information We Collect or Process</h2>
+      <p>When we use the term "personal information," we are referring to information that identifies or can reasonably be linked to you. We may collect or process the following categories of personal information:</p>
+      <ul>
+        <li>Contact details including your name, address, billing address, shipping address, phone number, and email address.</li>
+        <li>Financial information including credit card, debit card, payment card information, transaction details, and payment confirmation.</li>
+        <li>Account information including your username, password, security questions, preferences and settings.</li>
+        <li>Transaction information including items you view, add to cart, purchase, return, exchange or cancel.</li>
+        <li>Communications with us including information you include when sending a customer support inquiry.</li>
+        <li>Device information including your IP address, browser or network connection, and other unique identifiers.</li>
+        <li>Usage information including how and when you interact with or navigate the Services.</li>
+      </ul>
+    </div>
+
+    <div class="policy-section">
+      <h2>Personal Information Sources</h2>
+      <ul>
+        <li>Directly from you when you create an account, visit or use the Services, or communicate with us.</li>
+        <li>Automatically through the Services via cookies and similar technologies.</li>
+        <li>From our service providers who collect or process your personal information on our behalf.</li>
+        <li>From our partners or other third parties.</li>
+      </ul>
+    </div>
+
+    <div class="policy-section">
+      <h2>How We Use Your Personal Information</h2>
+      <ul>
+        <li><strong style="color:var(--cream)">Provide and Improve the Services.</strong> To process payments, fulfill orders, manage your account, arrange shipping, facilitate returns, and create a personalized shopping experience.</li>
+        <li><strong style="color:var(--cream)">Marketing and Advertising.</strong> To send marketing communications by email, text or postal mail, and to show you advertisements for products on the Services or other websites.</li>
+        <li><strong style="color:var(--cream)">Security and Fraud Prevention.</strong> To authenticate your account, provide a secure payment experience, and detect possible fraudulent or malicious activity.</li>
+        <li><strong style="color:var(--cream)">Communicating with You.</strong> To provide customer support and maintain our business relationship.</li>
+        <li><strong style="color:var(--cream)">Legal Reasons.</strong> To comply with applicable law or respond to valid legal process.</li>
+      </ul>
+    </div>
+
+    <div class="policy-section">
+      <h2>How We Disclose Personal Information</h2>
+      <ul>
+        <li>With Shopify, vendors and third parties who perform services on our behalf (e.g. payment processing, data analytics, fulfillment and shipping).</li>
+        <li>With business and marketing partners to provide advertising services.</li>
+        <li>When you direct or consent to our disclosure of certain information to third parties.</li>
+        <li>With our affiliates or otherwise within our corporate group.</li>
+        <li>In connection with a business transaction such as a merger, or to comply with legal obligations.</li>
+      </ul>
+    </div>
+
+    <div class="policy-section">
+      <h2>Relationship with Shopify</h2>
+      <p>The Services are hosted by Shopify, which collects and processes personal information about your access to and use of the Services. To learn more about how Shopify uses your personal information and any rights you may have, visit the <a href="https://www.shopify.com/legal/privacy/app-users" target="_blank" rel="noopener">Shopify Consumer Privacy Policy</a>.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Your Rights and Choices</h2>
+      <ul>
+        <li><strong style="color:var(--cream)">Right to Access / Know.</strong> You may request access to personal information we hold about you.</li>
+        <li><strong style="color:var(--cream)">Right to Delete.</strong> You may request that we delete personal information we maintain about you.</li>
+        <li><strong style="color:var(--cream)">Right to Correct.</strong> You may request that we correct inaccurate personal information.</li>
+        <li><strong style="color:var(--cream)">Right of Portability.</strong> You may request a copy of your personal information.</li>
+        <li><strong style="color:var(--cream)">Right to Opt Out.</strong> You may opt out of the sale or sharing of your personal information for targeted advertising.</li>
+        <li><strong style="color:var(--cream)">Managing Communication Preferences.</strong> You may opt out of promotional emails at any time using the unsubscribe option in our emails.</li>
+      </ul>
+    </div>
+
+    <div class="policy-section">
+      <h2>Children's Data</h2>
+      <p>The Services are not intended for children. We do not knowingly collect personal information about children under the age of majority. If you believe a child has provided us with their personal information, please contact us to request deletion.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Security and Retention</h2>
+      <p>No security measures are perfect or impenetrable. We recommend you do not use unsecure channels to communicate sensitive information. How long we retain your personal information depends on factors such as whether we need it to maintain your account, provide Services, comply with legal obligations, or resolve disputes.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. We will post the revised Policy on this website and update the "Last updated" date.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>Contact</h2>
+      <p>For questions about our privacy practices, please contact us:</p>
+      <p>Email: <a href="mailto:support@rujocoffeehouse.com">support@rujocoffeehouse.com</a><br>
+      2246 East Semoran Boulevard, Unit 2039<br>Apopka, FL 32703, US</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/home" class="nav-logo">Rujo Coffee House</a>
+        <p>Discovering the world's most exceptional coffee, one origin at a time. Roasted with intention, delivered with care.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul><li><a href="/shop">All Coffees</a></li><li><a href="/shop">Single-Use Cups</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Learn</h4>
+        <ul><li><a href="/home#process">Our Process</a></li><li><a href="/blog">Blog</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/shipping">Shipping Policy</a></li>
+          <li><a href="/returns">Returns Policy</a></li>
+          <li><a href="/terms">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Rujo Coffee House. All rights reserved.</span>
+      <span>Crafted with intention</span>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const btn  = document.getElementById('hamburger');
+      const open = menu.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+  </script>
+</body>
+</html>
