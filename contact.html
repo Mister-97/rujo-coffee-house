@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Rujo Coffee House</title>
+  <meta name="description" content="Get in touch with Rujo Coffee House. Questions about our coffee, orders, or wholesale inquiries — we'd love to hear from you.">
+  <link rel="canonical" href="https://rujocoffeehouse.com/contact">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Contact — Rujo Coffee House">
+  <meta property="og:url" content="https://rujocoffeehouse.com/contact">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Karla:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --cream: #f5f1e8;
+      --forest: #204234;
+      --gold: #d0a148;
+      --gold-light: #e0b868;
+      --charcoal: #1a1a1a;
+      --obsidian: #0f0f0f;
+      --stone: #2a2a2a;
+      --ash: #7a7a7a;
+      --silver: #b8b8b8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Karla', sans-serif;
+      background: var(--obsidian);
+      color: var(--cream);
+      overflow-x: hidden;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2rem 4rem;
+      background: linear-gradient(to bottom, rgba(15,15,15,0.95) 0%, transparent 100%);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 3rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--silver);
+      text-decoration: none;
+      transition: color 0.4s ease;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a.nav-shop {
+      color: var(--gold);
+      border-bottom: 1px solid rgba(208,161,72,0.4);
+      padding-bottom: 2px;
+    }
+    .nav-links a.nav-active { color: var(--cream); }
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 1px;
+      background: var(--cream);
+      transition: all 0.3s ease;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    /* ── Mobile menu ── */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: var(--obsidian);
+      z-index: 99;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .mobile-menu.open { opacity: 1; pointer-events: all; }
+    .mobile-menu-links {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+    .mobile-menu-links a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--cream);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.3s ease;
+    }
+    .mobile-menu-links a:hover { color: var(--gold); }
+    .mobile-menu-links .m-shop { color: var(--gold); }
+    .mobile-menu-divider { width: 40px; height: 1px; background: var(--stone); }
+
+    /* ── Hero ── */
+    .contact-hero {
+      padding: 18rem 4rem 6rem;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title em { font-style: italic; color: var(--gold); }
+    .hero-subtitle {
+      font-size: 0.95rem;
+      color: var(--silver);
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    /* ── Contact section ── */
+    .contact-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4rem 4rem 10rem;
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    /* Left info panel */
+    .contact-info { position: sticky; top: 8rem; }
+    .info-rule {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      margin-bottom: 2.5rem;
+    }
+    .info-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--ash);
+      margin-bottom: 0.6rem;
+    }
+    .info-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--cream);
+      margin-bottom: 2.5rem;
+    }
+    .info-value a {
+      color: var(--cream);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .info-value a:hover { color: var(--gold); }
+    .info-note {
+      font-size: 0.8rem;
+      color: var(--ash);
+      line-height: 1.7;
+      padding-top: 2rem;
+      border-top: 1px solid var(--stone);
+    }
+
+    /* Right form */
+    .contact-form-wrap {}
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ash);
+    }
+    .form-input, .form-select, .form-textarea {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--stone);
+      color: var(--cream);
+      font-family: 'Karla', sans-serif;
+      font-size: 0.9rem;
+      padding: 0.75rem 0;
+      outline: none;
+      transition: border-color 0.3s ease;
+      width: 100%;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-bottom-color: var(--gold);
+    }
+    .form-select {
+      -webkit-appearance: none;
+      appearance: none;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a7a7a' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.5rem center;
+      padding-right: 2rem;
+    }
+    .form-select option { background: var(--charcoal); color: var(--cream); }
+    .form-textarea { resize: none; height: 120px; line-height: 1.7; }
+    .form-submit {
+      margin-top: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .btn-submit {
+      background: none;
+      border: 1px solid rgba(208,161,72,0.5);
+      color: var(--gold);
+      font-family: 'Karla', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      padding: 1rem 2.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-submit:hover {
+      background: var(--gold);
+      color: var(--obsidian);
+      border-color: var(--gold);
+    }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+    .form-status {
+      font-size: 0.8rem;
+      color: var(--ash);
+      transition: color 0.3s ease;
+    }
+    .form-status.success { color: #4ade80; }
+    .form-status.error { color: #f87171; }
+
+    /* ── Footer ── */
+    footer {
+      padding: 6rem 4rem 3rem;
+      border-top: 1px solid var(--stone);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 4rem;
+      max-width: 1400px;
+      margin: 0 auto 4rem;
+    }
+    .footer-brand p { font-size: 0.82rem; color: var(--ash); line-height: 1.8; margin-top: 1rem; max-width: 280px; }
+    footer h4 { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+    footer ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+    footer a { font-size: 0.82rem; color: var(--silver); text-decoration: none; transition: color 0.3s ease; }
+    footer a:hover { color: var(--cream); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 2rem;
+      border-top: 1px solid var(--stone);
+      font-size: 0.7rem;
+      color: var(--ash);
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      nav { padding: 1.5rem 2rem; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .contact-hero { padding: 12rem 2rem 4rem; }
+      .contact-section { grid-template-columns: 1fr; gap: 4rem; padding: 2rem 2rem 6rem; }
+      .contact-info { position: static; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { padding: 4rem 2rem 2rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+      .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/home" class="nav-logo">Rujo Coffee House</a>
+    <ul class="nav-links">
+      <li><a href="/shop" class="nav-shop">Shop</a></li>
+      <li><a href="/home#origins">Origins</a></li>
+      <li><a href="/home#process">Process</a></li>
+      <li><a href="/home#experience">Experience</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/contact" class="nav-active">Contact</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-menu-links">
+      <li><a href="/shop" class="m-shop" onclick="toggleMenu()">Shop</a></li>
+      <div class="mobile-menu-divider"></div>
+      <li><a href="/home#origins" onclick="toggleMenu()">Origins</a></li>
+      <li><a href="/home#process" onclick="toggleMenu()">Process</a></li>
+      <li><a href="/home#experience" onclick="toggleMenu()">Experience</a></li>
+      <div class="mobile-menu-divider"></div>
+      <li><a href="/blog" onclick="toggleMenu()">Blog</a></li>
+      <li><a href="/contact" onclick="toggleMenu()">Contact</a></li>
+    </ul>
+  </div>
+
+  <div class="contact-hero">
+    <p class="hero-eyebrow">Get in Touch</p>
+    <h1 class="hero-title">We'd Love to <em>Hear</em> From You</h1>
+    <p class="hero-subtitle">Whether it's a question about our coffee, a wholesale inquiry, or just saying hello — we read every message.</p>
+  </div>
+
+  <section class="contact-section">
+
+    <div class="contact-info">
+      <div class="info-rule"></div>
+      <p class="info-label">Email</p>
+      <p class="info-value"><a href="mailto:hello@rujocoffeehouse.com">hello@rujocoffeehouse.com</a></p>
+      <p class="info-label">Response Time</p>
+      <p class="info-value">Within 24–48 hours</p>
+      <p class="info-label">Wholesale & Partnerships</p>
+      <p class="info-value"><a href="mailto:wholesale@rujocoffeehouse.com">wholesale@rujocoffeehouse.com</a></p>
+      <p class="info-note">We're a small team roasting with intention. Every message matters to us — we'll be back in touch as soon as we can.</p>
+    </div>
+
+    <div class="contact-form-wrap">
+      <form id="contactForm" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="firstName">First Name</label>
+            <input class="form-input" type="text" id="firstName" name="firstName" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="lastName">Last Name</label>
+            <input class="form-input" type="text" id="lastName" name="lastName" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address</label>
+            <input class="form-input" type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="subject">Subject</label>
+            <select class="form-select" id="subject" name="subject" required>
+              <option value="" disabled selected></option>
+              <option value="Order Inquiry">Order Inquiry</option>
+              <option value="Wholesale">Wholesale / Bulk</option>
+              <option value="Product Question">Product Question</option>
+              <option value="Partnership">Partnership</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group full">
+            <label class="form-label" for="message">Message</label>
+            <textarea class="form-textarea" id="message" name="message" required placeholder="Tell us what's on your mind..."></textarea>
+          </div>
+        </div>
+        <div class="form-submit">
+          <button class="btn-submit" type="submit" id="submitBtn">Send Message</button>
+          <span class="form-status" id="formStatus"></span>
+        </div>
+      </form>
+    </div>
+
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/home" class="nav-logo">Rujo Coffee House</a>
+        <p>Discovering the world's most exceptional coffee, one origin at a time. Roasted with intention, delivered with care.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul><li><a href="/shop">All Coffees</a></li><li><a href="/shop">Single-Use Cups</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Learn</h4>
+        <ul><li><a href="#">Brewing Guides</a></li><li><a href="#">Origin Stories</a></li><li><a href="/home#process">Our Process</a></li><li><a href="/blog">Blog</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul><li><a href="#">Instagram</a></li><li><a href="#">Newsletter</a></li><li><a href="/contact">Contact</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Rujo Coffee House. All rights reserved.</span>
+      <span>Crafted with intention</span>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const btn  = document.getElementById('hamburger');
+      const open = menu.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+
+    async function handleSubmit(e) {
+      e.preventDefault();
+      const btn    = document.getElementById('submitBtn');
+      const status = document.getElementById('formStatus');
+      const form   = document.getElementById('contactForm');
+
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      status.className = 'form-status';
+      status.textContent = '';
+
+      const data = {
+        firstName: form.firstName.value.trim(),
+        lastName:  form.lastName.value.trim(),
+        email:     form.email.value.trim(),
+        subject:   form.subject.value,
+        message:   form.message.value.trim(),
+      };
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        const json = await res.json();
+        if (res.ok) {
+          status.className = 'form-status success';
+          status.textContent = 'Message sent. We\'ll be in touch soon.';
+          form.reset();
+        } else {
+          throw new Error(json.error || 'Something went wrong');
+        }
+      } catch (err) {
+        status.className = 'form-status error';
+        status.textContent = err.message || 'Failed to send. Please try again.';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
+      }
+    }
+  </script>
+
+</body>
+</html>
