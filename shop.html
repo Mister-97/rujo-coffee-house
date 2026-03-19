@@ -797,7 +797,7 @@
         <h2 class="collection-title">The Full<br><em>Collection</em></h2>
         <p class="collection-sub">Every blend, every origin, every ritual — in one place.</p>
       </div>
-      <div class="collection-count">7</div>
+      <div class="collection-count">8</div>
     </div>
     <p class="click-hint" style="max-width:1400px;margin:0 auto 2rem;font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--cream-dim);opacity:0.4;">
       Click any product to explore details &amp; add to cart
@@ -884,6 +884,34 @@
           <p class="product-card-roast">Medium-Dark Roast</p>
           <h3 class="product-card-name">Kopi Safari</h3>
           <p class="product-card-notes">Raw Cacao · Cedar · Brown Sugar</p>
+          <p class="product-card-price">$21</p>
+        </div>
+      </div>
+
+      <!-- Blonde Espresso -->
+      <div class="product-card" onclick="openDrawer('blonde')">
+        <div class="product-card-image">
+          <img src="https://cdn.shopify.com/s/files/1/0954/6668/4722/files/BLONDESHOPIFY.png?v=1773954842&width=800" alt="Blonde Espresso" loading="lazy" />
+          <div class="product-card-overlay"><span>View &amp; Add to Cart</span></div>
+        </div>
+        <div class="product-card-body">
+          <p class="product-card-roast">Light Roast · New</p>
+          <h3 class="product-card-name">Blonde Espresso</h3>
+          <p class="product-card-notes">Honey · Sweet Citrus · Vanilla</p>
+          <p class="product-card-price">$21</p>
+        </div>
+      </div>
+
+      <!-- Barrel-Aged Whiskey Blend -->
+      <div class="product-card" onclick="openDrawer('whiskey')">
+        <div class="product-card-image">
+          <img src="https://cdn.shopify.com/s/files/1/0954/6668/4722/files/whiskeyproduct.png?v=1773953682&width=800" alt="Barrel-Aged Whiskey Blend" loading="lazy" />
+          <div class="product-card-overlay"><span>View &amp; Add to Cart</span></div>
+        </div>
+        <div class="product-card-body">
+          <p class="product-card-roast">Medium-Dark Roast · New</p>
+          <h3 class="product-card-name">Barrel-Aged Whiskey Blend</h3>
+          <p class="product-card-notes">Oak · Vanilla · Smoky Caramel</p>
           <p class="product-card-price">$21</p>
         </div>
       </div>
@@ -1162,6 +1190,28 @@
       handle: 'peru-single-use-cups',
       shopifyUrl: 'https://rujocoffeehouse.com/products/peru-single-use-cups',
       variantId: '50614389375282', isBag: false
+    },
+    'blonde': {
+      eyebrow: 'Signature Blend · Light Roast', name: 'Blonde Espresso',
+      tagline: 'Bright · Sweet · Effortlessly Smooth',
+      description: "A lighter side of Rujo's espresso craft. The Blonde Espresso is a meticulously balanced light roast that lets the natural sweetness of select Arabica beans shine through. Expect a delicate brightness up front — honeyed citrus, soft vanilla — followed by a clean, sweet finish that lingers without bitterness. Perfect for those who want all the complexity of espresso with a gentler, sunlit character.",
+      notes: ['Honey', 'Sweet Citrus', 'Vanilla'],
+      specs: { 'Roast': 'Light', 'Body': 'Light & Silky', 'Finish': 'Clean & Sweet', 'Style': 'Espresso Blend' },
+      basePrice: 21, image: 'https://cdn.shopify.com/s/files/1/0954/6668/4722/files/BLONDESHOPIFY.png?v=1773954842&width=900',
+      handle: 'blonde-espresso',
+      shopifyUrl: 'https://rujocoffeehouse.com/products/blonde-espresso',
+      variantId: '50794129391922', isBag: true
+    },
+    'whiskey': {
+      eyebrow: 'Signature Blend · Medium-Dark Roast', name: 'Barrel-Aged Whiskey Blend',
+      tagline: 'Bold · Oaky · Warmly Complex',
+      description: 'Where coffee meets the barrel. This exceptional blend is aged in authentic whiskey barrels, allowing premium Arabica beans to absorb the deep, woody character of seasoned oak. The result is a cup of remarkable depth — smoky caramel warmth, hints of vanilla, and a lingering finish reminiscent of a fine pour. Crafted for those who appreciate the finer things, sipped slowly.',
+      notes: ['Oak', 'Vanilla', 'Smoky Caramel'],
+      specs: { 'Roast': 'Medium-Dark', 'Body': 'Full & Robust', 'Finish': 'Long & Smoky', 'Process': 'Barrel-Aged' },
+      basePrice: 21, image: 'https://cdn.shopify.com/s/files/1/0954/6668/4722/files/whiskeyproduct.png?v=1773953682&width=900',
+      handle: 'whiskey',
+      shopifyUrl: 'https://rujocoffeehouse.com/products/whiskey',
+      variantId: '50995155009842', isBag: true
     }
   };
 
