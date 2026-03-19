@@ -478,6 +478,7 @@
     }
     .drawer-variant-pill:hover { border-color: var(--gold); color: var(--gold); }
     .drawer-variant-pill.selected { border-color: var(--gold); background: rgba(201,168,76,0.1); color: var(--gold); }
+    .drawer-variant-pill.sold-out { opacity: 0.3; cursor: not-allowed; text-decoration: line-through; pointer-events: none; }
     #drawerVariantSection { margin-bottom: 1.5rem; }
     .drawer-atc-btn.success { background: #1a5c30; color: var(--cream); }
 
@@ -797,7 +798,7 @@
         <h2 class="collection-title">The Full<br><em>Collection</em></h2>
         <p class="collection-sub">Every blend, every origin, every ritual — in one place.</p>
       </div>
-      <div class="collection-count">8</div>
+      <div class="collection-count">9</div>
     </div>
     <p class="click-hint" style="max-width:1400px;margin:0 auto 2rem;font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--cream-dim);opacity:0.4;">
       Click any product to explore details &amp; add to cart
@@ -899,6 +900,20 @@
           <h3 class="product-card-name">Blonde Espresso</h3>
           <p class="product-card-notes">Honey · Sweet Citrus · Vanilla</p>
           <p class="product-card-price">$21</p>
+        </div>
+      </div>
+
+      <!-- Mexican Chocolate -->
+      <div class="product-card" onclick="openDrawer('mexican')">
+        <div class="product-card-image">
+          <img src="https://store.rujocoffeehouse.com/cdn/shop/files/Mexican_Choc.png?width=800" alt="Mexican Chocolate" loading="lazy" />
+          <div class="product-card-overlay"><span>View &amp; Add to Cart</span></div>
+        </div>
+        <div class="product-card-body">
+          <p class="product-card-roast">Medium Roast · New</p>
+          <h3 class="product-card-name">Mexican Chocolate</h3>
+          <p class="product-card-notes">Dark Chocolate · Cinnamon · Chili</p>
+          <p class="product-card-price">$23</p>
         </div>
       </div>
 
@@ -1191,6 +1206,17 @@
       shopifyUrl: 'https://rujocoffeehouse.com/products/peru-single-use-cups',
       variantId: '50614389375282', isBag: false
     },
+    'mexican': {
+      eyebrow: 'Signature Blend · Medium Roast', name: 'Mexican Chocolate',
+      tagline: 'Rich · Spiced · Warmly Indulgent',
+      description: "A bold tribute to the ancient Mesoamerican tradition of spiced cacao. Premium medium-roasted Arabica beans are blended to evoke the rich depth of Mexican drinking chocolate — dark cocoa up front, followed by a warming cinnamon embrace and a subtle chili finish that lingers on the palate. Every cup is a ritual. Complex, comforting, and utterly unforgettable.",
+      notes: ['Dark Chocolate', 'Cinnamon', 'Chili'],
+      specs: { 'Roast': 'Medium', 'Body': 'Full & Spiced', 'Finish': 'Warm & Lingering', 'Style': 'Flavored Blend' },
+      basePrice: 23, image: 'https://store.rujocoffeehouse.com/cdn/shop/files/Mexican_Choc.png?width=900',
+      handle: 'mexican-chocolate',
+      shopifyUrl: 'https://rujocoffeehouse.com/products/mexican-chocolate',
+      variantId: 'PLACEHOLDER', isBag: true
+    },
     'blonde': {
       eyebrow: 'Signature Blend · Light Roast', name: 'Blonde Espresso',
       tagline: 'Bright · Sweet · Effortlessly Smooth',
@@ -1218,6 +1244,12 @@
   // ── VARIANT MAP (populated from products.json) ────────────────────────────
   // Structure: VARIANT_MAP[handle][size][grind] = variantId (string)
   //            PRICE_MAP[handle][size] = price (number)
+  // Grind sizes unavailable for specific products
+  const SOLD_OUT_GRINDS = {
+    'blonde':  ['Fine', 'Coarse'],
+    'mexican': ['Fine', 'Coarse']
+  };
+
   const VARIANT_MAP = {};
   const PRICE_MAP   = {};
 
@@ -1280,9 +1312,11 @@
   }
 
   function renderGrindPills() {
-    document.getElementById('drawerGrindPills').innerHTML = BAG_GRINDS.map(g =>
-      `<button class="drawer-variant-pill${g === selectedGrind ? ' selected' : ''}" onclick="selectGrind('${g}')">${g}</button>`
-    ).join('');
+    const soldOut = SOLD_OUT_GRINDS[activeProductId] || [];
+    document.getElementById('drawerGrindPills').innerHTML = BAG_GRINDS.map(g => {
+      const isSoldOut = soldOut.includes(g);
+      return `<button class="drawer-variant-pill${g === selectedGrind ? ' selected' : ''}${isSoldOut ? ' sold-out' : ''}" onclick="selectGrind('${g}')">${g}${isSoldOut ? '<span style="display:block;font-size:0.42rem;letter-spacing:0.08em;text-decoration:none;margin-top:1px">Sold Out</span>' : ''}</button>`;
+    }).join('');
   }
 
   function selectSize(s) {
@@ -1292,6 +1326,8 @@
   }
 
   function selectGrind(g) {
+    const soldOut = SOLD_OUT_GRINDS[activeProductId] || [];
+    if (soldOut.includes(g)) return;
     selectedGrind = g;
     renderGrindPills();
   }
