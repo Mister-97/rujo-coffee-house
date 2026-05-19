@@ -1348,7 +1348,73 @@
   </script>
 
   <script>
-    var beans = [
+    var beans = []; // populated from /api/inventory on load
+
+    // ── Live inventory fetch ──────────────────────────────────────────────────
+    (function loadInventory() {
+      var tbody = document.getElementById('inventoryBody');
+      var filtersEl = document.getElementById('inventoryFilters');
+
+      // Show loading state
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:3rem;color:var(--ash);letter-spacing:0.2em;font-size:0.75rem;text-transform:uppercase;">Loading inventory…</td></tr>';
+
+      fetch('/api/inventory')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (!data.ok || !data.beans.length) throw new Error('empty');
+          beans = data.beans;
+          renderInventory(beans, filtersEl, tbody);
+        })
+        .catch(function() {
+          // Fall back to hardcoded data if fetch fails
+          beans = FALLBACK_BEANS;
+          renderInventory(beans, filtersEl, tbody);
+        });
+    })();
+
+    function renderInventory(data, filtersEl, tbody) {
+      // Build filter buttons
+      var origins = ['All'];
+      data.forEach(function(b) { if (origins.indexOf(b.origin) === -1) origins.push(b.origin); });
+      filtersEl.innerHTML = '';
+      origins.forEach(function(o, i) {
+        var btn = document.createElement('button');
+        btn.className = 'inv-filter-btn' + (i === 0 ? ' active' : '');
+        btn.textContent = o;
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.inv-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          filterTable(o);
+        });
+        filtersEl.appendChild(btn);
+      });
+
+      // Build rows
+      tbody.innerHTML = '';
+      data.forEach(function(b) {
+        var stockClass = b.stock <= 10 ? 'low' : b.stock <= 50 ? 'mid' : 'high';
+        var tr = document.createElement('tr');
+        tr.dataset.origin = b.origin;
+        tr.innerHTML =
+          '<td><span class="inv-origin">' + b.origin + '</span></td>' +
+          '<td><span class="inv-grade">'  + b.grade   + '</span></td>' +
+          '<td><span class="inv-warehouse">' + b.warehouse + '</span></td>' +
+          '<td><span class="inv-bag">'    + b.bag + ' kg</span></td>' +
+          '<td><span class="inv-stock-num ' + stockClass + '">' + b.stock + '</span>' +
+          '<span style="font-size:0.65rem;color:var(--ash);margin-left:0.3rem;">bags</span></td>' +
+          '<td><span class="inv-ref">'    + b.ref + '</span></td>';
+        tbody.appendChild(tr);
+      });
+    }
+
+    function filterTable(origin) {
+      document.querySelectorAll('#inventoryBody tr').forEach(function(row) {
+        row.classList.toggle('hidden', origin !== 'All' && row.dataset.origin !== origin);
+      });
+    }
+
+    // ── Fallback (hardcoded snapshot used if API is unreachable) ─────────────
+    var FALLBACK_BEANS = [
       { origin:'Brazil',          grade:'14/16 SSFC',                                                              warehouse:'EBL Hayward',        bag:60, stock:124, ref:'P119179/1' },
       { origin:'Colombia',        grade:'Excelso EP',                                                              warehouse:'RPM New Jersey',     bag:70, stock:175, ref:'P118895/1' },
       { origin:'Costa Rica',      grade:'SHB EP Fancy Don Claudio Ecotact',                                        warehouse:'The Green Room',     bag:69, stock:12,  ref:'P118735/1' },
@@ -1400,45 +1466,6 @@
       { origin:'Vietnam',         grade:'Robusta GR1 WP Scr 16',                                                  warehouse:'Dupuy Jacksonville', bag:60, stock:20,  ref:'P119054/1' }
     ];
 
-    (function() {
-      var origins = ['All'];
-      beans.forEach(function(b) { if (origins.indexOf(b.origin) === -1) origins.push(b.origin); });
-
-      var filtersEl = document.getElementById('inventoryFilters');
-      var tbody = document.getElementById('inventoryBody');
-
-      origins.forEach(function(o, i) {
-        var btn = document.createElement('button');
-        btn.className = 'inv-filter-btn' + (i === 0 ? ' active' : '');
-        btn.textContent = o;
-        btn.addEventListener('click', function() {
-          document.querySelectorAll('.inv-filter-btn').forEach(function(b) { b.classList.remove('active'); });
-          btn.classList.add('active');
-          filterTable(o);
-        });
-        filtersEl.appendChild(btn);
-      });
-
-      beans.forEach(function(b) {
-        var stockClass = b.stock <= 10 ? 'low' : b.stock <= 50 ? 'mid' : 'high';
-        var tr = document.createElement('tr');
-        tr.dataset.origin = b.origin;
-        tr.innerHTML =
-          '<td><span class="inv-origin">' + b.origin + '</span></td>' +
-          '<td><span class="inv-grade">' + b.grade + '</span></td>' +
-          '<td><span class="inv-warehouse">' + b.warehouse + '</span></td>' +
-          '<td><span class="inv-bag">' + b.bag + ' kg</span></td>' +
-          '<td><span class="inv-stock-num ' + stockClass + '">' + b.stock + '</span><span style="font-size:0.65rem;color:var(--ash);margin-left:0.3rem;">bags</span></td>' +
-          '<td><span class="inv-ref">' + b.ref + '</span></td>';
-        tbody.appendChild(tr);
-      });
-
-      function filterTable(origin) {
-        document.querySelectorAll('#inventoryBody tr').forEach(function(row) {
-          row.classList.toggle('hidden', origin !== 'All' && row.dataset.origin !== origin);
-        });
-      }
-    })();
   </script>
 
 </body>
