@@ -770,6 +770,38 @@
       .inventory-table th, .inventory-table td { padding: 0.8rem 0.75rem; }
       .inv-grade { max-width: 180px; }
     }
+
+    /* ── Wholesale Pricing ── */
+    .pricing-section { padding: 8rem 4rem; background: var(--obsidian); border-top: 1px solid var(--stone); }
+    .pricing-header { text-align: center; max-width: 700px; margin: 0 auto 4rem; }
+    .pricing-wrap { max-width: 1100px; margin: 0 auto; overflow-x: auto; }
+    .pricing-table { width: 100%; border-collapse: collapse; }
+    .pricing-table th {
+      font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold); font-weight: 400;
+      padding: 0 1.2rem 1.2rem; text-align: left;
+      border-bottom: 1px solid var(--stone);
+    }
+    .pricing-table td {
+      padding: 1rem 1.2rem; font-size: 0.83rem; color: var(--silver);
+      border-bottom: 1px solid rgba(42,42,42,0.6);
+      vertical-align: middle;
+    }
+    .pricing-table tr:hover td { background: rgba(32,66,52,0.12); color: var(--cream); }
+    .pricing-tier-row td {
+      padding-top: 2.2rem; border-bottom: 1px solid var(--stone);
+    }
+    .pricing-tier-row:first-child td { padding-top: 1rem; }
+    .pricing-tier-name { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 400; color: var(--cream); }
+    .pricing-tier-price { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 400; color: var(--gold); text-align: right; }
+    .pr-item { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 400; color: var(--cream); white-space: nowrap; }
+    .pr-desc { color: var(--ash); font-size: 0.8rem; }
+    .pr-price { white-space: nowrap; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 400; color: var(--gold); text-align: right; }
+    @media (max-width: 900px) {
+      .pricing-section { padding: 5rem 1.5rem; }
+      .pricing-table th, .pricing-table td { padding: 0.8rem 0.75rem; }
+      .pr-desc { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -1024,6 +1056,68 @@
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- Wholesale Pricing -->
+  <section class="pricing-section" id="pricing">
+    <div class="pricing-header">
+      <p class="section-eyebrow">Trade Rates</p>
+      <h2 class="section-title">Wholesale Pricing</h2>
+      <p class="section-subtitle">Roasted to order, priced by the pound. See below for minimum order requirements.</p>
+    </div>
+    <div class="pricing-wrap">
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Notes</th>
+            <th style="text-align:right;">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr class="pricing-tier-row"><td colspan="2" class="pricing-tier-name">Standard Blends</td><td class="pricing-tier-price">$17/lb</td></tr>
+          <tr><td class="pr-item">Breakfast Blend</td><td class="pr-desc">House breakfast blend with a consistent smooth profile</td><td class="pr-price">$17/lb</td></tr>
+          <tr><td class="pr-item">6 Bean Blend</td><td class="pr-desc">Best-selling house espresso — meticulous blend of coffee from around the world</td><td class="pr-price">$17/lb</td></tr>
+          <tr><td class="pr-item">African Blend / African Espresso</td><td class="pr-desc">Exotic blend of coffee with a focus on East Africa</td><td class="pr-price">$17/lb</td></tr>
+          <tr><td class="pr-item">Sweet Espresso / Blonde Espresso / Blonde</td><td class="pr-desc">Sweet blend from Central America and Africa — great sweet espresso</td><td class="pr-price">$17/lb</td></tr>
+          <tr><td class="pr-item">Kopi Safari</td><td class="pr-desc">Post-roast blend, lively and grounding — a perfect harmony of brightness and depth</td><td class="pr-price">$17/lb</td></tr>
+          <tr><td class="pr-item">Decaf Espresso</td><td class="pr-desc">Water process decaf, roasted dark</td><td class="pr-price">$17/lb</td></tr>
+          <tr><td class="pr-item">Decaf</td><td class="pr-desc">Water process decaf, roasted medium</td><td class="pr-price">$17/lb</td></tr>
+
+          <tr class="pricing-tier-row"><td colspan="2" class="pricing-tier-name">Special Blends</td><td class="pricing-tier-price">$20/lb</td></tr>
+          <tr><td class="pr-item">Whiskey Barrel</td><td class="pr-desc">Single origin Guatemala, aged in a whiskey barrel for 30 days then roasted</td><td class="pr-price">$20/lb</td></tr>
+          <tr><td class="pr-item">Cold Brew</td><td class="pr-desc">Great for cold brew and nitro</td><td class="pr-price">$20/lb</td></tr>
+
+          <tr class="pricing-tier-row"><td colspan="2" class="pricing-tier-name">Flavored Blends</td><td class="pricing-tier-price">$20/lb</td></tr>
+          <tr><td class="pr-item">Dubai Chocolate</td><td class="pr-desc">A blend of single origin coffee, lightly flavored with natural flavorings</td><td class="pr-price">$20/lb</td></tr>
+          <tr><td class="pr-item">Mexican Chocolate</td><td class="pr-desc">A blend of single origin coffee, lightly flavored with natural flavorings</td><td class="pr-price">$20/lb</td></tr>
+
+          <tr class="pricing-tier-row"><td colspan="2" class="pricing-tier-name">Single Origin</td><td class="pricing-tier-price">$19/lb</td></tr>
+          <tr><td class="pr-item">Bali</td><td class="pr-desc"></td><td class="pr-price">$19/lb</td></tr>
+          <tr><td class="pr-item">Brazil</td><td class="pr-desc"></td><td class="pr-price">$19/lb</td></tr>
+          <tr><td class="pr-item">Colombia</td><td class="pr-desc"></td><td class="pr-price">$19/lb</td></tr>
+          <tr><td class="pr-item">Costa Rica</td><td class="pr-desc"></td><td class="pr-price">$19/lb</td></tr>
+          <tr><td class="pr-item">Ethiopia — Natural</td><td class="pr-desc"></td><td class="pr-price">$19/lb</td></tr>
+          <tr><td class="pr-item">Guatemala</td><td class="pr-desc"></td><td class="pr-price">$19/lb</td></tr>
+          <tr><td class="pr-item">Honduras</td><td class="pr-desc"></td><td class="pr-price">$19/lb</td></tr>
+          <tr><td class="pr-item">Robusta</td><td class="pr-desc"></td><td class="pr-price">$19/lb</td></tr>
+          <tr><td class="pr-item">Kenya</td><td class="pr-desc"></td><td class="pr-price">$19/lb</td></tr>
+          <tr><td class="pr-item">Mexico</td><td class="pr-desc"></td><td class="pr-price">$19/lb</td></tr>
+          <tr><td class="pr-item">Nicaragua</td><td class="pr-desc"></td><td class="pr-price">$19/lb</td></tr>
+          <tr><td class="pr-item">Papua New Guinea</td><td class="pr-desc"></td><td class="pr-price">$19/lb</td></tr>
+          <tr><td class="pr-item">Peru</td><td class="pr-desc"></td><td class="pr-price">$19/lb</td></tr>
+          <tr><td class="pr-item">Sumatra</td><td class="pr-desc"></td><td class="pr-price">$19/lb</td></tr>
+          <tr><td class="pr-item">Tanzania</td><td class="pr-desc"></td><td class="pr-price">$19/lb</td></tr>
+          <tr><td class="pr-item">Uganda</td><td class="pr-desc"></td><td class="pr-price">$19/lb</td></tr>
+
+          <tr class="pricing-tier-row"><td colspan="2" class="pricing-tier-name">Functional Coffee</td><td class="pricing-tier-price">$20/8oz</td></tr>
+          <tr><td class="pr-item">Mushroom Coffee (Medium Roast)</td><td class="pr-desc">Lion's mane, cordyceps, reishi mushroom</td><td class="pr-price">$20/8oz</td></tr>
+          <tr><td class="pr-item">Mushroom Coffee (Dark Roast)</td><td class="pr-desc">Lion's mane, cordyceps, reishi mushroom</td><td class="pr-price">$20/8oz</td></tr>
+
+        </tbody>
+      </table>
     </div>
   </section>
 
